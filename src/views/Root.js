@@ -1,25 +1,23 @@
 import React from 'react';
-import logo from '../../images/bg.svg';
-import styled from 'styled-components'
-import GlobalStyle from "../../theme/GlobalStyle"
-import {ThemeProvider} from 'styled-components'
-import {theme} from "../../theme/mainTheme";
-import Input from "../../components/atoms/Input/Input"
-import {BrowserRouter} from "react-router-dom";
+import AuthPage from './AuthPage';
+import Dashboard from './Dashboard';
+import {BrowserRouter, Switch, Redirect, Route} from "react-router-dom";
+import MainTemplate from "../templates/MainTemplate";
+import {routes} from "../routes";
 
 
 const Root = () => (
-    <div>
-        <GlobalStyle/>
-        <ThemeProvider theme={theme}>
-            <>
-                <h1>Hello</h1>
-                <p>Test</p>
-                <Input placeholder="elo"></Input>
-            </>
-        </ThemeProvider>
-    </div>
 
+    <MainTemplate>
+        <BrowserRouter>
+            <Switch>
+                <Route exact path={routes.login} render={() => <AuthPage authType="signIn"/>}/>
+                {/*<Route exact path={routes.home} render={() => <Redirect to={routes.patient}/>}/>*/}
+
+                <Route exact path={routes.home} component={Dashboard} />
+            </Switch>
+        </BrowserRouter>
+    </MainTemplate>
 );
 
 
