@@ -14,6 +14,7 @@ import Logo from "../components/atoms/Logo/Logo"
 
 // import SignUpForm from '../components/organisms/SignUpForm/SignUpForm';
 import SignInForm from '../components/organisms/SignInForm/SignInForm';
+import Pluses from "../components/atoms/Shapes/Pluses";
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -36,19 +37,6 @@ const BackgroungShape = styled.div`
     z-index: -2;
 `;
 
-const Pluses = styled.div`
-    display: flex;
-    background-image: url(${pluses});
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 52vh;
-    width: 40vw;
-    margin-left: 18rem;
-    margin-top: 30rem;
-    justify-self: flex-start;
-    position: absolute;
-    z-index: 1;
-`;
 
 const WelcomeParagraph = styled.div`
    display: flex;
