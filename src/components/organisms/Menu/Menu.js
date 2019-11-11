@@ -24,7 +24,7 @@ const MenuShape = styled.div`
    width: 30rem;
    background-color: white; 
    border-radius: 20px;
-   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19);
+   box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.04), 0 10px 20px 0 rgba(0, 0, 0, 0.09);
    align-items: center;
    z-index: 10;
    margin-top: 3rem;

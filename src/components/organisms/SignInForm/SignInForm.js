@@ -13,7 +13,7 @@ const InfoParagraph = styled.h1`
    text-align: center;
    font-size: small;
    color: #7E828B;
-   font-weight: ${({theme}) => theme.regular};
+   font-weight: ${({theme}) =>  theme.fontWeight.regular};
 `;
 
 const LoginForm = styled.div`

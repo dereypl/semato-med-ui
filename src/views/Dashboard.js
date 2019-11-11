@@ -6,6 +6,10 @@ import styled from 'styled-components'
 import PlusesHalf from "../components/atoms/Shapes/PlusesHalf";
 import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
 import PathHeading from "../components/atoms/Heading/PathHeading";
+import PathBox from "../components/atoms/Path/PathBox";
+import PathInfoBox from "../components/atoms/Path/PathInfoBox";
+import PathContainer from "../components/molecules/Path/PathContainer";
+import VisitContainer from "../components/organisms/Visit/VisitContainer";
 
 
 const AppWrapper = styled.div`
@@ -22,6 +26,7 @@ const PageWrapper = styled.div`
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    padding-right: 5rem;
 `;
 
 const HeaderWrapper = styled.div`
@@ -30,10 +35,10 @@ const HeaderWrapper = styled.div`
 `;
 const ContentWrapper = styled.div`
     height: auto;
+    padding-top: 4rem;
     display: flex;
+    flex-direction: column;
 `;
-
-
 
 
 const Dashboard = () => (
@@ -43,8 +48,16 @@ const Dashboard = () => (
         <AppWrapper>
             <Menu username={'Mateusz Derey'}/>
             <PageWrapper>
-                <HeaderWrapper>xxxxxxx</HeaderWrapper>
-                <ContentWrapper>xxxxxxx</ContentWrapper>
+                <HeaderWrapper>
+                    <PathContainer path={'Zaplanowane wizyty'}/>
+                </HeaderWrapper>
+                <ContentWrapper>
+                    <VisitContainer nearest/>
+                    <VisitContainer/>
+                    <VisitContainer/>
+                    <VisitContainer/>
+                    <VisitContainer/>
+                </ContentWrapper>
             </PageWrapper>
         </AppWrapper>
     </>

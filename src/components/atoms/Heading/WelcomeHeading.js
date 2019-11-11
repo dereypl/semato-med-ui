@@ -6,7 +6,7 @@ const WelcomeHeading = styled.h1`
   width: 32rem;
   height: 7rem;
   font-size: ${({theme}) => theme.fontSize.xl};
-  font-weight: ${({theme}) => theme.regular};
+  font-weight: ${({theme}) => theme.fontWeight.regular};
   border-radius: 10px;
   display: flex;
   justify-content: center;

@@ -8,7 +8,7 @@ const Button = styled.button`
   height: 47px;
   border: none;
   border-radius: 10px;
-  font-weight: ${({ theme }) => theme.bold};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   color: white;
 `;
 
