@@ -1,13 +1,21 @@
 import React from "react";
-import {Link, Redirect} from 'react-router-dom';
+import {Link, NavLink, Redirect} from 'react-router-dom';
 import styled from "styled-components";
-import {routes} from '../../../routes';
-import Input from "../../atoms/Input/Input";
-import Button from "../../atoms/Button/Button";
-import GlobalStyle from "../../../theme/GlobalStyle";
+import {routes} from "../../../routes";
 import WelcomeHeading from "../../atoms/Heading/WelcomeHeading";
 import PlusesHalf from "../../atoms/Shapes/PlusesHalf";
 import Logo from "../../atoms/Logo/Logo";
+import MenuHeading from "../../atoms/Heading/MenHeading";
+import MenuItem from "../../molecules/MenuItem";
+import MenuParagraph from "../../atoms/Paragraph/MenuParagraph";
+import MENU_ITEMS from "../../../assets/data_hardcoded";
+
+const MenuContentWrapper = styled.div`
+   width: 80%;
+   height: 60rem;
+   margin-top: 2rem;
+`;
+
 
 
 const MenuWrapper = styled.div`
@@ -48,6 +56,14 @@ const Menu = ({username}) => (
             <WelcomeHeading>Witaj,
                 <div>&nbsp;</div>
                 <p>{username}</p></WelcomeHeading>
+            <MenuContentWrapper>
+                <MenuHeading>Wizyty</MenuHeading>
+                {MENU_ITEMS.Visits.map( item => <MenuItem content={item.option} route={item.route}/>)}
+                <MenuHeading>Pacjent</MenuHeading>
+                {MENU_ITEMS.Patient.map( item => <MenuItem content={item.option} route={item.route}/>)}
+                <MenuHeading>System</MenuHeading>
+                {MENU_ITEMS.System.map( item => <MenuItem content={item.option} route={item.route}/>)}
+            </MenuContentWrapper>
         </MenuShape>
     </MenuWrapper>
 );

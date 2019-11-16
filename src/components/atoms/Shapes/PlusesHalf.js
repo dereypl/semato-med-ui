@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import plusesHalf from "../../../images/Pluses-half.svg";
+import plusesHalf from "../../../assets/images/Pluses-half.svg";
 
 const PlusesHalf= styled.div`
     display: flex;

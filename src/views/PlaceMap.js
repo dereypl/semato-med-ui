@@ -35,14 +35,10 @@ const PlaceMap = () => (
         <SidebarTemplate>
             <PageWrapper>
                 <HeaderWrapper>
-                    <PathContainer path={'Zaplanowane wizyty'}/>
+                    <PathContainer path={'Placówki'}/>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    <VisitContainer nearest/>
-                    <VisitContainer/>
-                    <VisitContainer/>
-                    <VisitContainer/>
-                    <VisitContainer/>
+                    MAPA
                 </ContentWrapper>
             </PageWrapper>
         </SidebarTemplate>

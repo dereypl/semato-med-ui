@@ -11,6 +11,7 @@ const PathBoxWrapper = styled.div`
     flex-direction: row;
     border-radius: 10px;
     justify-content: center;
+    
     align-items: center;
     font-size: 2.4rem;
 `;
