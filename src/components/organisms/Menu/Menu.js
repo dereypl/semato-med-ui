@@ -58,7 +58,7 @@ const Menu = ({username}) => (
                 <p>{username}</p></WelcomeHeading>
             <MenuContentWrapper>
                 <MenuHeading>Wizyty</MenuHeading>
-                {MENU_ITEMS.Visits.map( item => <MenuItem content={item.option} route={item.route}/>)}
+                {MENU_ITEMS.Visits.map( item => <MenuItem content={item.option} route={item.route} path={item.icon}/>)}
                 <MenuHeading>Pacjent</MenuHeading>
                 {MENU_ITEMS.Patient.map( item => <MenuItem content={item.option} route={item.route}/>)}
                 <MenuHeading>System</MenuHeading>

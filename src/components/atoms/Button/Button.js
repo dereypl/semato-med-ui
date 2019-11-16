@@ -10,6 +10,10 @@ const Button = styled.button`
   border-radius: 10px;
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   color: white;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default Button;

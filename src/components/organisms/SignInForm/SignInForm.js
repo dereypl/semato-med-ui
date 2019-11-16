@@ -36,8 +36,7 @@ const SignInForm = ({authType}) => (
         <InfoParagraph>Logowanie do systemu</InfoParagraph>
         <Input placeholder={"Login"}/>
         <Input placeholder={"Hasło"}/>
-        <Button>Zaloguj</Button>
-        <Link to={routes.home}>test</Link>
+        <Button as={Link} to={routes.dashboard}>Zaloguj</Button>
     </LoginForm>
 );
 export default SignInForm;

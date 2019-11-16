@@ -1,8 +1,11 @@
+import elo from "./icons/calendar.svg"
+
 const MENU_ITEMS = {
     Visits: [
         {
             option: "Zaplanowane wizyty",
-            route: '/'
+            route: '/dashboard',
+            icon: elo,
         },
         {
             option: "Umów wizytę",
@@ -38,7 +41,7 @@ const MENU_ITEMS = {
         },
         {
             option: "Wyloguj",
-            route: '/test'
+            route: '/login'
         },
 
 

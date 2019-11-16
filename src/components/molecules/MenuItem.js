@@ -31,14 +31,14 @@ font-size: ${({theme}) => theme.fontSize.s};
 const MenuItemImage = styled.div`
 height: 24px;
 width: 24px;
-background-color: gray;
 margin-right: 10px;
 margin-left: 20px;
+background-image: url(${props => props.path});
 `;
 
-const MenuItem = ({content, route}) => (
+const MenuItem = ({content, route, path}) => (
     <MenuItemWrapper as={NavLink} to={route} activeclass="active">
-        <MenuItemImage/>
+        <MenuItemImage path={path}/>
         {content}
     </MenuItemWrapper>
 );
