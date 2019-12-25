@@ -4,7 +4,7 @@ import Menu from "../components/organisms/Menu/Menu";
 
 const AppWrapper = styled.div`
     width: 90%;
-    height: 100vh;
+    height: auto;
     margin: 0 auto;
     display: flex;
     flex-direction: row;

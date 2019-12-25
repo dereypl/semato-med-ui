@@ -9,11 +9,12 @@ import SidebarTemplate from "../templates/SidebarTemplate";
 
 const PageWrapper = styled.div`
     width: 78%;
-    height: 100vh;
+    height: auto;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    padding-right: 5rem;
+    //padding-right: 5rem;
+    //background-color: yellow;
 `;
 
 const HeaderWrapper = styled.div`
@@ -21,10 +22,14 @@ const HeaderWrapper = styled.div`
     display: flex;
 `;
 const ContentWrapper = styled.div`
+width: 90%;
     height: auto;
     padding-top: 4rem;
     display: flex;
     flex-direction: column;
+    //background-color: red;
+    justify-self: center;
+    align-self: center;
 `;
 
 
