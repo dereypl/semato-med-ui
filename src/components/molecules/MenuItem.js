@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
-import MenuParagraph from "../atoms/Paragraph/MenuParagraph";
-import {NavLink} from "react-router-dom";
-import {routes} from "../../routes";
+import {NavLink } from "react-router-dom";
 
 const MenuItemWrapper = styled.div`
 width: 90%;
@@ -17,7 +15,7 @@ font-size: ${({theme}) => theme.fontSize.s};
   color: ${({theme}) => theme.medGrey};
   margin-bottom: 0.5rem;
 &:hover{
-  background-color: ${({theme}) => theme.medColor};
+  background-color: ${({theme}) => theme.medGrey};
     color: white;
 
 }
@@ -44,4 +42,3 @@ const MenuItem = ({content, route, path}) => (
 );
 
 export default MenuItem;
-

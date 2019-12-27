@@ -11,8 +11,8 @@ const Root = () => (
     <MainTemplate>
         <BrowserRouter>
             <Switch>
+                <Route exact path={routes.home} render={() => <Redirect to={routes.login}/>}/>
                 <Route exact path={routes.login} render={() => <AuthPage authType="signIn"/>}/>
-                {/*<Route exact path={routes.home} render={() => <Redirect to={routes.patient}/>}/>*/}
                 <Route exact path={routes.dashboard} component={Dashboard} />
                 <Route exact path={routes.departments} component={PlaceMap} />
             </Switch>

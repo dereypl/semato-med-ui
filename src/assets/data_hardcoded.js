@@ -1,4 +1,6 @@
-import elo from "./icons/calendar.svg"
+import elo from "./icons/calendar_add.svg"
+
+// TODO: add index to each item of array!
 
 const MENU_ITEMS = {
     Visits: [
@@ -10,38 +12,46 @@ const MENU_ITEMS = {
         {
             option: "Umów wizytę",
             route: '/visit',
+            icon: elo,
         },
         {
             option: "Lista placówek",
             route: '/departments',
+            icon: elo,
         },
     ],
     Patient: [
         {
             option: "Moje dane",
-            route: '/profile'
+            route: '/profile',
+            icon: elo,
         },
         {
             option: "Historia wizyt",
             route: '/visit',
+            icon: elo,
         },
         {
             option: "Zmiana hasła",
-            route: '/test'
+            route: '/test',
+            icon: elo,
         },
     ],
     System: [
         {
             option: "Powiadomienia",
-            route: '/notifications'
+            route: '/notifications',
+            icon: elo,
         },
         {
             option: "Zgłoś problem",
             route: '/visit',
+            icon: elo,
         },
         {
             option: "Wyloguj",
-            route: '/login'
+            route: '/login',
+            icon: elo,
         },
 
 

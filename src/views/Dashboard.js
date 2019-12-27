@@ -22,18 +22,18 @@ const HeaderWrapper = styled.div`
     display: flex;
 `;
 const ContentWrapper = styled.div`
-width: 90%;
+    width: 90%;
     height: auto;
     padding-top: 4rem;
     display: flex;
     flex-direction: column;
     //background-color: red;
     justify-self: center;
-    align-self: center;
+    align-self: flex-start;
 `;
 
 
-const PlaceMap = () => (
+const Dashboard = () => (
     <>
         <BackgroundHeader/>
         <BackgroungShapeLighter smaller/>
@@ -43,7 +43,7 @@ const PlaceMap = () => (
                     <PathContainer path={'Zaplanowane wizyty'}/>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    <VisitContainer nearest/>
+                    <VisitContainer nearest={true}/>
                     <VisitContainer/>
                     <VisitContainer/>
                     <VisitContainer/>
@@ -53,6 +53,6 @@ const PlaceMap = () => (
         </SidebarTemplate>
     </>
 );
-export default PlaceMap;
+export default Dashboard;
 
 

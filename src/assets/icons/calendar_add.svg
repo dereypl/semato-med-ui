@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Component_2_1" data-name="Component 2 – 1" transform="translate(2 1)">
+    <g id="calendar_today-24px_1_" data-name="calendar_today-24px (1)">
+      <path id="Path_14" data-name="Path 14" d="M20,3H19V1H17V3H7V1H5V3H4A2.006,2.006,0,0,0,2,5V21a2.006,2.006,0,0,0,2,2H20a2.006,2.006,0,0,0,2-2V5A2.006,2.006,0,0,0,20,3Zm0,18H4V8H20Z" transform="translate(-2 -1)" fill="#b7b7b7"/>
+      <path id="Path_15" data-name="Path 15" d="M0,0H24V24H0Z" transform="translate(-2 -1)" fill="none"/>
+    </g>
+    <rect id="Rectangle_34" data-name="Rectangle 34" width="1.77" height="8.259" transform="translate(8.744 9)" fill="#b7b7b7"/>
+    <rect id="Rectangle_35" data-name="Rectangle 35" width="1.77" height="8.259" transform="translate(13.759 12.244) rotate(90)" fill="#b7b7b7"/>
+  </g>
+</svg>

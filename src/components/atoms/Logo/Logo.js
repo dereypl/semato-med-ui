@@ -1,5 +1,5 @@
 import styled, {css} from "styled-components";
-import logo from "../../../assets/images/logo.svg";
+import logo from "../../../assets/images/sematoMed_logo.png";
 
 
 const Logo = styled.div`

@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, {ThemeProvider} from "styled-components";
 
+import calendar_top from "../../../assets/images/calendar_top.svg"
+
 const PathBoxWrapper = styled.div`
     width: 45rem;
     height: 10rem;
@@ -19,8 +21,14 @@ const PathBoxWrapper = styled.div`
 const PathImage = styled.div`
     width: 4.5rem;
     height: 4.5rem;
-    background-color: ${({theme}) => theme.medColor};
     margin-right: 1.5rem;
+    
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(${calendar_top});
+
+    
 `;
 
 

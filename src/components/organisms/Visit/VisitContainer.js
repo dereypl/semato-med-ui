@@ -1,9 +1,11 @@
 import styled, {css} from "styled-components";
 import React from "react";
-import BackgroundHeader from "../../atoms/Shapes/BackgroundHeader";
-import BackgroungShapeLighter from "../../atoms/Shapes/BackgroungShapeLighter";
-import SidebarTemplate from "../../../templates/SidebarTemplate";
-import PathContainer from "../../molecules/Path/PathContainer";
+import calendar_icon_date from "../../../assets/images/calendar_icon_date.svg";
+import time_icon from "../../../assets/images/time_icon.svg";
+import gps_icon from "../../../assets/images/gps.svg";
+import calendar_change_date from "../../../assets/images/calendar_change_date.svg";
+import cancel_icon from "../../../assets/images/cancel_icon.svg";
+
 
 const VisitContainerWrapper = styled.div`
     height: 10rem;
@@ -13,7 +15,6 @@ const VisitContainerWrapper = styled.div`
     background-color: ${({theme}) => theme.backgroundColor};
     margin-bottom: 15px;
     box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.04), 0 10px 20px 0 rgba(0, 0, 0, 0.09);
-    display: flex;
     
     &::before {
     content: '';
@@ -28,17 +29,14 @@ const VisitContainerWrapper = styled.div`
     }
     
     ${({nearest}) =>
-    nearest &&
+    nearest===true &&
     css`
-
       &::before {
       background-color: ${({theme}) => theme.medColor};
       }
-      
    `}
 
 `;
-
 
 const DateWrapper = styled.div`
     display: flex;
@@ -53,36 +51,96 @@ const DateContainer = styled.div`
     width: 100%;
     height: 4rem;
     align-items: center;
+    color: ${({theme}) => theme.medGrey};
+    
+    span{
+       font-size:  ${({theme}) => theme.fontSize.xl};
+       font-weight:  ${({theme}) => theme.fontWeight.semiBold};
+       margin-right: 0.5rem;
+    }
 `;
+
+const IconContainer = styled.div`
+    display: flex;
+    height: 100%;
+    width: 4rem;
+    align-items: center;
+    //background-color: grey;
+    margin-right: 1rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 90%;
+
+   
+    ${({date}) =>
+    date &&
+    css`
+    background-image: url(${calendar_icon_date});
+    `} 
+
+    ${({gps}) =>
+        gps &&
+    css`
+    background-image: url(${gps_icon});
+    background-size: 50%;
+    background-position: 2rem 50%;
+    `} 
+    
+    ${({time}) =>
+    time &&
+    css`
+    background-image: url(${time_icon});
+    background-size: 80%;
+    `}
+    
+
+    ${({changeDate}) =>
+    changeDate &&
+    css`
+    background-image: url(${calendar_change_date});
+    background-size: 60%;
+    `}
+    
+    ${({cancel}) =>
+    cancel &&
+    css`
+    background-image: url(${cancel_icon});
+    background-size: 60%;
+    `}
+    
+   
+`;
+
+
 const TimeContainer = styled.div`
     display: flex;
     width: 100%;
     height: 4rem;
     align-items: center;
-
+    span{
+       font-size:  ${({theme}) => theme.fontSize.xl};
+       font-weight:  ${({theme}) => theme.fontWeight.semiBold};
+       margin-right: 0.5rem;
+       color: ${({theme}) => theme.medGrey};
+    }
 `;
 
 
-const ActionContainer = styled.div`
+const ActionWrapper = styled.div`
     display: flex;
     width: 20%;
     height: 100%;
     flex-direction: column;
     justify-content: center;
-`;
-
-const ChangeDateContainer = styled.div`
-    display: flex;
-    width: 100%;
-    height: 4rem;
     align-items: center;
 `;
-const CancelVisitContainer = styled.div`
+
+const ActionContainer = styled.div`
     display: flex;
-    width: 100%;
+    width: 80%;
     height: 4rem;
     align-items: center;
-
+    font-size:  ${({theme}) => theme.fontSize.s};
 `;
 
 const VisitTypeWrapper = styled.div`
@@ -91,30 +149,42 @@ const VisitTypeWrapper = styled.div`
     height: 100%;
     flex-direction: column;
     justify-content: center;
+    padding: 0 3%;
 `;
 
 const VisitTypeContainer = styled.div`
     display: flex;
     width: 100%;
-    height: 4rem;
+    height: 3rem;
     align-items: center;
-        font-weight: bold;
+    font-weight: bold;
+    color: ${({theme}) => theme.medColor};
 `;
 const DoctorInfoContainer = styled.div`
     display: flex;
     width: 100%;
-    height: 4rem;
+    height: 2rem;
     align-items: center;
+    color: ${({theme}) => theme.grey200};
 `;
 
 const PlaceContainer = styled.div`
     display: flex;
     width: 30%;
     height: 100%;
-    align-items: center; 
     color: ${({theme}) => theme.medColor};
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    font-weight: ${({theme}) => theme.fontWeight.medium};
+    align-items: center;
+`;
 
+const Separator = styled.div`
+    display: flex;
+    width: 1px;
+    align-self: center;
+    height: 50%;
+    background-color: ${({theme}) => theme.medGrey};
+    opacity: 0.4;
 `;
 
 
@@ -122,12 +192,15 @@ const VisitContainer = () => (
     <VisitContainerWrapper>
         <DateWrapper>
             <DateContainer>
-                15.11 piątek
+                <IconContainer date/>
+                <span>15.11</span> piątek
             </DateContainer>
             <TimeContainer>
-                18:30 - 19:00
+                <IconContainer time/>
+                <span>18:30 - 19:00</span>
             </TimeContainer>
         </DateWrapper>
+        <Separator/>
         <VisitTypeWrapper>
             <VisitTypeContainer>
                 Konsultacja Kardiologiczna
@@ -136,17 +209,22 @@ const VisitContainer = () => (
                 dr n. med. Janusz Kutrzeba
             </DoctorInfoContainer>
         </VisitTypeWrapper>
+        <Separator/>
         <PlaceContainer>
+            <IconContainer gps/>
             Oddział Galeria Krakowska al. Pawia 5
         </PlaceContainer>
-        <ActionContainer>
-            <ChangeDateContainer>
+        <Separator/>
+        <ActionWrapper>
+            <ActionContainer>
+                <IconContainer changeDate/>
                 Zmień termin
-            </ChangeDateContainer>
-            <CancelVisitContainer>
+            </ActionContainer>
+            <ActionContainer>
+                <IconContainer cancel/>
                 Odwołaj wizytę
-            </CancelVisitContainer>
-        </ActionContainer>
+            </ActionContainer>
+        </ActionWrapper>
     </VisitContainerWrapper>
 );
 export default VisitContainer;

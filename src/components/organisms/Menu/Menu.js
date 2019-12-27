@@ -17,9 +17,8 @@ const MenuContentWrapper = styled.div`
 `;
 
 
-
 const MenuWrapper = styled.div`
-   width: 22%;
+   width: 25%;
    height: 100vh;
    padding-top: 5rem;
 `;
@@ -58,11 +57,11 @@ const Menu = ({username}) => (
                 <p>{username}</p></WelcomeHeading>
             <MenuContentWrapper>
                 <MenuHeading>Wizyty</MenuHeading>
-                {MENU_ITEMS.Visits.map( item => <MenuItem content={item.option} route={item.route} path={item.icon}/>)}
+                {MENU_ITEMS.Visits.map(item => <MenuItem content={item.option} route={item.route} path={item.icon}/>)}
                 <MenuHeading>Pacjent</MenuHeading>
-                {MENU_ITEMS.Patient.map( item => <MenuItem content={item.option} route={item.route}/>)}
+                {MENU_ITEMS.Patient.map(item => <MenuItem content={item.option} route={item.route} path={item.icon}/>)}
                 <MenuHeading>System</MenuHeading>
-                {MENU_ITEMS.System.map( item => <MenuItem content={item.option} route={item.route}/>)}
+                {MENU_ITEMS.System.map(item => <MenuItem content={item.option} route={item.route} path={item.icon}/>)}
             </MenuContentWrapper>
         </MenuShape>
     </MenuWrapper>
