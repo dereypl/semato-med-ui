@@ -5,7 +5,7 @@ import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
 import PathContainer from "../components/molecules/Path/PathContainer";
 import VisitContainer from "../components/organisms/Visit/VisitContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
-import calendar_top from "../assets/icons/calendar_top.svg"
+import calendar_add_visit_icon from "../assets/icons/calendar_add_visit_icon.svg"
 
 
 const PageWrapper = styled.div`
@@ -41,14 +41,10 @@ const Dashboard = () => (
         <SidebarTemplate>
             <PageWrapper>
                 <HeaderWrapper>
-                    <PathContainer path={'Zaplanowane wizyty'} pathInfo={"Najbliższa wizyta: 15.11 Konsultacja kardiologiczna"} pathIcon={calendar_top}/>
+                    <PathContainer path={'Umów wizytę'} pathInfo={"Wypełnij formularz aby zobaczyć dostępne wizyty"} pathIcon={calendar_add_visit_icon}/>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    <VisitContainer nearest={true}/>
-                    <VisitContainer/>
-                    <VisitContainer/>
-                    <VisitContainer/>
-                    <VisitContainer/>
+                   umow wizyte
                 </ContentWrapper>
             </PageWrapper>
         </SidebarTemplate>

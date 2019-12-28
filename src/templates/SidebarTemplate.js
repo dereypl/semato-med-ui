@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Menu from "../components/organisms/Menu/Menu";
+import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
+import BackgroungShapeLighter from "../components/atoms/Shapes/BackgroungShapeLighter";
 
 const AppWrapper = styled.div`
     width: 90%;
@@ -10,11 +12,15 @@ const AppWrapper = styled.div`
     flex-direction: row;
 `;
 
-const SidebarTemplate = ({ children }) => (
-    <AppWrapper>
-        <Menu username={'Mateusz Derey'}/>
-        {children}
-    </AppWrapper>
+const SidebarTemplate = ({children}) => (
+    <>
+        <BackgroundHeader/>
+        <BackgroungShapeLighter smaller/>
+        <AppWrapper>
+            <Menu username={'Mateusz Derey'}/>
+            {children}
+        </AppWrapper>
+    </>
 );
 
 export default SidebarTemplate;

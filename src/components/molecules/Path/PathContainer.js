@@ -11,10 +11,10 @@ const PathWrapper = styled.div`
     justify-content: flex-end;
 `;
 
-const PathContainer = ({path}) => (
+const PathContainer = ({path,pathInfo, pathIcon}) => (
     <PathWrapper>
-        <PathBox>{path}</PathBox>
-        <PathInfoBox>{path}</PathInfoBox>
+        <PathBox pathIcon={pathIcon}>{path}</PathBox>
+        <PathInfoBox>{pathInfo}</PathInfoBox>
     </PathWrapper>
 );
 

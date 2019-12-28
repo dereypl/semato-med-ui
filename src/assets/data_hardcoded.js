@@ -1,5 +1,4 @@
 import elo from "./icons/calendar_add.svg"
-
 // TODO: add index to each item of array!
 
 const MENU_ITEMS = {

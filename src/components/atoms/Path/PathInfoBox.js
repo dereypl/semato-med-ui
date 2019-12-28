@@ -6,6 +6,7 @@ const PathInfoBox = styled.div`
     height: 5rem;
     background-color: ${({theme}) => theme.medColor}
     color: ${({theme}) => theme.backgroundColor}
+    font-size: ${({theme}) => theme.fontSize.l}
     display: flex;
     border-radius: 10px;
     justify-content: center;

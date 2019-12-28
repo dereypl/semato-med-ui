@@ -7,6 +7,7 @@ export const routes = {
 
     // --- PATIENT ---
     dashboard: '/dashboard',
+    visit: '/visit',
     map: '/map',
     departments: '/departments',
 

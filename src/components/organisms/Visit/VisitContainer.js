@@ -1,10 +1,10 @@
 import styled, {css} from "styled-components";
 import React from "react";
-import calendar_icon_date from "../../../assets/images/calendar_icon_date.svg";
+import calendar_icon_date from "../../../assets/icons/calendar_icon_date.svg";
 import time_icon from "../../../assets/images/time_icon.svg";
 import gps_icon from "../../../assets/images/gps.svg";
-import calendar_change_date from "../../../assets/images/calendar_change_date.svg";
-import cancel_icon from "../../../assets/images/cancel_icon.svg";
+import calendar_change_date from "../../../assets/icons/calendar_change_date.svg";
+import cancel_icon from "../../../assets/icons/cancel_icon.svg";
 
 
 const VisitContainerWrapper = styled.div`
