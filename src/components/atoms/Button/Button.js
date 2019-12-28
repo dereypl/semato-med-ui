@@ -14,6 +14,18 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  &:focus{
+      outline: none;
+  }
+  
+ ${({searchVisit}) =>
+    searchVisit &&
+    css`
+      width: 100%;
+      height: 5rem;
+      border-radius: 8px;
+      background-color: ${({ theme }) => theme.medDarkBlue};
+    `}
 `;
 
 export default Button;

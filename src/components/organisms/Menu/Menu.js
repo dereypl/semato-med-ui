@@ -13,7 +13,7 @@ import MENU_ITEMS from "../../../assets/data_hardcoded";
 const MenuContentWrapper = styled.div`
    width: 80%;
    height: 60rem;
-   margin-top: 2rem;
+   margin-top: 1rem;
 `;
 
 
@@ -46,6 +46,17 @@ font-size: 1rem;
 `;
 
 
+const HorizontalSeparator = styled.div`
+  display: flex;
+  width: 70%;
+  height: 1px;
+  background-color: grey;
+  opacity: 0.3;
+  position: relative;
+  margin-top: 2rem;
+`;
+
+
 const Menu = ({username}) => (
     <MenuWrapper>
         <PlusesHalf/>
@@ -55,6 +66,7 @@ const Menu = ({username}) => (
             <WelcomeHeading>Witaj,
                 <div>&nbsp;</div>
                 <p>{username}</p></WelcomeHeading>
+            <HorizontalSeparator/>
             <MenuContentWrapper>
                 <MenuHeading>Wizyty</MenuHeading>
                 {MENU_ITEMS.Visits.map(item => <MenuItem content={item.option} route={item.route} path={item.icon}/>)}

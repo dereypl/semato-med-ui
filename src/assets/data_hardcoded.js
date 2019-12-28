@@ -1,4 +1,12 @@
-import elo from "./icons/calendar_add.svg"
+import add_visit from "./icons/calendar_add.svg"
+import notification_icon from "./icons/notification_icon.svg"
+import logout_icon from "./icons/logout_icon.svg"
+import pasword_change_icon from "./icons/pasword_change_icon.svg"
+import person_info_icon from "./icons/person_info_icon.svg"
+import problem_request_icon from "./icons/problem_request_icon.svg"
+import visit_history_icon from "./icons/visit_history_icon.svg"
+import calendar_icon from "./icons/calendar_top.svg"
+import gps_icon from "./icons/gps_icon.svg"
 // TODO: add index to each item of array!
 
 const MENU_ITEMS = {
@@ -6,51 +14,51 @@ const MENU_ITEMS = {
         {
             option: "Zaplanowane wizyty",
             route: '/dashboard',
-            icon: elo,
+            icon: calendar_icon,
         },
         {
             option: "Umów wizytę",
             route: '/visit',
-            icon: elo,
+            icon: add_visit,
         },
         {
             option: "Lista placówek",
             route: '/departments',
-            icon: elo,
+            icon: gps_icon,
         },
     ],
     Patient: [
         {
             option: "Moje dane",
             route: '/profile',
-            icon: elo,
+            icon: person_info_icon,
         },
         {
             option: "Historia wizyt",
             route: '/visit',
-            icon: elo,
+            icon: visit_history_icon,
         },
         {
             option: "Zmiana hasła",
-            route: '/test',
-            icon: elo,
+            route: '/password',
+            icon: pasword_change_icon,
         },
     ],
     System: [
         {
             option: "Powiadomienia",
             route: '/notifications',
-            icon: elo,
+            icon: notification_icon,
         },
         {
             option: "Zgłoś problem",
-            route: '/visit',
-            icon: elo,
+            route: '/request',
+            icon: problem_request_icon,
         },
         {
             option: "Wyloguj",
-            route: '/login',
-            icon: elo,
+            route: '/logout',
+            icon: logout_icon,
         },
 
 

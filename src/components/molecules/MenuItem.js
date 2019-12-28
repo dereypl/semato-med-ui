@@ -32,6 +32,9 @@ width: 24px;
 margin-right: 10px;
 margin-left: 20px;
 background-image: url(${props => props.path});
+    background-size: contain;
+    //background-size: 90%;
+    background-repeat: no-repeat;
 `;
 
 const MenuItem = ({content, route, path}) => (

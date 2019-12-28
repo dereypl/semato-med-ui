@@ -4,6 +4,7 @@ export const theme = {
     grey200: '#7C8292',
     medGrey: '#B7B7B7',
     medColor: '#008E9C',
+    medDarkBlue: '#1B254F',
     backgroundColor: '#F6F8FA',
     fontWeight: {
         light: 300,
