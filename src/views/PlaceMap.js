@@ -6,7 +6,7 @@ import PathContainer from "../components/molecules/Path/PathContainer";
 import VisitContainer from "../components/organisms/Visit/VisitContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
 import MENU_ITEMS from "../assets/data_hardcoded";
-
+import SimpleMap from "../components/organisms/Map/SimpleMap";
 
 const PageWrapper = styled.div`
     width: 78%;
@@ -31,7 +31,6 @@ const ContentWrapper = styled.div`
 const MapWrapper = styled.div`
     height: 58vh;
     width: 100%;
-    padding-top: 4rem;
     display: flex;
     flex-direction: column;
     background-color: lightgray;
@@ -49,7 +48,7 @@ const PlaceMap = () => (
                 </HeaderWrapper>
                 <ContentWrapper>
                     <MapWrapper>
-                        MAPA
+                        <SimpleMap/>
                     </MapWrapper>
                 </ContentWrapper>
             </PageWrapper>

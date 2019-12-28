@@ -9,6 +9,7 @@ import MENU_ITEMS from "../assets/data_hardcoded";
 import {fetchItems} from "../actions";
 import {GET_CLINIC_LIST, GET_SPECIALITY_LIST, GET_VISITS_LIST} from "../actions/requestTypes";
 import {connect} from "react-redux";
+import Paragraph from "../components/atoms/Paragraph/Paragraph";
 
 
 const PageWrapper = styled.div`
@@ -159,6 +160,7 @@ const Visit = ({fetchSpecialityList, specialityList}) => {
                             </InputWrapper>
                         </ReservationItemWrapper>
                     </ReservationBackgroundWrapper>
+                    <Paragraph VisitSearchInfo>* Wartości obowiązkowe</Paragraph>
                     <Button searchVisit>Wyszukaj</Button>
                 </ContentWrapper>
             </PageWrapper>
