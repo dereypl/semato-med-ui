@@ -105,7 +105,7 @@ const SignInForm = ({authenticate, isUserLogged}) => (
                                 value={values.password}
                             />
                             <ErrorMessage name="password" component={StyledErrorMsg}/>
-                            <Button type="submit" login>g</Button>
+                            <Button type="submit" login>Zaloguj</Button>
                         </LoginForm>
                     </FormWrapper>
                 );

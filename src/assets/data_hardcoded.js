@@ -55,13 +55,11 @@ const MENU_ITEMS = {
             route: '/request',
             icon: problem_request_icon,
         },
-        {
-            option: "Wyloguj",
-            route: '/logout',
-            icon: logout_icon,
-        },
-
-
+        // {
+        //     option: "Wyloguj",
+        //     route: '/logout',
+        //     icon: logout_icon,
+        // },
     ]
 };
 

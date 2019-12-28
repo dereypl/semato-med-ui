@@ -9,6 +9,12 @@ import MenuHeading from "../../atoms/Heading/MenHeading";
 import MenuItem from "../../molecules/MenuItem";
 import MenuParagraph from "../../atoms/Paragraph/MenuParagraph";
 import MENU_ITEMS from "../../../assets/data_hardcoded";
+import logout_icon from "../../../assets/icons/logout_icon.svg"
+import {logOutUser} from "../../../actions";
+import Button from "../../atoms/Button/Button";
+import {useDispatch} from 'react-redux'
+import {purgeStoredState} from "redux-persist";
+import {persistConfig} from "../../../store/configureStore";
 
 const MenuContentWrapper = styled.div`
    width: 80%;
@@ -57,25 +63,42 @@ const HorizontalSeparator = styled.div`
 `;
 
 
-const Menu = ({username}) => (
-    <MenuWrapper>
-        <PlusesHalf/>
-        <Logo smaller/>
-        <Info>Najlepsza klinika na świecie, nie wiem czy wiecie.</Info>
-        <MenuShape>
-            <WelcomeHeading>Witaj,
-                <div>&nbsp;</div>
-                <p>{username}</p></WelcomeHeading>
-            <HorizontalSeparator/>
-            <MenuContentWrapper>
-                <MenuHeading>Wizyty</MenuHeading>
-                {MENU_ITEMS.Visits.map(item => <MenuItem content={item.option} route={item.route} path={item.icon}/>)}
-                <MenuHeading>Pacjent</MenuHeading>
-                {MENU_ITEMS.Patient.map(item => <MenuItem content={item.option} route={item.route} path={item.icon}/>)}
-                <MenuHeading>System</MenuHeading>
-                {MENU_ITEMS.System.map(item => <MenuItem content={item.option} route={item.route} path={item.icon}/>)}
-            </MenuContentWrapper>
-        </MenuShape>
-    </MenuWrapper>
-);
+const Menu = ({username,persistor}) => {
+
+    const dispatch = useDispatch();
+
+    const logoutUserTrigger = (e) => {
+        e.preventDefault();
+        console.log("triggered");
+        // purgeStoredState(persistConfig);
+        dispatch(logOutUser())
+    };
+
+    return (
+        <MenuWrapper>
+            <PlusesHalf/>
+            <Logo smaller/>
+            <Info>Najlepsza klinika na świecie, nie wiem czy wiecie.</Info>
+            <MenuShape>
+                <WelcomeHeading>Witaj,
+                    <div>&nbsp;</div>
+                    <p>{username}</p></WelcomeHeading>
+                <HorizontalSeparator/>
+                <MenuContentWrapper>
+                    <MenuHeading>Wizyty</MenuHeading>
+                    {MENU_ITEMS.Visits.map(item => <MenuItem content={item.option} route={item.route}
+                                                             path={item.icon}/>)}
+                    <MenuHeading>Pacjent</MenuHeading>
+                    {MENU_ITEMS.Patient.map(item => <MenuItem content={item.option} route={item.route}
+                                                              path={item.icon}/>)}
+                    <MenuHeading>System</MenuHeading>
+                    {MENU_ITEMS.System.map(item => <MenuItem content={item.option} route={item.route}
+                                                             path={item.icon}/>)}
+                    <Button onClick={(e) => logoutUserTrigger(e)}>Wyloguj</Button>
+
+                </MenuContentWrapper>
+            </MenuShape>
+        </MenuWrapper>
+    )
+};
 export default Menu;

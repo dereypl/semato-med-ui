@@ -23,7 +23,6 @@ font-size: ${({theme}) => theme.fontSize.s};
      background-color: ${({theme}) => theme.medColor};
          color: white;
   }
-
 `;
 
 const MenuItemImage = styled.div`

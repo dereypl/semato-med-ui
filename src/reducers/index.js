@@ -9,8 +9,10 @@ import {
     isUserLogged as checkIfUserIsLogged, SET_USER_INFO,
 } from '../actions';
 
+import {PURGE, REHYDRATE} from 'redux-persist';
+
 const initialState = {
-    isUserLogged: checkIfUserIsLogged(),
+    isUserLogged: false,
 };
 
 const rootReducer = (state = initialState, {type, payload}) => {
@@ -61,9 +63,15 @@ const rootReducer = (state = initialState, {type, payload}) => {
                 currentUser,
             };
 
+        case PURGE:
+            console.log("PURGING!!!!");
+            return {isUserLogged: false};    // Return the initial state of this reducer to 'reset' the app
+
         default:
             return state;
     }
+
+
 };
 
 export default rootReducer;

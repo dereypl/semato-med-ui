@@ -1,9 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux'
+import {connect, useSelector} from 'react-redux'
 import styled from 'styled-components';
 import Menu from "../components/organisms/Menu/Menu";
 import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
 import BackgroungShapeLighter from "../components/atoms/Shapes/BackgroungShapeLighter";
+import PropTypes from "prop-types";
+import {Redirect} from "react-router-dom";
+import {routes} from "../routes";
+import {isUserLogged} from "../actions";
 
 const AppWrapper = styled.div`
     width: 90%;
@@ -13,10 +17,12 @@ const AppWrapper = styled.div`
     flex-direction: row;
 `;
 
-const SidebarTemplate = ({children}) => {
+const SidebarTemplate = ({children,firstName,lastName}) => {
 
-    const firstName = useSelector(state => state.currentUser.firstName);
-    const lastName = useSelector(state => state.currentUser.lastName);
+    if (!isUserLogged()) {
+        return <Redirect to={routes.login}/>;
+    }
+
     return (
         <>
             <BackgroundHeader/>
@@ -29,4 +35,19 @@ const SidebarTemplate = ({children}) => {
     )
 };
 
-export default SidebarTemplate;
+SidebarTemplate.defaultProps = {
+    isUserLogged: false,
+    firstName: "",
+    lastName: "",
+};
+
+const mapStateToProps = state => ({
+    isUserLogged: state.isUserLogged,
+    firstName: state.currentUser? state.currentUser.firstName : "",
+    lastName: state.currentUser? state.currentUser.lastName : "",
+});
+
+export default connect(
+    mapStateToProps,
+    null
+)(SidebarTemplate);

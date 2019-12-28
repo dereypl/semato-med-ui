@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 
 
 
-const persistConfig = {
+export const persistConfig = {
     key: 'root',
     storage,
 };

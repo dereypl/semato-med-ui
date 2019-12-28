@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import BackgroungShapeLighter from "../components/atoms/Shapes/BackgroungShapeLighter";
 import styled from 'styled-components'
 import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
@@ -6,6 +6,9 @@ import PathContainer from "../components/molecules/Path/PathContainer";
 import VisitContainer from "../components/organisms/Visit/VisitContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
 import calendar_top from "../assets/icons/calendar_top.svg"
+import {fetchItems} from "../actions";
+import {GET_SPECIALITY_LIST, GET_VISITS_LIST} from "../actions/requestTypes";
+import {connect} from "react-redux";
 
 
 const PageWrapper = styled.div`
@@ -37,22 +40,43 @@ const ContentWrapper = styled.div`
 //TODO: if user is not authenticate => redirect to login page
 
 
-const Dashboard = () => (
+const Dashboard = ({fetchVisits, visitList}) => {
+
+    useEffect(() => {
+        fetchVisits()
+    }, [fetchVisits]);
+
+    return (
         <SidebarTemplate>
             <PageWrapper>
                 <HeaderWrapper>
-                    <PathContainer path={'Zaplanowane wizyty'} pathInfo={"Najbliższa wizyta: 15.11 Konsultacja kardiologiczna"} pathIcon={calendar_top}/>
+                    <PathContainer path={'Zaplanowane wizyty'}
+                                   pathInfo={"Najbliższa wizyta: 15.11 Konsultacja kardiologiczna"}
+                                   pathIcon={calendar_top}/>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    <VisitContainer nearest={true}/>
-                    <VisitContainer/>
-                    <VisitContainer/>
-                    <VisitContainer/>
-                    <VisitContainer/>
+
+                    {visitList.map(visit => <VisitContainer visit={visit}/>)}
+                    {/*<VisitContainer nearest={true}/>*/}
+
                 </ContentWrapper>
             </PageWrapper>
         </SidebarTemplate>
-);
-export default Dashboard;
+    )
+};
+const mapStateToProps = state => ({visitList: state.visitList});
+
+const mapDispatchToProps = dispatch => ({
+    fetchVisits: () => dispatch(fetchItems(GET_VISITS_LIST)),
+});
+
+Dashboard.defaultProps = {
+    visitList: [],
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Dashboard);
 
 

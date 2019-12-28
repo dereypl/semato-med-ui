@@ -57,6 +57,8 @@ const DateContainer = styled.div`
        font-size:  ${({theme}) => theme.fontSize.xl};
        font-weight:  ${({theme}) => theme.fontWeight.semiBold};
        margin-right: 0.5rem;
+       color: ${({theme}) => theme.medColor};
+
     }
 `;
 
@@ -188,7 +190,7 @@ const Separator = styled.div`
 `;
 
 
-const VisitContainer = () => (
+const VisitContainer = ({visit}) => (
     <VisitContainerWrapper>
         <DateWrapper>
             <DateContainer>
@@ -216,10 +218,10 @@ const VisitContainer = () => (
         </PlaceContainer>
         <Separator/>
         <ActionWrapper>
-            <ActionContainer>
-                <IconContainer changeDate/>
-                Zmień termin
-            </ActionContainer>
+            {/*<ActionContainer>*/}
+            {/*    <IconContainer changeDate/>*/}
+            {/*    Zmień termin*/}
+            {/*</ActionContainer>*/}
             <ActionContainer>
                 <IconContainer cancel/>
                 Odwołaj wizytę

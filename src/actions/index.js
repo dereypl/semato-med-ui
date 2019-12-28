@@ -1,5 +1,9 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
+import { PURGE } from 'redux-persist';
+import { purgeStoredState } from 'redux-persist'
+import {persistConfig} from "../store/configureStore";
+
 
 export const AUTHENTICATE_REQUEST = 'AUTHENTICATE_REQUEST';
 export const AUTHENTICATE_SUCCESS = 'AUTHENTICATE_SUCCESS';
@@ -18,6 +22,7 @@ export const FETCH_FAILURE = 'FETCH_FAILURE';
 export const SET_USER_INFO = 'SET_USER_INFO';
 
 export const API_URL = 'http://localhost:5000';
+
 
 export const getHeaders = () => ({
     Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_NAME)}`,
@@ -72,9 +77,13 @@ export const authenticate = (email, password) => dispatch => {
 };
 
 export const logOutUser = () => dispatch => {
-    localStorage.clear();
 
-    if (!localStorage.getItem(AUTH_TOKEN_NAME))
+    console.log("logout user");
+    localStorage.clear();
+    // dispatch({type: PURGE, key: "root"});
+    // purgeStoredState(persistConfig);
+
+        if (!localStorage.getItem(AUTH_TOKEN_NAME))
         dispatch({type: LOGOUT_SUCCESS});
 };
 
@@ -83,16 +92,17 @@ export const fetchItems = (actionType) => dispatch => {
 
     dispatch({type: FETCH_REQUEST});
     return axios
-        .get(`${API_URL}/api/${actionType.path}/?where=${JSON.stringify(actionType.where)}`, {
-            params: actionType.params,
+        // .get(`${API_URL}/api/${actionType.path}/?where=${JSON.stringify(actionType.where)}`, {
+        .get(`${API_URL}/api/${actionType.path}`, {
             headers: getHeaders(),
         })
         .then(({data}) => {
+            const itemType = actionType.itemType;
             dispatch({
                 type: FETCH_SUCCESS,
                 payload: {
-                    items: data.data.results,
-                    itemType: actionType.itemType,
+                    items: data[itemType],
+                    itemType,
                 },
             });
         })
