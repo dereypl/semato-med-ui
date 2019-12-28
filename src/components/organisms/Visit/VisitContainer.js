@@ -29,7 +29,7 @@ const VisitContainerWrapper = styled.div`
     }
     
     ${({nearest}) =>
-    nearest===true &&
+    nearest === true &&
     css`
       &::before {
       background-color: ${({theme}) => theme.medColor};
@@ -52,6 +52,7 @@ const DateContainer = styled.div`
     height: 4rem;
     align-items: center;
     color: ${({theme}) => theme.medGrey};
+    font-size:  ${({theme}) => theme.fontSize.s};
     
     span{
        font-size:  ${({theme}) => theme.fontSize.xl};
@@ -72,7 +73,6 @@ const IconContainer = styled.div`
     background-repeat: no-repeat;
     background-position: center;
     background-size: 90%;
-
    
     ${({date}) =>
     date &&
@@ -81,11 +81,11 @@ const IconContainer = styled.div`
     `} 
 
     ${({gps}) =>
-        gps &&
+    gps &&
     css`
     background-image: url(${gps_icon});
     background-size: 50%;
-    background-position: 2rem 50%;
+    background-position: 1.5rem 50%;
     `} 
     
     ${({time}) =>
@@ -190,45 +190,52 @@ const Separator = styled.div`
 `;
 
 
-const VisitContainer = ({visit}) => (
-    <VisitContainerWrapper>
-        <DateWrapper>
-            <DateContainer>
-                <IconContainer date/>
-                <span>15.11</span> piątek
-            </DateContainer>
-            <TimeContainer>
-                <IconContainer time/>
-                <span>18:30 - 19:00</span>
-            </TimeContainer>
-        </DateWrapper>
-        <Separator/>
-        <VisitTypeWrapper>
-            <VisitTypeContainer>
-                Konsultacja Kardiologiczna
-            </VisitTypeContainer>
-            <DoctorInfoContainer>
-                dr n. med. Janusz Kutrzeba
-            </DoctorInfoContainer>
-        </VisitTypeWrapper>
-        <Separator/>
-        <PlaceContainer>
-            <IconContainer gps/>
-            Oddział Galeria Krakowska al. Pawia 5
-        </PlaceContainer>
-        <Separator/>
-        <ActionWrapper>
-            {/*<ActionContainer>*/}
-            {/*    <IconContainer changeDate/>*/}
-            {/*    Zmień termin*/}
-            {/*</ActionContainer>*/}
-            <ActionContainer>
-                <IconContainer cancel/>
-                Odwołaj wizytę
-            </ActionContainer>
-        </ActionWrapper>
-    </VisitContainerWrapper>
-);
+const VisitContainer = ({visit}) => {
+    const visitDateStart = new Date(visit.dateTimeStart);
+    const visitDateEnd = new Date(visit.dateTimeEnd);
+
+    return (
+        <VisitContainerWrapper>
+            <DateWrapper>
+                <DateContainer>
+                    <IconContainer date/>
+                    <span>{visitDateStart.getDate() + "." + visitDateStart.getMonth() + "." + visitDateStart.getFullYear()}</span> {visit.dayOfWeek}
+                </DateContainer>
+                <TimeContainer>
+                    <IconContainer time/>
+                    <span>{visitDateStart.getHours() + ":" + (visitDateStart.getMinutes() ? visitDateStart.getMinutes() : visitDateStart.getMinutes() + "0")}
+                        -
+                        {visitDateEnd.getHours() + ":" + (visitDateEnd.getMinutes() ? visitDateEnd.getMinutes() : visitDateEnd.getMinutes() + "0")}</span>
+                </TimeContainer>
+            </DateWrapper>
+            <Separator/>
+            <VisitTypeWrapper>
+                <VisitTypeContainer>
+                    Konsultacja {visit.specialityName}
+                </VisitTypeContainer>
+                <DoctorInfoContainer>
+                    {visit.physicianFullName}
+                </DoctorInfoContainer>
+            </VisitTypeWrapper>
+            <Separator/>
+            <PlaceContainer>
+                <IconContainer gps/>
+                {visit.clinicName}
+            </PlaceContainer>
+            <Separator/>
+            <ActionWrapper>
+                {/*<ActionContainer>*/}
+                {/*    <IconContainer changeDate/>*/}
+                {/*    Zmień termin*/}
+                {/*</ActionContainer>*/}
+                <ActionContainer>
+                    <IconContainer cancel/>
+                    Odwołaj wizytę
+                </ActionContainer>
+            </ActionWrapper>
+        </VisitContainerWrapper>
+    )
+};
 export default VisitContainer;
 
 

@@ -56,7 +56,7 @@ const Dashboard = ({fetchVisits, visitList}) => {
                 </HeaderWrapper>
                 <ContentWrapper>
 
-                    {visitList.map(visit => <VisitContainer visit={visit}/>)}
+                    {visitList.map(visit => <VisitContainer visit={visit} key={visit.id}/>)}
                     {/*<VisitContainer nearest={true}/>*/}
 
                 </ContentWrapper>
