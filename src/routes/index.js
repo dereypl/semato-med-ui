@@ -1,9 +1,15 @@
 export const routes = {
+
     home: '/',
-    dashboard: '/dashboard',
     login: '/login',
     register: '/register',
-    patient: '/patient',
+
+
+    // --- PATIENT ---
+    dashboard: '/dashboard',
     map: '/map',
     departments: '/departments',
+
+    // --- DOCTOR ---
+
 };

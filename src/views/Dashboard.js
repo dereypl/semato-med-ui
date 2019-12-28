@@ -33,6 +33,9 @@ const ContentWrapper = styled.div`
 `;
 
 
+//TODO: if user is not authenticate => redirect to login page
+
+
 const Dashboard = () => (
     <>
         <BackgroundHeader/>

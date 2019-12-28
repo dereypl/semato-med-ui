@@ -27,6 +27,16 @@ const ContentWrapper = styled.div`
     flex-direction: column;
 `;
 
+const MapWrapper = styled.div`
+    height: 58vh;
+    width: 100%;
+    padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    background-color: lightgray;
+    border-radius: 15px;
+`;
+
 
 const PlaceMap = () => (
     <>
@@ -35,10 +45,12 @@ const PlaceMap = () => (
         <SidebarTemplate>
             <PageWrapper>
                 <HeaderWrapper>
-                    <PathContainer path={'Placówki'}/>
+                    <PathContainer path={'Lista Placówek'}/>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    MAPA
+                    <MapWrapper>
+                        MAPA
+                    </MapWrapper>
                 </ContentWrapper>
             </PageWrapper>
         </SidebarTemplate>

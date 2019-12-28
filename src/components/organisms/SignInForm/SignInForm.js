@@ -1,11 +1,15 @@
 import React from "react";
-import { Link, Redirect } from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import styled from "styled-components";
-import { routes } from '../../../routes';
+import {routes} from '../../../routes';
 import Input from "../../atoms/Input/Input";
 import Button from "../../atoms/Button/Button";
 import GlobalStyle from "../../../theme/GlobalStyle";
+import {Formik, Form, ErrorMessage} from 'formik';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
+import {authenticate as authenticateAction} from '../../../actions';
 
 const InfoParagraph = styled.h1`
    margin-bottom: 8rem;
@@ -13,7 +17,7 @@ const InfoParagraph = styled.h1`
    text-align: center;
    font-size: small;
    color: #7E828B;
-   font-weight: ${({theme}) =>  theme.fontWeight.regular};
+   font-weight: ${({theme}) => theme.fontWeight.regular};
 `;
 
 const LoginForm = styled.div`
@@ -30,13 +34,104 @@ const LoginForm = styled.div`
    z-index: 10;
 `;
 
+const StyledErrorMsg = styled.div`
+  margin: 10px 0 0;
+  font-weight: ${({theme}) => theme.fontWeight.regular};
+  font-size: ${({theme}) => theme.fontSize.s};
+  color: red;
+  text-align: center;
+`;
 
-const SignInForm = ({authType}) => (
-    <LoginForm>
-        <InfoParagraph>Logowanie do systemu</InfoParagraph>
-        <Input placeholder={"Login"}/>
-        <Input placeholder={"Hasło"}/>
-        <Button as={Link} to={routes.dashboard}>Zaloguj</Button>
-    </LoginForm>
+
+const FormWrapper = styled(Form)`
+   // width: 100%;
+   // height: 60vh;
+   // background-color: ${({theme}) => theme.background};
+    display: flex;
+   // justify-content: center;
+   
+`;
+
+const SignInForm = ({authenticate, isUserLogged}) => (
+    <>
+        <Formik
+            initialValues={{
+                username: '',
+                password: '',
+            }}
+            validate={values => {
+                const errors = {};
+
+                if (!values.username) {
+                    errors.username = 'Username is required';
+                }
+
+                if (!values.password) {
+                    errors.password = 'Password is required';
+                }
+
+                return errors;
+            }}
+            onSubmit={values => {
+                console.log("eee");
+                authenticate(values.username, values.password);
+            }}
+        >
+            {({values, handleChange, handleBlur}) => {
+                if (isUserLogged) {
+                    return <Redirect to={routes.dashboard}/>;
+                }
+
+
+                return (
+                    <FormWrapper>
+                        <LoginForm>
+                            <InfoParagraph>Logowanie do systemu</InfoParagraph>
+                            <Input
+                                name="username"
+                                type="text"
+                                placeholder="Username"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.username}
+                            />
+                            <ErrorMessage name="username" component={StyledErrorMsg}/>
+                            <Input
+                                name="password"
+                                type="password"
+                                placeholder="Password"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.password}
+                            />
+                            <ErrorMessage name="password" component={StyledErrorMsg}/>
+                            <Button type="submit" login>g</Button>
+                        </LoginForm>
+                    </FormWrapper>
+                );
+            }}
+        </Formik>
+    </>
 );
-export default SignInForm;
+
+SignInForm.propTypes = {
+    authenticate: PropTypes.func.isRequired,
+    isUserLogged: PropTypes.bool,
+};
+
+SignInForm.defaultProps = {
+    isUserLogged: false,
+};
+
+const mapStateToProps = state => ({
+    isUserLogged: state.isUserLogged,
+});
+
+const mapDispatchToProps = dispatch => ({
+    authenticate: (email, password) => dispatch(authenticateAction(email, password)),
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(SignInForm);

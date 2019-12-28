@@ -5,9 +5,16 @@ import {BrowserRouter, Switch, Redirect, Route} from "react-router-dom";
 import MainTemplate from "../templates/MainTemplate";
 import {routes} from "../routes";
 import Dashboard from "./Dashboard";
+import {Provider} from 'react-redux';
 
+import {PersistGate} from 'redux-persist/integration/react'
+import configureStore from "../store/configureStore";
+
+const {store,persistor} = configureStore();
 
 const Root = () => (
+    <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
     <MainTemplate>
         <BrowserRouter>
             <Switch>
@@ -18,6 +25,8 @@ const Root = () => (
             </Switch>
         </BrowserRouter>
     </MainTemplate>
+        </PersistGate>
+    </Provider>
 );
 
 
