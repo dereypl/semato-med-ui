@@ -51,7 +51,7 @@ export const isUserLogged = () => {
 };
 
 export const authenticate = (email, password) => dispatch => {
-    dispatch({type: AUTHENTICATE_REQUEST});
+    // dispatch({type: AUTHENTICATE_REQUEST});
     return axios
         .post(`${API_URL}/api/auth/signin`, {
             email,
@@ -66,7 +66,7 @@ export const authenticate = (email, password) => dispatch => {
             axios.get(`${API_URL}/api/user/me`, {
                 headers: {Authorization: `Bearer ${payload.data.accessToken}`}
             }).then(userInfo => {
-                dispatch({type: SET_USER_INFO, payload: userInfo.data});
+                return{type: SET_USER_INFO, payload: userInfo.data};
             });
         })
 
@@ -90,21 +90,22 @@ export const logOutUser = () => dispatch => {
 
 export const fetchItems = (actionType) => dispatch => {
 
-    dispatch({type: FETCH_REQUEST});
+    // dispatch({type: FETCH_REQUEST});
     return axios
         // .get(`${API_URL}/api/${actionType.path}/?where=${JSON.stringify(actionType.where)}`, {
-        .get(`${API_URL}/api/${actionType.path}`, {
+        .get(`${API_URL}/api/${actionType.path}/`, {
+            params: actionType.params,
             headers: getHeaders(),
         })
         .then(({data}) => {
             const itemType = actionType.itemType;
-            dispatch({
+            return{
                 type: FETCH_SUCCESS,
                 payload: {
                     items: data[itemType],
                     itemType,
                 },
-            });
+            };
         })
         .catch(err => {
             console.log(err);

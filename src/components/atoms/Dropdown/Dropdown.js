@@ -24,16 +24,21 @@ const StyledSelect = styled.select`
 
 `;
 
-const Dropdown = ({value, setValue}) => {
+const Dropdown = ({value,items,action}) => {
 
     return (
-            <StyledSelect value={value} onChange={(e) => setValue(e.target.value)}>
-                <option value="Cośtam 1">Cośtam 1</option>
-                <option value="Inna 2">Inna 2</option>
-                <option value="Kolejna 3">LKolejna 3</option>
-                <option value="Elo 4">Elo 4</option>
+            <StyledSelect value={value} onChange={(e) => action(e.target.value)}>
+                <option value="" disabled selected>- Wybierz -</option>
+                {items.map(item =>
+                    <option value={item.id}>{item.name}</option>
+                )}
             </StyledSelect>
     );
 };
+
+Dropdown.defaultProps = {
+    items: [],
+};
+
 
 export default Dropdown;

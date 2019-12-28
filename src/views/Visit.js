@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect,useState} from 'react'
 import styled, {css} from 'styled-components'
 import PathContainer from "../components/molecules/Path/PathContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
@@ -6,6 +6,9 @@ import Input from "../components/atoms/Input/Input";
 import Dropdown from "../components/atoms/Dropdown/Dropdown";
 import Button from "../components/atoms/Button/Button";
 import MENU_ITEMS from "../assets/data_hardcoded";
+import {fetchItems} from "../actions";
+import {GET_CLINIC_LIST, GET_SPECIALITY_LIST, GET_VISITS_LIST} from "../actions/requestTypes";
+import {connect} from "react-redux";
 
 
 const PageWrapper = styled.div`
@@ -79,72 +82,102 @@ const InputWrapper = styled.div`
 //TODO: if user is not authenticate => redirect to login page
 
 
-const Dashboard = () => (
-    <SidebarTemplate>
-        <PageWrapper>
-            <HeaderWrapper>
-                <PathContainer path={MENU_ITEMS.Visits[1].option}
-                               pathInfo={"Wypełnij formularz aby zobaczyć dostępne wizyty"}
-                               pathIcon={MENU_ITEMS.Visits[1].pathIcon}/>
-            </HeaderWrapper>
-            <ContentWrapper>
-                <ReservationBackgroundWrapper>
-                    <ReservationItemWrapper>
-                        Specjalizacja
-                        <Dropdown
-                            visitReservstion
-                            name="specjalization"
-                            type="text"
-                            placeholder="Wybierz"
-                        />
-                    </ReservationItemWrapper>
-                    <ReservationItemWrapper>
-                        Placówka
-                        <Dropdown
-                            visitReservstion
-                            name="place"
-                            type="text"
-                            placeholder="Wybierz"
-                        />
-                    </ReservationItemWrapper>
-                    <ReservationItemWrapper>
-                        Lekarz
-                        <Dropdown
-                            visitReservstion
-                            name="doctor"
-                            type="text"
-                            placeholder="Wybierz"
-                        />
-                    </ReservationItemWrapper>
-                    <ReservationItemWrapper double>
-                        <InputWrapper>
-                            <span>Data od</span>
-                            <Input
-                                reservationDate
+const Visit = ({fetchSpecialityList, specialityList}) => {
+
+    const [selectedSpeciality, setSelectedSpeciality] = useState(null);
+
+    const setSelectedSpecialityTrigger = dispatch => (id) => {
+        setSelectedSpeciality(id);
+        dispatch(fetchItems(GET_CLINIC_LIST))
+    };
+
+
+    useEffect(() => {fetchSpecialityList()}, [fetchSpecialityList]);
+
+    console.log(selectedSpeciality);
+
+
+    return (
+        <SidebarTemplate>
+            <PageWrapper>
+                <HeaderWrapper>
+                    <PathContainer path={MENU_ITEMS.Visits[1].option}
+                                   pathInfo={"Wypełnij formularz aby zobaczyć dostępne wizyty"}
+                                   pathIcon={MENU_ITEMS.Visits[1].pathIcon}/>
+                </HeaderWrapper>
+                <ContentWrapper>
+                    <ReservationBackgroundWrapper>
+                        <ReservationItemWrapper>
+                            Specjalizacja*
+                            <Dropdown
+                                items={specialityList}
+                                visitReservstion
+                                name="selectedSpeciality"
+                                type="text"
+                                action={setSelectedSpecialityTrigger}
+                            />
+                        </ReservationItemWrapper>
+                        <ReservationItemWrapper>
+                            Placówka*
+                            <Dropdown
+                                visitReservstion
+                                name="place"
+                                type="text"
+                                placeholder="Wybierz"
+                            />
+                        </ReservationItemWrapper>
+                        <ReservationItemWrapper>
+                            Lekarz
+                            <Dropdown
                                 visitReservstion
                                 name="doctor"
                                 type="text"
-                                placeholder="YYYY-MM-DD"
+                                placeholder="Wybierz"
                             />
-                        </InputWrapper>
-                        <InputWrapper right>
-                            <span>Data do</span>
-                            <Input
-                                reservationDate
-                                dateFloating
-                                visitReservstion
-                                name="doctor"
-                                type="text"
-                                placeholder="YYYY-MM-DD"
-                            />
-                        </InputWrapper>
-                    </ReservationItemWrapper>
-                </ReservationBackgroundWrapper>
-                <Button searchVisit>Wyszukaj</Button>
-            </ContentWrapper>
-        </PageWrapper>
-    </SidebarTemplate>
-);
-export default Dashboard;
+                        </ReservationItemWrapper>
+                        <ReservationItemWrapper double>
+                            <InputWrapper>
+                                <span>Data od*</span>
+                                <Input
+                                    reservationDate
+                                    visitReservstion
+                                    name="doctor"
+                                    type="text"
+                                    placeholder="YYYY-MM-DD"
+                                />
+                            </InputWrapper>
+                            <InputWrapper right>
+                                <span>Data do*</span>
+                                <Input
+                                    reservationDate
+                                    dateFloating
+                                    visitReservstion
+                                    name="doctor"
+                                    type="text"
+                                    placeholder="YYYY-MM-DD"
+                                />
+                            </InputWrapper>
+                        </ReservationItemWrapper>
+                    </ReservationBackgroundWrapper>
+                    <Button searchVisit>Wyszukaj</Button>
+                </ContentWrapper>
+            </PageWrapper>
+        </SidebarTemplate>
+    )
+};
+const mapStateToProps = state => ({specialityList: state.specialityList});
+
+const mapDispatchToProps = dispatch => ({
+    fetchSpecialityList: () => dispatch(fetchItems(GET_SPECIALITY_LIST)),
+});
+
+Visit.defaultProps = {
+    specialityList: [],
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Visit);
 
 
