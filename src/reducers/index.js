@@ -6,7 +6,7 @@ import {
     FETCH_SUCCESS,
     FETCH_REQUEST,
     FETCH_FAILURE,
-    isUserLogged as checkIfUserIsLogged,
+    isUserLogged as checkIfUserIsLogged, SET_USER_INFO,
 } from '../actions';
 
 const initialState = {
@@ -45,6 +45,20 @@ const rootReducer = (state = initialState, {type, payload}) => {
             return {
                 ...state,
                 isFetching: false,
+            };
+
+        case SET_USER_INFO:
+            const currentUser = {
+                id: payload.role[0].id,
+                email: payload.email,
+                firstName: payload.firstName,
+                lastName: payload.lastName,
+                role: payload.role[0].name,
+            };
+            console.log(currentUser);
+            return {
+                ...state,
+                currentUser,
             };
 
         default:

@@ -37,7 +37,6 @@ const MapWrapper = styled.div`
     border-radius: 15px;
 `;
 
-
 const PlaceMap = () => (
     <>
         <BackgroundHeader/>

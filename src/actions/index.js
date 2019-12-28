@@ -14,6 +14,9 @@ export const FETCH_REQUEST = 'FETCH_REQUEST';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_FAILURE = 'FETCH_FAILURE';
 
+
+export const SET_USER_INFO = 'SET_USER_INFO';
+
 export const API_URL = 'http://localhost:5000';
 
 export const getHeaders = () => ({
@@ -33,8 +36,7 @@ const validateToken = (token) => {
     if (jwtDecode(token).exp < Date.now() / 1000) {
         logOutUser();
         return false
-    }
-    else return true;
+    } else return true;
 };
 
 export const isUserLogged = () => {
@@ -53,7 +55,16 @@ export const authenticate = (email, password) => dispatch => {
         .then(payload => {
             logInUser(payload.data.accessToken);
             dispatch({type: AUTHENTICATE_SUCCESS, payload});
+
+            console.log("success");
+
+            axios.get(`${API_URL}/api/user/me`, {
+                headers: {Authorization: `Bearer ${payload.data.accessToken}`}
+            }).then(userInfo => {
+                dispatch({type: SET_USER_INFO, payload: userInfo.data});
+            });
         })
+
         .catch(err => {
             console.log(err);
             dispatch({type: AUTHENTICATE_FAILURE, err});
@@ -66,3 +77,31 @@ export const logOutUser = () => dispatch => {
     if (!localStorage.getItem(AUTH_TOKEN_NAME))
         dispatch({type: LOGOUT_SUCCESS});
 };
+
+
+export const fetchItems = (actionType) => dispatch => {
+
+    dispatch({type: FETCH_REQUEST});
+    return axios
+        .get(`${API_URL}/api/${actionType.path}/?where=${JSON.stringify(actionType.where)}`, {
+            params: actionType.params,
+            headers: getHeaders(),
+        })
+        .then(({data}) => {
+            dispatch({
+                type: FETCH_SUCCESS,
+                payload: {
+                    items: data.data.results,
+                    itemType: actionType.itemType,
+                },
+            });
+        })
+        .catch(err => {
+            console.log(err);
+
+            //TODO: Handle error
+            // const payload = err;
+            // dispatch({ type: FETCH_FAILURE, payload });
+        });
+};
+
