@@ -2,10 +2,10 @@ import React from 'react'
 import styled, {css} from 'styled-components'
 import PathContainer from "../components/molecules/Path/PathContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
-import calendar_add_visit_icon from "../assets/icons/calendar_add_visit_icon.svg"
 import Input from "../components/atoms/Input/Input";
 import Dropdown from "../components/atoms/Dropdown/Dropdown";
 import Button from "../components/atoms/Button/Button";
+import MENU_ITEMS from "../assets/data_hardcoded";
 
 
 const PageWrapper = styled.div`
@@ -38,8 +38,7 @@ const ReservationBackgroundWrapper = styled.div`
     border-radius: 15px;
     background-color: ${({theme}) => theme.medColor};
     color: white;       
-    padding: 4rem;  
-    padding-top: 2rem;
+    padding: 1rem 3rem 4rem 3rem;  
 `;
 
 const ReservationItemWrapper = styled.div`
@@ -84,8 +83,9 @@ const Dashboard = () => (
     <SidebarTemplate>
         <PageWrapper>
             <HeaderWrapper>
-                <PathContainer path={'Umów wizytę'} pathInfo={"Wypełnij formularz aby zobaczyć dostępne wizyty"}
-                               pathIcon={calendar_add_visit_icon}/>
+                <PathContainer path={MENU_ITEMS.Visits[1].option}
+                               pathInfo={"Wypełnij formularz aby zobaczyć dostępne wizyty"}
+                               pathIcon={MENU_ITEMS.Visits[1].pathIcon}/>
             </HeaderWrapper>
             <ContentWrapper>
                 <ReservationBackgroundWrapper>
@@ -124,7 +124,7 @@ const Dashboard = () => (
                                 visitReservstion
                                 name="doctor"
                                 type="text"
-                                placeholder="DD-MM-YYYY"
+                                placeholder="YYYY-MM-DD"
                             />
                         </InputWrapper>
                         <InputWrapper right>
@@ -135,7 +135,7 @@ const Dashboard = () => (
                                 visitReservstion
                                 name="doctor"
                                 type="text"
-                                placeholder="DD-MM-YYYY"
+                                placeholder="YYYY-MM-DD"
                             />
                         </InputWrapper>
                     </ReservationItemWrapper>

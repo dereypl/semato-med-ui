@@ -5,6 +5,7 @@ import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
 import PathContainer from "../components/molecules/Path/PathContainer";
 import VisitContainer from "../components/organisms/Visit/VisitContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
+import MENU_ITEMS from "../assets/data_hardcoded";
 
 
 const PageWrapper = styled.div`
@@ -44,7 +45,7 @@ const PlaceMap = () => (
         <SidebarTemplate>
             <PageWrapper>
                 <HeaderWrapper>
-                    <PathContainer path={'Lista Placówek'}/>
+                    <PathContainer path={MENU_ITEMS.Visits[2].option}/>
                 </HeaderWrapper>
                 <ContentWrapper>
                     <MapWrapper>

@@ -87,13 +87,13 @@ const Menu = ({username,persistor}) => {
                 <MenuContentWrapper>
                     <MenuHeading>Wizyty</MenuHeading>
                     {MENU_ITEMS.Visits.map(item => <MenuItem content={item.option} route={item.route}
-                                                             path={item.icon}/>)}
+                                                             path={item.icon} icon_active={item.icon_active}/>)}
                     <MenuHeading>Pacjent</MenuHeading>
                     {MENU_ITEMS.Patient.map(item => <MenuItem content={item.option} route={item.route}
-                                                              path={item.icon}/>)}
+                                                              path={item.icon} icon_active={item.icon_active}/>)}
                     <MenuHeading>System</MenuHeading>
                     {MENU_ITEMS.System.map(item => <MenuItem content={item.option} route={item.route}
-                                                             path={item.icon}/>)}
+                                                             path={item.icon} icon_active={item.icon_active}/>)}
                     <Button onClick={(e) => logoutUserTrigger(e)}>Wyloguj</Button>
 
                 </MenuContentWrapper>

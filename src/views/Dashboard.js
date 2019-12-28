@@ -5,10 +5,10 @@ import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
 import PathContainer from "../components/molecules/Path/PathContainer";
 import VisitContainer from "../components/organisms/Visit/VisitContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
-import calendar_top from "../assets/icons/calendar_top.svg"
 import {fetchItems} from "../actions";
 import {GET_SPECIALITY_LIST, GET_VISITS_LIST} from "../actions/requestTypes";
 import {connect} from "react-redux";
+import MENU_ITEMS from "../assets/data_hardcoded";
 
 
 const PageWrapper = styled.div`
@@ -50,9 +50,9 @@ const Dashboard = ({fetchVisits, visitList}) => {
         <SidebarTemplate>
             <PageWrapper>
                 <HeaderWrapper>
-                    <PathContainer path={'Zaplanowane wizyty'}
+                    <PathContainer path={MENU_ITEMS.Visits[0].option}
                                    pathInfo={"Najbliższa wizyta: 15.11 Konsultacja kardiologiczna"}
-                                   pathIcon={calendar_top}/>
+                                   pathIcon={MENU_ITEMS.Visits[0].pathIcon}/>
                 </HeaderWrapper>
                 <ContentWrapper>
 
