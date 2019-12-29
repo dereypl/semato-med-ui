@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components'
 import {NavLink } from "react-router-dom";
 
-
 const MenuItemImage = styled.div`
     height: 24px;
     width: 24px;
@@ -14,7 +13,6 @@ const MenuItemImage = styled.div`
     background-size: contain;
 
 `;
-
 
 const MenuItemWrapper = styled.div`
    width: 90%;

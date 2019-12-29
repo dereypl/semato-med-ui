@@ -1,5 +1,6 @@
-import React, {useEffect,useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import styled, {css} from 'styled-components'
+import { useDispatch } from 'react-redux'
 import PathContainer from "../components/molecules/Path/PathContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
 import Input from "../components/atoms/Input/Input";
@@ -7,7 +8,7 @@ import Dropdown from "../components/atoms/Dropdown/Dropdown";
 import Button from "../components/atoms/Button/Button";
 import MENU_ITEMS from "../assets/data_hardcoded";
 import {fetchItems} from "../actions";
-import {GET_CLINIC_LIST, GET_SPECIALITY_LIST, GET_VISITS_LIST} from "../actions/requestTypes";
+import {GET_CLINIC_LIST, GET_PHYSICIAN_LIST, GET_SPECIALITY_LIST, GET_VISITS_LIST} from "../actions/requestTypes";
 import {connect} from "react-redux";
 import Paragraph from "../components/atoms/Paragraph/Paragraph";
 
@@ -83,19 +84,29 @@ const InputWrapper = styled.div`
 //TODO: if user is not authenticate => redirect to login page
 
 
-const Visit = ({fetchSpecialityList, specialityList}) => {
+const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList,fetchPhysicianList,physicianList}) => {
 
     const [selectedSpeciality, setSelectedSpeciality] = useState(null);
+    const [selectedClinic, setSelectedClinic] = useState(null);
+    const [selectedPhysician, setSelectedPhysician] = useState(null);
 
-    const setSelectedSpecialityTrigger = dispatch => (id) => {
+    const setSelectedSpecialityTrigger = (id) => {
+        setSelectedClinic(null);
+        setSelectedPhysician(null);
+        clinicList=[];
         setSelectedSpeciality(id);
-        dispatch(fetchItems(GET_CLINIC_LIST))
+        fetchClinicList(id);
+    };
+    const setSelectedClinicTrigger = (id) => {
+        setSelectedPhysician(null);
+        setSelectedClinic(id);
+        fetchPhysicianList(selectedSpeciality,id);
     };
 
+    useEffect(() => {
+        fetchSpecialityList()
+    }, [fetchSpecialityList]);
 
-    useEffect(() => {fetchSpecialityList()}, [fetchSpecialityList]);
-
-    console.log(selectedSpeciality);
 
 
     return (
@@ -111,6 +122,7 @@ const Visit = ({fetchSpecialityList, specialityList}) => {
                         <ReservationItemWrapper>
                             Specjalizacja*
                             <Dropdown
+                                value={selectedSpeciality}
                                 items={specialityList}
                                 visitReservstion
                                 name="selectedSpeciality"
@@ -121,19 +133,26 @@ const Visit = ({fetchSpecialityList, specialityList}) => {
                         <ReservationItemWrapper>
                             Placówka*
                             <Dropdown
+                                value={selectedClinic}
+                                items={clinicList}
                                 visitReservstion
                                 name="place"
                                 type="text"
                                 placeholder="Wybierz"
+                                action={setSelectedClinicTrigger}
                             />
                         </ReservationItemWrapper>
                         <ReservationItemWrapper>
                             Lekarz
                             <Dropdown
+                                value={selectedPhysician}
+                                items={physicianList}
                                 visitReservstion
-                                name="doctor"
+                                name="physician"
                                 type="text"
                                 placeholder="Wybierz"
+                                action={setSelectedClinicTrigger}
+
                             />
                         </ReservationItemWrapper>
                         <ReservationItemWrapper double>
@@ -167,14 +186,18 @@ const Visit = ({fetchSpecialityList, specialityList}) => {
         </SidebarTemplate>
     )
 };
-const mapStateToProps = state => ({specialityList: state.specialityList});
+const mapStateToProps = state => ({specialityList: state.specialityList, clinicList: state.clinicList, physicianList: state.physicianList});
 
 const mapDispatchToProps = dispatch => ({
     fetchSpecialityList: () => dispatch(fetchItems(GET_SPECIALITY_LIST)),
+    fetchClinicList: (id) => dispatch(fetchItems(GET_CLINIC_LIST, {specialityId: id})),
+    fetchPhysicianList: (selectedSpeciality,id) => dispatch(fetchItems(GET_PHYSICIAN_LIST, {specialityId: selectedSpeciality, clinicId: id})),
 });
 
 Visit.defaultProps = {
     specialityList: [],
+    clinicList: [],
+    physicianList: [],
 };
 
 export default connect(

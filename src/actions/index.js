@@ -88,24 +88,23 @@ export const logOutUser = () => dispatch => {
 };
 
 
-export const fetchItems = (actionType) => dispatch => {
-
+export const fetchItems = (actionType, params={}) => dispatch => {
     // dispatch({type: FETCH_REQUEST});
     return axios
         // .get(`${API_URL}/api/${actionType.path}/?where=${JSON.stringify(actionType.where)}`, {
         .get(`${API_URL}/api/${actionType.path}/`, {
-            params: actionType.params,
+            params: params,
             headers: getHeaders(),
         })
         .then(({data}) => {
             const itemType = actionType.itemType;
-            return{
+            return dispatch({
                 type: FETCH_SUCCESS,
                 payload: {
                     items: data[itemType],
                     itemType,
                 },
-            };
+            });
         })
         .catch(err => {
             console.log(err);

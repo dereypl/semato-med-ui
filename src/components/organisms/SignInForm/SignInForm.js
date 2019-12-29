@@ -73,7 +73,6 @@ const SignInForm = ({authenticate, isUserLogged}) => (
                 return errors;
             }}
             onSubmit={values => {
-                console.log("eee");
                 authenticate(values.username, values.password);
             }}
         >
