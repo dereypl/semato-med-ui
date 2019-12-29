@@ -26,6 +26,8 @@ const Button = styled.button`
       height: 5rem;
       border-radius: 8px;
       background-color: ${({ theme }) => theme.medDarkBlue};
+      margin-bottom: 3rem;
+      margin-top: -1rem;
     `}
 `;
 

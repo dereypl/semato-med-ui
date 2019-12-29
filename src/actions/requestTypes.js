@@ -13,6 +13,11 @@ export const GET_PHYSICIAN_LIST = {
     itemType: 'physicianList',
 };
 
+export const GET_AVAILABLE_VISITS_LIST = {
+    path: 'visit/available/list/get',
+    itemType: 'availableVisitList',
+};
+
 
 export const GET_VISITS_LIST = {
     path: 'patient/visit/list/get',

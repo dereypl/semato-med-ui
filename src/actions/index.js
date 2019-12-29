@@ -20,6 +20,7 @@ export const FETCH_FAILURE = 'FETCH_FAILURE';
 
 
 export const SET_USER_INFO = 'SET_USER_INFO';
+export const CLEAR_AVAILABLE_VISITS = 'CLEAR_AVAILABLE_VISITS';
 
 export const API_URL = 'http://localhost:5000';
 

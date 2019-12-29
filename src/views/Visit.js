@@ -1,16 +1,25 @@
 import React, {useEffect, useState} from 'react'
 import styled, {css} from 'styled-components'
-import { useDispatch } from 'react-redux'
+import {useDispatch} from 'react-redux'
 import PathContainer from "../components/molecules/Path/PathContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
 import Input from "../components/atoms/Input/Input";
 import Dropdown from "../components/atoms/Dropdown/Dropdown";
 import Button from "../components/atoms/Button/Button";
 import MENU_ITEMS from "../assets/data_hardcoded";
-import {fetchItems} from "../actions";
-import {GET_CLINIC_LIST, GET_PHYSICIAN_LIST, GET_SPECIALITY_LIST, GET_VISITS_LIST} from "../actions/requestTypes";
+import {CLEAR_AVAILABLE_VISITS, fetchItems} from "../actions";
+import {
+    GET_AVAILABLE_VISITS_LIST,
+    GET_CLINIC_LIST,
+    GET_PHYSICIAN_LIST,
+    GET_SPECIALITY_LIST,
+    GET_VISITS_LIST
+} from "../actions/requestTypes";
 import {connect} from "react-redux";
 import Paragraph from "../components/atoms/Paragraph/Paragraph";
+import VisitContainer from "../components/organisms/Visit/VisitContainer";
+import {routes} from "../routes";
+import {Link} from "react-router-dom";
 
 
 const PageWrapper = styled.div`
@@ -84,23 +93,32 @@ const InputWrapper = styled.div`
 //TODO: if user is not authenticate => redirect to login page
 
 
-const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList,fetchPhysicianList,physicianList}) => {
+const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList, fetchPhysicianList, physicianList, fetchAvailableVisitsList, availableVisitList,clearAvailableVisitsList}) => {
 
     const [selectedSpeciality, setSelectedSpeciality] = useState(null);
     const [selectedClinic, setSelectedClinic] = useState(null);
     const [selectedPhysician, setSelectedPhysician] = useState(null);
+    const [periodStart, setPeriodStart] = useState(null);
+    const [periodEnd, setPeriodEnd] = useState(null);
+    const [showSearchForm, setShowSearchForm] = useState(true);
+
+    const buttonDisabled = !(selectedSpeciality && selectedClinic && periodStart && periodEnd);
 
     const setSelectedSpecialityTrigger = (id) => {
         setSelectedClinic(null);
         setSelectedPhysician(null);
-        clinicList=[];
+        clinicList = [];
         setSelectedSpeciality(id);
         fetchClinicList(id);
     };
     const setSelectedClinicTrigger = (id) => {
         setSelectedPhysician(null);
         setSelectedClinic(id);
-        fetchPhysicianList(selectedSpeciality,id);
+        fetchPhysicianList(selectedSpeciality, id);
+    };
+
+    const setSelectedPhysicianTrigger = (id) => {
+        setSelectedPhysician(id);
     };
 
     useEffect(() => {
@@ -108,7 +126,7 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
     }, [fetchSpecialityList]);
 
 
-
+    console.log(selectedSpeciality, selectedClinic, selectedPhysician, periodStart, periodEnd);
     return (
         <SidebarTemplate>
             <PageWrapper>
@@ -118,91 +136,126 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
                                    pathIcon={MENU_ITEMS.Visits[1].pathIcon}/>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    <ReservationBackgroundWrapper>
-                        <ReservationItemWrapper>
-                            Specjalizacja*
-                            <Dropdown
-                                value={selectedSpeciality}
-                                items={specialityList}
-                                visitReservstion
-                                name="selectedSpeciality"
-                                type="text"
-                                action={setSelectedSpecialityTrigger}
-                            />
-                        </ReservationItemWrapper>
-                        <ReservationItemWrapper>
-                            Placówka*
-                            <Dropdown
-                                value={selectedClinic}
-                                items={clinicList}
-                                visitReservstion
-                                name="place"
-                                type="text"
-                                placeholder="Wybierz"
-                                action={setSelectedClinicTrigger}
-                            />
-                        </ReservationItemWrapper>
-                        <ReservationItemWrapper>
-                            Lekarz
-                            <Dropdown
-                                value={selectedPhysician}
-                                items={physicianList}
-                                visitReservstion
-                                name="physician"
-                                type="text"
-                                placeholder="Wybierz"
-                                action={setSelectedClinicTrigger}
+                    {showSearchForm ?
+                        <>
+                            <ReservationBackgroundWrapper>
+                                <ReservationItemWrapper>
+                                    Specjalizacja*
+                                    <Dropdown
+                                        value={selectedSpeciality}
+                                        items={specialityList}
+                                        visitReservstion
+                                        name="selectedSpeciality"
+                                        type="text"
+                                        action={setSelectedSpecialityTrigger}
+                                    />
+                                </ReservationItemWrapper>
+                                <ReservationItemWrapper>
+                                    Placówka*
+                                    <Dropdown
+                                        value={selectedClinic}
+                                        items={clinicList}
+                                        visitReservstion
+                                        name="place"
+                                        type="text"
+                                        placeholder="Wybierz"
+                                        action={setSelectedClinicTrigger}
+                                    />
+                                </ReservationItemWrapper>
+                                <ReservationItemWrapper>
+                                    Lekarz
+                                    <Dropdown
+                                        value={selectedPhysician}
+                                        items={physicianList}
+                                        visitReservstion
+                                        name="physician"
+                                        type="text"
+                                        placeholder="Wybierz"
+                                        action={setSelectedPhysicianTrigger}
 
-                            />
-                        </ReservationItemWrapper>
-                        <ReservationItemWrapper double>
-                            <InputWrapper>
-                                <span>Data od*</span>
-                                <Input
-                                    reservationDate
-                                    visitReservstion
-                                    name="doctor"
-                                    type="text"
-                                    placeholder="YYYY-MM-DD"
-                                />
-                            </InputWrapper>
-                            <InputWrapper right>
-                                <span>Data do*</span>
-                                <Input
-                                    reservationDate
-                                    dateFloating
-                                    visitReservstion
-                                    name="doctor"
-                                    type="text"
-                                    placeholder="YYYY-MM-DD"
-                                />
-                            </InputWrapper>
-                        </ReservationItemWrapper>
-                    </ReservationBackgroundWrapper>
-                    <Paragraph VisitSearchInfo>* Wartości obowiązkowe</Paragraph>
-                    <Button searchVisit>Wyszukaj</Button>
+                                    />
+                                </ReservationItemWrapper>
+                                <ReservationItemWrapper double>
+                                    <InputWrapper>
+                                        <span>Data od*</span>
+                                        <Input
+                                            value={periodStart}
+                                            reservationDate
+                                            visitReservstion
+                                            name="periodStart"
+                                            type="text"
+                                            placeholder="YYYY-MM-DD"
+                                            onChange={(e) => setPeriodStart(e.target.value)}
+                                        />
+                                    </InputWrapper>
+                                    <InputWrapper right>
+                                        <span>Data do*</span>
+                                        <Input
+                                            value={periodEnd}
+                                            reservationDate
+                                            dateFloating
+                                            visitReservstion
+                                            name="periodEnd"
+                                            type="text"
+                                            placeholder="YYYY-MM-DD"
+                                            onChange={(e) => setPeriodEnd(e.target.value)}
+                                        />
+                                    </InputWrapper>
+                                </ReservationItemWrapper>
+                            </ReservationBackgroundWrapper>
+                            <Paragraph VisitSearchInfo>* Wartości obowiązkowe</Paragraph>
+                            <Button disabled={buttonDisabled} searchVisit onClick={() => {
+                                fetchAvailableVisitsList(selectedSpeciality, selectedClinic, selectedPhysician, periodStart, periodEnd);
+                                setShowSearchForm(false);
+                            }}>Wyszukaj</Button>
+                        </>
+                        :
+                        <Button searchVisit as={Link} to={routes.visit} onClick={() =>  {
+                            setShowSearchForm(true);
+                            clearAvailableVisitsList();
+                        }}>Zmień kryteria wyszukiwania</Button>
+                    }
+                    {availableVisitList.map(visit => <VisitContainer visit={visit} key={visit.id}/>)}
                 </ContentWrapper>
-            </PageWrapper>
+                </PageWrapper>
         </SidebarTemplate>
-    )
+)
 };
-const mapStateToProps = state => ({specialityList: state.specialityList, clinicList: state.clinicList, physicianList: state.physicianList});
+const mapStateToProps = state => ({
+    specialityList: state.specialityList,
+    clinicList: state.clinicList,
+    physicianList: state.physicianList,
+    availableVisitList: state.availableVisitList
+});
 
 const mapDispatchToProps = dispatch => ({
     fetchSpecialityList: () => dispatch(fetchItems(GET_SPECIALITY_LIST)),
+    clearAvailableVisitsList: () => dispatch({type: CLEAR_AVAILABLE_VISITS}),
     fetchClinicList: (id) => dispatch(fetchItems(GET_CLINIC_LIST, {specialityId: id})),
-    fetchPhysicianList: (selectedSpeciality,id) => dispatch(fetchItems(GET_PHYSICIAN_LIST, {specialityId: selectedSpeciality, clinicId: id})),
+    fetchPhysicianList: (selectedSpeciality, id) => dispatch(fetchItems(GET_PHYSICIAN_LIST, {
+    specialityId: selectedSpeciality,
+    clinicId: id
+})),
+    fetchAvailableVisitsList: (selectedSpeciality, selectedClinic, selectedPhysician, periodStart, periodEnd) => dispatch(fetchItems(GET_AVAILABLE_VISITS_LIST, {
+    specialityId: selectedSpeciality,
+    clinicId: selectedClinic,
+    //TODO: nie trzeba wybierac lekarza - tak jak nizej nie dziala
+    physicianId: selectedPhysician || null,
+    periodStart,
+    periodEnd
+})),
 });
 
 Visit.defaultProps = {
     specialityList: [],
     clinicList: [],
     physicianList: [],
+    availableVisitList: [],
 };
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+mapStateToProps,
+mapDispatchToProps,
 )(Visit);
 
 

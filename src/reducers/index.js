@@ -6,6 +6,7 @@ import {
     FETCH_SUCCESS,
     FETCH_REQUEST,
     FETCH_FAILURE,
+    CLEAR_AVAILABLE_VISITS,
     isUserLogged as checkIfUserIsLogged, SET_USER_INFO,
 } from '../actions';
 
@@ -47,6 +48,12 @@ const rootReducer = (state = initialState, {type, payload}) => {
             return {
                 ...state,
                 isFetching: false,
+            };
+
+        case CLEAR_AVAILABLE_VISITS:
+            return {
+                ...state,
+                availableVisitList: [],
             };
 
         case SET_USER_INFO:

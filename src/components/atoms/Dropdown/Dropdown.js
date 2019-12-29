@@ -30,7 +30,7 @@ const Dropdown = ({value,items,action}) => {
             <StyledSelect value={value} onChange={(e) => action(e.target.value)}>
                 <option value=""  placeholder={"- Wybierz -"} disabled selected>- Wybierz -</option>
                 {items.map(item =>
-                    <option value={item.id} key={item.id}>{item.name}</option>
+                    <option value={item.id} key={item.id}>{item.name || item.fullName}</option>
                 )}
             </StyledSelect>
     );

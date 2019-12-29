@@ -57,9 +57,7 @@ const DateContainer = styled.div`
     span{
        font-size:  ${({theme}) => theme.fontSize.xl};
        font-weight:  ${({theme}) => theme.fontWeight.semiBold};
-       margin-right: 0.5rem;
        color: ${({theme}) => theme.medColor};
-
     }
 `;
 
@@ -194,12 +192,13 @@ const VisitContainer = ({visit}) => {
     const visitDateStart = new Date(visit.dateTimeStart);
     const visitDateEnd = new Date(visit.dateTimeEnd);
 
+    const year = visitDateStart.getFullYear().toString();
     return (
         <VisitContainerWrapper>
             <DateWrapper>
                 <DateContainer>
                     <IconContainer date/>
-                    <span>{visitDateStart.getDate() + "." + visitDateStart.getMonth() + "." + visitDateStart.getFullYear()}</span> {visit.dayOfWeek}
+                    <span>{visitDateStart.getDate()}</span><b>/</b><span>{visitDateStart.getMonth()}</span><b>/</b><span>{year.slice(2,4)}</span>&nbsp;&nbsp;{visit.dayOfWeek}
                 </DateContainer>
                 <TimeContainer>
                     <IconContainer time/>
@@ -214,7 +213,7 @@ const VisitContainer = ({visit}) => {
                     Konsultacja {visit.specialityName}
                 </VisitTypeContainer>
                 <DoctorInfoContainer>
-                    {visit.physicianFullName}
+                    {visit.physicianName}
                 </DoctorInfoContainer>
             </VisitTypeWrapper>
             <Separator/>
