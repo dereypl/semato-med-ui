@@ -10,6 +10,11 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react'
 import configureStore from "../store/configureStore";
 import Visit from "./Visit";
+import Profile from "./Profile";
+import VisitHistory from "./VisitHistory";
+import ChangePassword from "./ChangePassword";
+import Notifications from "./Notifications";
+import ProblemRequest from "./ProblemRequest";
 
 const {store,persistor} = configureStore();
 
@@ -24,6 +29,11 @@ const Root = () => (
                 <Route exact path={routes.dashboard} component={Dashboard} />
                 <Route exact path={routes.visit} component={Visit} />
                 <Route exact path={routes.departments} component={PlaceMap} />
+                <Route exact path={routes.profile} component={Profile} />
+                <Route exact path={routes.history} component={VisitHistory} />
+                <Route exact path={routes.password} component={ChangePassword} />
+                <Route exact path={routes.notifications} component={Notifications} />
+                <Route exact path={routes.request} component={ProblemRequest} />
             </Switch>
         </BrowserRouter>
     </MainTemplate>

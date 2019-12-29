@@ -28,33 +28,24 @@ const ContentWrapper = styled.div`
     flex-direction: column;
 `;
 
-const MapWrapper = styled.div`
-    height: 58vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: lightgray;
-    border-radius: 15px;
-`;
 
-const PlaceMap = () => (
+
+const ChangePassword = () => (
     <>
         <BackgroundHeader/>
         <BackgroungShapeLighter smaller/>
         <SidebarTemplate>
             <PageWrapper>
                 <HeaderWrapper>
-                    <PathContainer path={MENU_ITEMS.Visits[2].option} pathIcon={MENU_ITEMS.Visits[2].pathIcon} pathInfo={"Wybierz placówkę, aby uzyskać więcej informacji"}/>
+                    <PathContainer path={MENU_ITEMS.Patient[2].option} pathIcon={MENU_ITEMS.Patient[2].pathIcon} pathInfo={"Wprowadź nowe hasło, aby dokonać zmiany"}/>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    <MapWrapper>
-                        <SimpleMap/>
-                    </MapWrapper>
+                    change password
                 </ContentWrapper>
             </PageWrapper>
         </SidebarTemplate>
     </>
 );
-export default PlaceMap;
+export default ChangePassword;
 
 

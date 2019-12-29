@@ -4,29 +4,31 @@ import {NavLink } from "react-router-dom";
 
 
 const MenuItemImage = styled.div`
-height: 24px;
-width: 24px;
-margin-right: 10px;
-margin-left: 20px;
-background-image: url(${props => props.path});
-    background-size: 90%;
+    height: 24px;
+    width: 24px;
+    margin-right: 10px;
+    margin-left: 20px;
+    background-image: url(${props => props.path});
     background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
 `;
 
 
 const MenuItemWrapper = styled.div`
-width: 90%;
-height: 3rem;
-display: flex;
-align-items: center;
-border-radius: 10px;
-font-size: ${({theme}) => theme.fontSize.s};
-  font-weight: ${({theme}) => theme.fontWeight.regular};
-  list-style: none;
-  text-decoration: none;
-  color: ${({theme}) => theme.medGrey};
-  margin-bottom: 0.5rem;
-&:hover{
+   width: 90%;
+   height: 3rem;
+   display: flex;
+   align-items: center;
+   border-radius: 10px;
+   font-size: ${({theme}) => theme.fontSize.s};
+   font-weight: ${({theme}) => theme.fontWeight.regular};
+   list-style: none;
+   text-decoration: none;
+   color: ${({theme}) => theme.medGrey};
+   margin-bottom: 0.5rem;
+  &:hover{
   background-color: ${({theme}) => theme.medGrey};
     color: white;
   }

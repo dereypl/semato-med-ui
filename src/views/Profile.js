@@ -28,33 +28,24 @@ const ContentWrapper = styled.div`
     flex-direction: column;
 `;
 
-const MapWrapper = styled.div`
-    height: 58vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: lightgray;
-    border-radius: 15px;
-`;
 
-const PlaceMap = () => (
+
+const Profile = () => (
     <>
         <BackgroundHeader/>
         <BackgroungShapeLighter smaller/>
         <SidebarTemplate>
             <PageWrapper>
                 <HeaderWrapper>
-                    <PathContainer path={MENU_ITEMS.Visits[2].option} pathIcon={MENU_ITEMS.Visits[2].pathIcon} pathInfo={"Wybierz placówkę, aby uzyskać więcej informacji"}/>
+                    <PathContainer path={MENU_ITEMS.Patient[0].option} pathIcon={MENU_ITEMS.Patient[0].pathIcon} pathInfo={"Twoje dane personalne"}/>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    <MapWrapper>
-                        <SimpleMap/>
-                    </MapWrapper>
+                    moje dane
                 </ContentWrapper>
             </PageWrapper>
         </SidebarTemplate>
     </>
 );
-export default PlaceMap;
+export default Profile;
 
 

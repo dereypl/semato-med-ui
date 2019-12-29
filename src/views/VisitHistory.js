@@ -28,33 +28,24 @@ const ContentWrapper = styled.div`
     flex-direction: column;
 `;
 
-const MapWrapper = styled.div`
-    height: 58vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: lightgray;
-    border-radius: 15px;
-`;
 
-const PlaceMap = () => (
+
+const VisitHistory = () => (
     <>
         <BackgroundHeader/>
         <BackgroungShapeLighter smaller/>
         <SidebarTemplate>
             <PageWrapper>
                 <HeaderWrapper>
-                    <PathContainer path={MENU_ITEMS.Visits[2].option} pathIcon={MENU_ITEMS.Visits[2].pathIcon} pathInfo={"Wybierz placówkę, aby uzyskać więcej informacji"}/>
+                    <PathContainer path={MENU_ITEMS.Patient[1].option} pathInfo={"Lista Twoich 10 ostatnich wizyt "} pathIcon={MENU_ITEMS.Patient[1].pathIcon}/>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    <MapWrapper>
-                        <SimpleMap/>
-                    </MapWrapper>
+                    historia wizyt
                 </ContentWrapper>
             </PageWrapper>
         </SidebarTemplate>
     </>
 );
-export default PlaceMap;
+export default VisitHistory;
 
 
