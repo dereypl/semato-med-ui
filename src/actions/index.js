@@ -18,6 +18,8 @@ export const FETCH_REQUEST = 'FETCH_REQUEST';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_FAILURE = 'FETCH_FAILURE';
 
+export const DELETE_SUCCESS = 'DELETE_SUCCESS';
+
 
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const CLEAR_AVAILABLE_VISITS = 'CLEAR_AVAILABLE_VISITS';
@@ -67,7 +69,8 @@ export const authenticate = (email, password) => dispatch => {
             axios.get(`${API_URL}/api/user/me`, {
                 headers: {Authorization: `Bearer ${payload.data.accessToken}`}
             }).then(userInfo => {
-                return{type: SET_USER_INFO, payload: userInfo.data};
+                console.log(userInfo);
+                return dispatch({type: SET_USER_INFO, payload: userInfo.data});
             });
         })
 
@@ -106,6 +109,34 @@ export const fetchItems = (actionType, params={}) => dispatch => {
                     itemType,
                 },
             });
+        })
+        .catch(err => {
+            console.log(err);
+
+            //TODO: Handle error
+            // const payload = err;
+            // dispatch({ type: FETCH_FAILURE, payload });
+        });
+};
+
+
+export const deleteItem = (actionType, params={}) => dispatch => {
+    return axios
+        .delete(`${API_URL}/api/${actionType.path}/`, {
+            params: params,
+            headers: getHeaders(),
+        })
+        .then(({data}) => {
+            // const itemType = actionType.itemType;
+            // return dispatch({
+            //     type: DELETE_SUCCESS,
+            //     payload: {
+            //         items: data[itemType],
+            //         itemType,
+            //     },
+            // });
+
+            console.log('deleted successfully!')
         })
         .catch(err => {
             console.log(err);

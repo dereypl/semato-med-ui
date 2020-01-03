@@ -55,10 +55,8 @@ const Dashboard = ({fetchVisits, visitList}) => {
                                    pathIcon={MENU_ITEMS.Visits[0].pathIcon}/>
                 </HeaderWrapper>
                 <ContentWrapper>
-
-                    {visitList.map(visit => <VisitContainer visit={visit} key={visit.id}/>)}
+                    {visitList.map(visit => <VisitContainer visit={visit} key={visit.id} actionType={'cancel'} actionDesc={'Odwołaj wizytę'}/>)}
                     {/*<VisitContainer nearest={true}/>*/}
-
                 </ContentWrapper>
             </PageWrapper>
         </SidebarTemplate>
@@ -67,7 +65,7 @@ const Dashboard = ({fetchVisits, visitList}) => {
 const mapStateToProps = state => ({visitList: state.visitList});
 
 const mapDispatchToProps = dispatch => ({
-    fetchVisits: () => dispatch(fetchItems(GET_VISITS_LIST)),
+    fetchVisits: () => dispatch(fetchItems(GET_VISITS_LIST, {mode: 'future'})),
 });
 
 Dashboard.defaultProps = {

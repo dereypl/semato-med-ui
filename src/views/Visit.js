@@ -13,7 +13,7 @@ import {
     GET_CLINIC_LIST,
     GET_PHYSICIAN_LIST,
     GET_SPECIALITY_LIST,
-    GET_VISITS_LIST
+    GET_FUTURE_VISITS_LIST
 } from "../actions/requestTypes";
 import {connect} from "react-redux";
 import Paragraph from "../components/atoms/Paragraph/Paragraph";
@@ -101,6 +101,8 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
     const [periodStart, setPeriodStart] = useState(null);
     const [periodEnd, setPeriodEnd] = useState(null);
     const [showSearchForm, setShowSearchForm] = useState(true);
+
+    useEffect( () => () => clearAvailableVisitsList(), [] );
 
     const buttonDisabled = !(selectedSpeciality && selectedClinic && periodStart && periodEnd);
 
@@ -215,7 +217,7 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
                             clearAvailableVisitsList();
                         }}>Zmień kryteria wyszukiwania</Button>
                     }
-                    {availableVisitList.map(visit => <VisitContainer visit={visit} key={visit.id}/>)}
+                    {availableVisitList.map(visit => <VisitContainer visit={visit} key={visit.id} actionType={'reservation'} actionDesc={'Zarezerwuj'}/>)}
                 </ContentWrapper>
                 </PageWrapper>
         </SidebarTemplate>

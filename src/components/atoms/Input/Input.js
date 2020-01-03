@@ -2,7 +2,7 @@ import styled, {css} from 'styled-components';
 
 const Input = styled.input`
 display: flex;
-margin-top: 2.5rem;
+  margin-top: ${({ marginTop }) => marginTop || '2.5rem'};
   padding: 15px 30px;
   font-size: ${({theme}) => theme.fontSize.s};
   font-weight: ${({theme}) => theme.fontWeight.regular};

@@ -29,6 +29,17 @@ const Button = styled.button`
       margin-bottom: 3rem;
       margin-top: -1rem;
     `}
+ 
+ ${({action}) =>
+    action &&
+    css`
+  margin-top: 0rem;
+      width: 100%;
+      height: 4rem;
+      border-radius: 8px;
+      justify-self: center;
+      align-self: center;
+    `}
 `;
 
 export default Button;

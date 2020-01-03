@@ -25,3 +25,10 @@ export const GET_VISITS_LIST = {
 };
 
 
+export const CANCEL_VISIT = {
+    path: 'visit/cancel',
+    itemType: 'visitList',
+};
+
+
+

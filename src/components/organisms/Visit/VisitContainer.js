@@ -5,6 +5,10 @@ import time_icon from "../../../assets/images/time_icon.svg";
 import gps_icon from "../../../assets/icons/gps_icon.svg";
 import calendar_change_date from "../../../assets/icons/calendar_change_date.svg";
 import cancel_icon from "../../../assets/icons/cancel_icon.svg";
+import Button from "../../atoms/Button/Button";
+import {deleteItem, fetchItems} from "../../../actions";
+import {CANCEL_VISIT, GET_VISITS_LIST} from "../../../actions/requestTypes";
+import {connect} from "react-redux";
 
 
 const VisitContainerWrapper = styled.div`
@@ -188,9 +192,11 @@ const Separator = styled.div`
 `;
 
 
-const VisitContainer = ({visit}) => {
+const VisitContainer = ({visit,past,deleteVisits,actionType,actionDesc}) => {
     const visitDateStart = new Date(visit.dateTimeStart);
     const visitDateEnd = new Date(visit.dateTimeEnd);
+
+    console.log(visit.id);
 
     const year = visitDateStart.getFullYear().toString();
     return (
@@ -227,14 +233,31 @@ const VisitContainer = ({visit}) => {
                 {/*    <IconContainer changeDate/>*/}
                 {/*    Zmień termin*/}
                 {/*</ActionContainer>*/}
-                <ActionContainer>
+                {!past && <ActionContainer>
                     <IconContainer cancel/>
-                    Odwołaj wizytę
-                </ActionContainer>
+                    <Button action onClick={() => {
+
+                        switch(actionType){
+                            case 'cancel': deleteVisits(visit.id); break;
+                            case 'reservation': console.log('rezerwacja'); break;
+                            default: break;
+                        }
+                    }}>
+                        {actionDesc}
+                    </Button>
+                </ActionContainer>}
             </ActionWrapper>
         </VisitContainerWrapper>
     )
 };
-export default VisitContainer;
+
+const mapDispatchToProps = dispatch => ({
+    deleteVisits: (visitId) => dispatch(deleteItem(CANCEL_VISIT, {visitId: visitId})),
+});
+
+export default connect(
+    null,
+    mapDispatchToProps,
+)(VisitContainer);
 
 

@@ -22,7 +22,6 @@ const SidebarTemplate = ({children,firstName,lastName}) => {
     if (!isUserLogged()) {
         return <Redirect to={routes.login}/>;
     }
-
     return (
         <>
             <BackgroundHeader/>
