@@ -7,7 +7,7 @@ import {
     FETCH_REQUEST,
     FETCH_FAILURE,
     CLEAR_AVAILABLE_VISITS,
-    isUserLogged as checkIfUserIsLogged, SET_USER_INFO,
+    isUserLogged as checkIfUserIsLogged, SET_USER_INFO, PASSWORD_CHANGE_FAILURE, PASSWORD_CHANGE,
 } from '../actions';
 
 import {PURGE, REHYDRATE} from 'redux-persist';
@@ -54,6 +54,12 @@ const rootReducer = (state = initialState, {type, payload}) => {
             return {
                 ...state,
                 availableVisitList: [],
+            };
+
+        case PASSWORD_CHANGE:
+            return {
+                ...state,
+                isPasswordChangedCorrectly: payload,
             };
 
         case SET_USER_INFO:

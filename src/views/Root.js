@@ -16,6 +16,7 @@ import ChangePassword from "./ChangePassword";
 import Notifications from "./Notifications";
 import ProblemRequest from "./ProblemRequest";
 import DashboardPhysician from "./DashboardPhysician";
+import PrivateRoute from "../routes/PrivateRoute";
 
 const {store,persistor} = configureStore();
 
@@ -27,15 +28,16 @@ const Root = () => (
             <Switch>
                 <Route exact path={routes.home} render={() => <Redirect to={routes.login}/>}/>
                 <Route exact path={routes.login} render={() => <AuthPage authType="signIn"/>}/>
-                <Route exact path={routes.dashboard} component={Dashboard} />
-                <Route exact path={routes.dashboardPhysician} component={DashboardPhysician} />
-                <Route exact path={routes.visit} component={Visit} />
-                <Route exact path={routes.departments} component={PlaceMap} />
-                <Route exact path={routes.profile} component={Profile} />
-                <Route exact path={routes.history} component={VisitHistory} />
-                <Route exact path={routes.password} component={ChangePassword} />
-                <Route exact path={routes.notifications} component={Notifications} />
-                <Route exact path={routes.request} component={ProblemRequest} />
+
+                <PrivateRoute exact path={routes.dashboard} component={Dashboard} />
+                <PrivateRoute exact path={routes.dashboardPhysician} component={DashboardPhysician} />
+                <PrivateRoute exact path={routes.visit} component={Visit} />
+                <PrivateRoute exact path={routes.departments} component={PlaceMap} />
+                <PrivateRoute exact path={routes.profile} component={Profile} />
+                <PrivateRoute exact path={routes.history} component={VisitHistory} />
+                <PrivateRoute exact path={routes.password} component={ChangePassword} />
+                <PrivateRoute exact path={routes.notifications} component={Notifications} />
+                <PrivateRoute exact path={routes.request} component={ProblemRequest} />
             </Switch>
         </BrowserRouter>
     </MainTemplate>

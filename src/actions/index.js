@@ -21,6 +21,7 @@ export const FETCH_FAILURE = 'FETCH_FAILURE';
 export const DELETE_SUCCESS = 'DELETE_SUCCESS';
 export const DELETE_LOCAL = 'DELETE_LOCAL';
 
+export const PASSWORD_CHANGE = 'PASSWORD_CHANGE';
 
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const CLEAR_AVAILABLE_VISITS = 'CLEAR_AVAILABLE_VISITS';
@@ -160,6 +161,30 @@ export const makeReservation = (actionType,  visit) => dispatch => {
             console.log(err);
 
             //TODO: Handle error
+        });
+};
+
+export const changePassword = (actionType, oldPassword, newPassword) => dispatch => {
+    return axios
+        .post(`${API_URL}/api/${actionType.path}/`, {
+                oldPassword,
+                newPassword,
+            },
+            {
+                headers: getHeaders(),
+            })
+        .then(() => {
+            return dispatch({
+                type: PASSWORD_CHANGE,
+                payload: true,
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            return dispatch({
+                type: PASSWORD_CHANGE,
+                payload: false,
+            });
         });
 };
 

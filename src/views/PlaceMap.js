@@ -8,6 +8,8 @@ import SidebarTemplate from "../templates/SidebarTemplate";
 import MENU_ITEMS from "../assets/data_hardcoded";
 import SimpleMap from "../components/organisms/Map/SimpleMap";
 
+import map from "../assets/images/semato_map.png";
+
 const PageWrapper = styled.div`
     width: 78%;
     height: 100vh;
@@ -35,6 +37,11 @@ const MapWrapper = styled.div`
     flex-direction: column;
     background-color: lightgray;
     border-radius: 15px;
+    background-image: url(${map});
+   background-size: 130%;
+   background-repeat: no-repeat;
+   background-position: center;
+   
 `;
 
 const PlaceMap = () => (
@@ -44,11 +51,11 @@ const PlaceMap = () => (
         <SidebarTemplate>
             <PageWrapper>
                 <HeaderWrapper>
-                    <PathContainer path={MENU_ITEMS.Visits[2].option} pathIcon={MENU_ITEMS.Visits[2].pathIcon} pathInfo={"Wybierz placówkę, aby uzyskać więcej informacji"}/>
+                    <PathContainer path={MENU_ITEMS.Visits[2].option} pathIcon={MENU_ITEMS.Visits[2].pathIcon} pathInfo={"Zlokalizuj nasze placówki na mapie"}/>
                 </HeaderWrapper>
                 <ContentWrapper>
                     <MapWrapper>
-                        <SimpleMap/>
+                        {/*<SimpleMap/>*/}
                     </MapWrapper>
                 </ContentWrapper>
             </PageWrapper>

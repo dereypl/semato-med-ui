@@ -10,6 +10,15 @@ const Paragraph = styled.p`
       color:  ${({theme}) => theme.grey200};
       margin-left: 5rem;
    `}
+  
+  ${({alert}) =>
+    alert &&
+    css`
+    color:red;
+    display: flex;
+    height: 3rem;
+    margin-bottom: 1rem;
+`}
 `;
 
 export default Paragraph;

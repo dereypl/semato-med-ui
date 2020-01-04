@@ -35,5 +35,10 @@ export const MAKE_RESERVATION = {
     itemType: 'bookVisit',
 };
 
+export const CHANGE_PASSWORD = {
+    path: 'user/changePassword',
+    itemType: 'changePassword',
+};
+
 
 

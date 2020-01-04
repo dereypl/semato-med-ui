@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import BackgroungShapeLighter from "../components/atoms/Shapes/BackgroungShapeLighter";
 import styled, {css} from 'styled-components'
 import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
@@ -11,6 +11,9 @@ import Dropdown from "../components/atoms/Dropdown/Dropdown";
 import Input from "../components/atoms/Input/Input";
 import Button from "../components/atoms/Button/Button";
 import Paragraph from "../components/atoms/Paragraph/Paragraph";
+import {changePassword, fetchItems} from "../actions";
+import {CHANGE_PASSWORD, GET_VISITS_LIST} from "../actions/requestTypes";
+import {connect} from "react-redux";
 
 const PageWrapper = styled.div`
     width: 78%;
@@ -40,11 +43,11 @@ const ReservationBackgroundWrapper = styled.div`
     width: 100%;
     height: auto;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     border-radius: 15px;
     background-color: ${({theme}) => theme.medColor};
     color: white;       
-    padding: 1rem 3rem 4rem 3rem;  
+    padding: 0rem 3rem 3rem 3rem;  
 `;
 
 const ReservationItemWrapper = styled.div`
@@ -83,56 +86,110 @@ const InputWrapper = styled.div`
 `;
 
 
-const ChangePassword = () => (
-    <>
-        <BackgroundHeader/>
-        <BackgroungShapeLighter smaller/>
-        <SidebarTemplate>
-            <PageWrapper>
-                <HeaderWrapper>
-                    <PathContainer path={MENU_ITEMS.Patient[2].option} pathIcon={MENU_ITEMS.Patient[2].pathIcon}
-                                   pathInfo={"Wprowadź nowe hasło, aby dokonać zmiany"}/>
-                </HeaderWrapper>
-                <ContentWrapper>
-                    <ReservationBackgroundWrapper>
-                        <ReservationItemWrapper>
-                            Obecne hasło
-                            <InputWrapper>
-                            <Input
-                                marginTop={'1rem'}
-                                name="oldPassword"
-                                type="password"
-                            />
-                            </InputWrapper>
-                        </ReservationItemWrapper>
-                        <ReservationItemWrapper>
-                            Nowe hasło
-                            <InputWrapper>
-                                <Input
-                                    marginTop={'1rem'}
-                                    name="oldPassword"
-                                    type="password"
-                                />
-                            </InputWrapper>
-                        </ReservationItemWrapper>
-                        <ReservationItemWrapper>
-                            Powtórz nowe hasło
-                            <InputWrapper>
-                                <Input
-                                    marginTop={'1rem'}
-                                    name="oldPassword"
-                                    type="password"
-                                />
-                            </InputWrapper>
-                        </ReservationItemWrapper>
-                    </ReservationBackgroundWrapper>
-                    <Paragraph VisitSearchInfo> </Paragraph>
-                    <Button searchVisit onClick={() => {}}>Wyszukaj</Button>
-                </ContentWrapper>
-            </PageWrapper>
-        </SidebarTemplate>
-    </>
-);
-export default ChangePassword;
+const ChangePassword = ({changePassword, isPasswordChangedCorrectly}) => {
+
+    const [oldPassword, setOldPassword] = useState(null);
+    const [newPassword, setNewPassword] = useState(null);
+    const [newPasswordCopy, setNewPasswordCopy] = useState(null);
+    const [message, setMessage] = useState(" ");
+    const [afterChange, setAfterChange] = useState(false);
+
+    console.log(oldPassword);
+    console.log(newPassword);
+    console.log(newPasswordCopy);
+    return (
+        <>
+            <BackgroundHeader/>
+            <BackgroungShapeLighter smaller/>
+            <SidebarTemplate>
+                <PageWrapper>
+                    <HeaderWrapper>
+                        <PathContainer path={MENU_ITEMS.Patient[2].option} pathIcon={MENU_ITEMS.Patient[2].pathIcon}
+                                       pathInfo={"Haslo zostanie zmienione przy ponownym logowaniu"}/>
+                    </HeaderWrapper>
+                    <ContentWrapper>
+                        <ReservationBackgroundWrapper>
+                            <ReservationItemWrapper>
+                                Obecne hasło
+                                <InputWrapper>
+                                    <Input
+                                        width={'27rem'}
+                                        height={'3.5rem'}
+                                        marginTop={'1rem'}
+                                        name="oldPassword"
+                                        type="password"
+                                        value={oldPassword}
+                                        onChange={(e) => setOldPassword(e.target.value)}
+                                    />
+                                </InputWrapper>
+                            </ReservationItemWrapper>
+                            <ReservationItemWrapper>
+                                Nowe hasło
+                                <InputWrapper>
+                                    <Input
+                                        width={'27rem'}
+                                        height={'3.5rem'}
+                                        marginTop={'1rem'}
+                                        name="oldPassword"
+                                        type="password"
+                                        value={newPassword}
+                                        onChange={(e) => setNewPassword(e.target.value)}
+                                    />
+                                </InputWrapper>
+                            </ReservationItemWrapper>
+                            <ReservationItemWrapper>
+                                Powtórz nowe hasło
+                                <InputWrapper>
+                                    <Input
+                                        width={'27rem'}
+                                        height={'3.5rem'}
+                                        marginTop={'1rem'}
+                                        name="oldPassword"
+                                        type="password"
+                                        value={newPasswordCopy}
+                                        onChange={(e) => setNewPasswordCopy(e.target.value)}
+                                    />
+                                </InputWrapper>
+                            </ReservationItemWrapper>
+                        </ReservationBackgroundWrapper>
+                        {afterChange ?
+                            <Paragraph VisitSearchInfo alert>{isPasswordChangedCorrectly ? 'Hasło zostało zmienione!' : 'Podano nieprawidłowe obecne hasło'}</Paragraph>
+                            :
+                            <Paragraph VisitSearchInfo alert>{message}</Paragraph>
+                        }
+                        <Button searchVisit onClick={() => {
+                            if (newPassword !== newPasswordCopy) {
+                                setMessage("Wprowadzono różne hasła");
+                                setAfterChange(false);
+                            } else {
+                                changePassword(oldPassword, newPassword);
+                                setMessage(" ");
+                                setAfterChange(true);
+                            }
+                        }}>Zmień hasło</Button>
+                    </ContentWrapper>
+                </PageWrapper>
+            </SidebarTemplate>
+        </>
+    )
+};
+
+const mapStateToProps = state => ({
+    visitList: state.visitList,
+    currentUser: state.currentUser,
+    isPasswordChangedCorrectly: state.isPasswordChangedCorrectly
+});
+
+
+const mapDispatchToProps = dispatch => ({
+    changePassword: (oldPassword, newPassword) => dispatch(changePassword(CHANGE_PASSWORD, oldPassword, newPassword)),
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(ChangePassword);
+
+
 
 
