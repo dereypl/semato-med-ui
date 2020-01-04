@@ -1,12 +1,10 @@
 import React, {useEffect} from 'react'
-import BackgroungShapeLighter from "../components/atoms/Shapes/BackgroungShapeLighter";
 import styled from 'styled-components'
-import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
 import PathContainer from "../components/molecules/Path/PathContainer";
 import VisitContainer from "../components/organisms/Visit/VisitContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
 import {fetchItems} from "../actions";
-import {GET_SPECIALITY_LIST, GET_VISITS_LIST} from "../actions/requestTypes";
+import {GET_VISITS_LIST} from "../actions/requestTypes";
 import {connect} from "react-redux";
 import MENU_ITEMS from "../assets/data_hardcoded";
 import {routes} from "../routes";

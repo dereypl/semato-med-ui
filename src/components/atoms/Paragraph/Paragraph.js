@@ -9,6 +9,16 @@ const Paragraph = styled.p`
     css`
       color:  ${({theme}) => theme.grey200};
       margin-left: 5rem;
+   `} 
+
+
+    ${({problemrequest}) =>
+    problemrequest &&
+    css`
+      font-size: ${({theme}) => theme.fontSize.l};
+      color:  white;
+      margin-left: 1rem;
+      margin-top: 5rem;
    `}
   
   ${({alert}) =>

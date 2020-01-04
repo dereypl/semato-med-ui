@@ -1,12 +1,14 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import BackgroungShapeLighter from "../components/atoms/Shapes/BackgroungShapeLighter";
 import styled from 'styled-components'
 import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
 import PathContainer from "../components/molecules/Path/PathContainer";
-import VisitContainer from "../components/organisms/Visit/VisitContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
 import MENU_ITEMS from "../assets/data_hardcoded";
-import SimpleMap from "../components/organisms/Map/SimpleMap";
+import NotificationContainer from "../components/organisms/Notification/NotoficationContainer";
+import {fetchItems} from "../actions";
+import {GET_NOTIFICATIONS_LIST} from "../actions/requestTypes";
+import {connect} from "react-redux";
 
 const PageWrapper = styled.div`
     width: 78%;
@@ -29,23 +31,42 @@ const ContentWrapper = styled.div`
 `;
 
 
+const Notifications = ({fetchNotifications,notificationList}) => {
 
-const Notifications = () => (
+    useEffect(() => {
+        fetchNotifications()
+    }, [fetchNotifications]);
+    return(
     <>
         <BackgroundHeader/>
         <BackgroungShapeLighter smaller/>
         <SidebarTemplate>
             <PageWrapper>
                 <HeaderWrapper>
-                    <PathContainer path={MENU_ITEMS.System[0].option} pathIcon={MENU_ITEMS.System[0].pathIcon} pathInfo={"Najnowsze powiadomienia systemowe"}/>
+                    <PathContainer path={MENU_ITEMS.System[0].option} pathIcon={MENU_ITEMS.System[0].pathIcon}
+                                   pathInfo={"Najnowsze powiadomienia systemowe"}/>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    Notifications
+                    {notificationList.map( (notification) => <NotificationContainer key={notification.id} notification={notification}/>)}
                 </ContentWrapper>
             </PageWrapper>
         </SidebarTemplate>
     </>
-);
-export default Notifications;
+)};
+const mapStateToProps = state => ({notificationList: state.notificationList});
+
+const mapDispatchToProps = dispatch => ({
+    fetchNotifications: () => dispatch(fetchItems(GET_NOTIFICATIONS_LIST)),
+});
+
+Notifications.defaultProps = {
+    notificationList: [],
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Notifications);
+
 
 

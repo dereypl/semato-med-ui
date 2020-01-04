@@ -24,6 +24,16 @@ export const GET_VISITS_LIST = {
     itemType: 'visitList',
 };
 
+export const GET_NOTIFICATIONS_LIST = {
+    path: 'mgmt/notification/get',
+    itemType: 'notificationList',
+};
+
+
+export const REQUEST_PROBLEM = {
+    path: 'patient/feedback/send',
+};
+
 
 export const CANCEL_VISIT = {
     path: 'visit/cancel',

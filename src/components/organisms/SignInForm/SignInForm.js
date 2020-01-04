@@ -1,11 +1,10 @@
 import React from "react";
-import {Link, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import styled from "styled-components";
 import {routes} from '../../../routes';
 import Input from "../../atoms/Input/Input";
 import Button from "../../atoms/Button/Button";
-import GlobalStyle from "../../../theme/GlobalStyle";
-import {Formik, Form, ErrorMessage} from 'formik';
+import {ErrorMessage, Form, Formik} from 'formik';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 

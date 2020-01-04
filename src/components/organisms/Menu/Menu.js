@@ -1,20 +1,14 @@
 import React from "react";
-import {Link, NavLink, Redirect} from 'react-router-dom';
 import styled from "styled-components";
-import {routes} from "../../../routes";
 import WelcomeHeading from "../../atoms/Heading/WelcomeHeading";
 import PlusesHalf from "../../atoms/Shapes/PlusesHalf";
 import Logo from "../../atoms/Logo/Logo";
 import MenuHeading from "../../atoms/Heading/MenHeading";
 import MenuItem from "../../molecules/MenuItem";
-import MenuParagraph from "../../atoms/Paragraph/MenuParagraph";
 import MENU_ITEMS from "../../../assets/data_hardcoded";
-import logout_icon from "../../../assets/icons/logout_icon.svg"
 import {logOutUser} from "../../../actions";
 import Button from "../../atoms/Button/Button";
 import {useDispatch} from 'react-redux'
-import {purgeStoredState} from "redux-persist";
-import {persistConfig} from "../../../store/configureStore";
 
 const MenuContentWrapper = styled.div`
    width: 80%;

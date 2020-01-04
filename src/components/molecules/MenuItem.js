@@ -33,7 +33,7 @@ const MenuItemWrapper = styled.div`
   
   &:hover ${MenuItemImage}{
   background-image: url(${props => props.icon_active});
-
+ó
   }
   &.active {
      background-color: ${({theme}) => theme.medColor};

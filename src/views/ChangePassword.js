@@ -3,16 +3,13 @@ import BackgroungShapeLighter from "../components/atoms/Shapes/BackgroungShapeLi
 import styled, {css} from 'styled-components'
 import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
 import PathContainer from "../components/molecules/Path/PathContainer";
-import VisitContainer from "../components/organisms/Visit/VisitContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
 import MENU_ITEMS from "../assets/data_hardcoded";
-import SimpleMap from "../components/organisms/Map/SimpleMap";
-import Dropdown from "../components/atoms/Dropdown/Dropdown";
 import Input from "../components/atoms/Input/Input";
 import Button from "../components/atoms/Button/Button";
 import Paragraph from "../components/atoms/Paragraph/Paragraph";
-import {changePassword, fetchItems} from "../actions";
-import {CHANGE_PASSWORD, GET_VISITS_LIST} from "../actions/requestTypes";
+import {changePassword} from "../actions";
+import {CHANGE_PASSWORD} from "../actions/requestTypes";
 import {connect} from "react-redux";
 
 const PageWrapper = styled.div`
@@ -94,9 +91,6 @@ const ChangePassword = ({changePassword, isPasswordChangedCorrectly}) => {
     const [message, setMessage] = useState(" ");
     const [afterChange, setAfterChange] = useState(false);
 
-    console.log(oldPassword);
-    console.log(newPassword);
-    console.log(newPasswordCopy);
     return (
         <>
             <BackgroundHeader/>
@@ -113,7 +107,7 @@ const ChangePassword = ({changePassword, isPasswordChangedCorrectly}) => {
                                 Obecne hasło
                                 <InputWrapper>
                                     <Input
-                                        width={'27rem'}
+                                        width={'100%'}
                                         height={'3.5rem'}
                                         marginTop={'1rem'}
                                         name="oldPassword"
@@ -127,7 +121,7 @@ const ChangePassword = ({changePassword, isPasswordChangedCorrectly}) => {
                                 Nowe hasło
                                 <InputWrapper>
                                     <Input
-                                        width={'27rem'}
+                                        width={'100%'}
                                         height={'3.5rem'}
                                         marginTop={'1rem'}
                                         name="oldPassword"
@@ -141,7 +135,7 @@ const ChangePassword = ({changePassword, isPasswordChangedCorrectly}) => {
                                 Powtórz nowe hasło
                                 <InputWrapper>
                                     <Input
-                                        width={'27rem'}
+                                        width={'100%'}
                                         height={'3.5rem'}
                                         marginTop={'1rem'}
                                         name="oldPassword"

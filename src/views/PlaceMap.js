@@ -38,7 +38,7 @@ const MapWrapper = styled.div`
     background-color: lightgray;
     border-radius: 15px;
     background-image: url(${map});
-   background-size: 130%;
+   background-size: cover;
    background-repeat: no-repeat;
    background-position: center;
    

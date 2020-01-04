@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import { PURGE } from 'redux-persist';
-import { purgeStoredState } from 'redux-persist'
+import {PURGE} from 'redux-persist';
+import {purgeStoredState} from 'redux-persist'
 import {persistConfig} from "../store/configureStore";
 
 
@@ -85,15 +85,15 @@ export const logOutUser = () => dispatch => {
     // dispatch({type: PURGE, key: "root"});
     // purgeStoredState(persistConfig);
 
-        if (!localStorage.getItem(AUTH_TOKEN_NAME))
+    if (!localStorage.getItem(AUTH_TOKEN_NAME))
         dispatch({type: LOGOUT_SUCCESS});
 };
 
 
-export const fetchItems = (actionType, params={}) => dispatch => {
+export const fetchItems = (actionType, params = {}) => dispatch => {
     // dispatch({type: FETCH_REQUEST});
     return axios
-        // .get(`${API_URL}/api/${actionType.path}/?where=${JSON.stringify(actionType.where)}`, {
+    // .get(`${API_URL}/api/${actionType.path}/?where=${JSON.stringify(actionType.where)}`, {
         .get(`${API_URL}/api/${actionType.path}/`, {
             params: params,
             headers: getHeaders(),
@@ -118,7 +118,7 @@ export const fetchItems = (actionType, params={}) => dispatch => {
 };
 
 
-export const deleteItem = (actionType, params={}) => dispatch => {
+export const deleteItem = (actionType, params = {}) => dispatch => {
     return axios
         .delete(`${API_URL}/api/${actionType.path}/`, {
             params: params,
@@ -146,7 +146,7 @@ export const deleteItem = (actionType, params={}) => dispatch => {
         });
 };
 
-export const makeReservation = (actionType,  visit) => dispatch => {
+export const makeReservation = (actionType, visit) => dispatch => {
     return axios
         .put(`${API_URL}/api/${actionType.path}/`, {
                 ...visit
@@ -185,6 +185,23 @@ export const changePassword = (actionType, oldPassword, newPassword) => dispatch
                 type: PASSWORD_CHANGE,
                 payload: false,
             });
+        });
+};
+
+export const requestProblem = (actionType, subject, content) => dispatch => {
+    return axios
+        .put(`${API_URL}/api/${actionType.path}/`, {
+                subject,
+                content,
+            },
+            {
+                headers: getHeaders(),
+            })
+        .then(({response}) => {
+            console.log(response);
+        })
+        .catch(err => {
+            console.log(err);
         });
 };
 
