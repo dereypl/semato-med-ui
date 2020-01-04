@@ -6,12 +6,7 @@ import PathContainer from "../components/molecules/Path/PathContainer";
 import VisitContainer from "../components/organisms/Visit/VisitContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
 import {fetchItems} from "../actions";
-import {
-    GET_SPECIALITY_LIST,
-    GET_FUTURE_VISITS_LIST,
-    GET_PAST_VISITS_LIST,
-    GET_VISITS_LIST
-} from "../actions/requestTypes";
+import {GET_SPECIALITY_LIST, GET_VISITS_LIST} from "../actions/requestTypes";
 import {connect} from "react-redux";
 import MENU_ITEMS from "../assets/data_hardcoded";
 
@@ -45,7 +40,7 @@ const ContentWrapper = styled.div`
 //TODO: if user is not authenticate => redirect to login page
 
 
-const VisitHistory = ({fetchVisits, visitList}) => {
+const DashboardPhysician = ({fetchVisits, visitList}) => {
 
     useEffect(() => {
         fetchVisits()
@@ -55,10 +50,12 @@ const VisitHistory = ({fetchVisits, visitList}) => {
         <SidebarTemplate>
             <PageWrapper>
                 <HeaderWrapper>
-                    <PathContainer path={MENU_ITEMS.Patient[1].option} pathInfo={"Lista Twoich 10 ostatnich wizyt "} pathIcon={MENU_ITEMS.Patient[1].pathIcon}/>
+                    <PathContainer path={MENU_ITEMS.VisitsPhysician[0].option}
+                                   pathInfo={"Wizyty zaplanowane prze twoich pacjentów"}
+                                   pathIcon={MENU_ITEMS.Visits[0].pathIcon}/>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    {visitList.map(visit => <VisitContainer visit={visit} key={visit.id} actionType={'past'}/>)}
+                    {visitList.map(visit => <VisitContainer visit={visit} key={visit.id} actionType={'cancel'} actionDesc={'Odwołaj wizytę'}/>)}
                     {/*<VisitContainer nearest={true}/>*/}
                 </ContentWrapper>
             </PageWrapper>
@@ -68,16 +65,16 @@ const VisitHistory = ({fetchVisits, visitList}) => {
 const mapStateToProps = state => ({visitList: state.visitList});
 
 const mapDispatchToProps = dispatch => ({
-    fetchVisits: () => dispatch(fetchItems(GET_VISITS_LIST, {mode: 'past'})),
+    fetchVisits: () => dispatch(fetchItems(GET_VISITS_LIST, {mode: 'future'})),
 });
 
-VisitHistory.defaultProps = {
+DashboardPhysician.defaultProps = {
     visitList: [],
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(VisitHistory);
+)(DashboardPhysician);
 
 

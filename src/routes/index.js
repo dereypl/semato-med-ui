@@ -17,5 +17,7 @@ export const routes = {
     request: '/request',
 
     // --- DOCTOR ---
+    dashboardPhysician: '/dashboard/physician',
+
 
 };

@@ -17,7 +17,7 @@ const AppWrapper = styled.div`
     flex-direction: row;
 `;
 
-const SidebarTemplate = ({children,firstName,lastName}) => {
+const SidebarTemplate = ({children,currentUser}) => {
 
     if (!isUserLogged()) {
         return <Redirect to={routes.login}/>;
@@ -27,7 +27,7 @@ const SidebarTemplate = ({children,firstName,lastName}) => {
             <BackgroundHeader/>
             <BackgroungShapeLighter smaller/>
             <AppWrapper>
-                <Menu username={firstName+" "+lastName}/>
+                <Menu currentUser={currentUser}/>
                 {children}
             </AppWrapper>
         </>
@@ -36,14 +36,11 @@ const SidebarTemplate = ({children,firstName,lastName}) => {
 
 SidebarTemplate.defaultProps = {
     isUserLogged: false,
-    firstName: "",
-    lastName: "",
 };
 
 const mapStateToProps = state => ({
     isUserLogged: state.isUserLogged,
-    firstName: state.currentUser? state.currentUser.firstName : "",
-    lastName: state.currentUser? state.currentUser.lastName : "",
+    currentUser: state.currentUser
 });
 
 export default connect(

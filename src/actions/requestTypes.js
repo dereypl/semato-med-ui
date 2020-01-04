@@ -30,5 +30,10 @@ export const CANCEL_VISIT = {
     itemType: 'visitList',
 };
 
+export const MAKE_RESERVATION = {
+    path: 'visit/book',
+    itemType: 'bookVisit',
+};
+
 
 

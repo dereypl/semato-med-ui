@@ -63,8 +63,7 @@ const HorizontalSeparator = styled.div`
 `;
 
 
-const Menu = ({username,persistor}) => {
-
+const Menu = ({currentUser}) => {
     const dispatch = useDispatch();
 
     const logoutUserTrigger = (e) => {
@@ -72,6 +71,51 @@ const Menu = ({username,persistor}) => {
         console.log("triggered");
         // purgeStoredState(persistConfig);
         dispatch(logOutUser())
+    };
+
+    const getPatientResources = () => (
+        <>
+            <MenuHeading>Wizyty</MenuHeading>
+            {MENU_ITEMS.Visits.map(item => <MenuItem key={item.option} content={item.option} route={item.route}
+                                                     path={item.icon} icon_active={item.icon_active}/>)}
+            <MenuHeading>Pacjent</MenuHeading>
+            {MENU_ITEMS.Patient.map(item => <MenuItem key={item.option} content={item.option} route={item.route}
+                                                      path={item.icon} icon_active={item.icon_active}/>)}
+            <MenuHeading>System</MenuHeading>
+            {MENU_ITEMS.System.map(item => <MenuItem key={item.option} content={item.option} route={item.route}
+                                                     path={item.icon} icon_active={item.icon_active}/>)}
+        </>
+    );
+
+    const getRoleBasedResources = ({role}) => {
+
+        switch(role){
+            case 'ROLE_PATIENT':
+                return(
+                    <>
+                        <MenuHeading>Wizyty</MenuHeading>
+                        {MENU_ITEMS.Visits.map(item => <MenuItem key={item.option} content={item.option} route={item.route}
+                                                                 path={item.icon} icon_active={item.icon_active}/>)}
+                        <MenuHeading>Pacjent</MenuHeading>
+                        {MENU_ITEMS.Patient.map(item => <MenuItem key={item.option} content={item.option} route={item.route}
+                                                                  path={item.icon} icon_active={item.icon_active}/>)}
+                        <MenuHeading>System</MenuHeading>
+                        {MENU_ITEMS.System.map(item => <MenuItem key={item.option} content={item.option} route={item.route}
+                                                                 path={item.icon} icon_active={item.icon_active}/>)}
+                    </>
+                );
+            case 'ROLE_PHYSICIAN':
+                return(
+                    <>
+                        <MenuHeading>Wizyty</MenuHeading>
+                        {MENU_ITEMS.VisitsPhysician.map(item => <MenuItem key={item.option} content={item.option} route={item.route}
+                                                                 path={item.icon} icon_active={item.icon_active}/>)}
+                    </>
+                );
+            default: break;
+        }
+
+
     };
 
     return (
@@ -82,20 +126,11 @@ const Menu = ({username,persistor}) => {
             <MenuShape>
                 <WelcomeHeading>Witaj,
                     <div>&nbsp;</div>
-                    <p>{username}</p></WelcomeHeading>
+                    <p>{currentUser.firstName + " " + currentUser.lastName}</p></WelcomeHeading>
                 <HorizontalSeparator/>
                 <MenuContentWrapper>
-                    <MenuHeading>Wizyty</MenuHeading>
-                    {MENU_ITEMS.Visits.map(item => <MenuItem key={item.option} content={item.option} route={item.route}
-                                                             path={item.icon} icon_active={item.icon_active}/>)}
-                    <MenuHeading>Pacjent</MenuHeading>
-                    {MENU_ITEMS.Patient.map(item => <MenuItem key={item.option} content={item.option} route={item.route}
-                                                              path={item.icon} icon_active={item.icon_active}/>)}
-                    <MenuHeading>System</MenuHeading>
-                    {MENU_ITEMS.System.map(item => <MenuItem key={item.option} content={item.option} route={item.route}
-                                                             path={item.icon} icon_active={item.icon_active}/>)}
+                    {getRoleBasedResources(currentUser)}
                     <Button onClick={(e) => logoutUserTrigger(e)}>Wyloguj</Button>
-
                 </MenuContentWrapper>
             </MenuShape>
         </MenuWrapper>

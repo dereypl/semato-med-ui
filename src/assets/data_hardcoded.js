@@ -59,6 +59,15 @@ const MENU_ITEMS = {
             pathIcon: gps_icon_top,
         },
     ],
+    VisitsPhysician: [
+        {
+            option: "Twoje wizyty",
+            route: '/dashboard/physician',
+            icon: visits_icon,
+            icon_active: calendar_icon_date_active,
+            pathIcon: calendar_top,
+        },
+    ],
     Patient: [
         {
             option: "Moje dane",

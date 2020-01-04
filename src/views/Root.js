@@ -15,6 +15,7 @@ import VisitHistory from "./VisitHistory";
 import ChangePassword from "./ChangePassword";
 import Notifications from "./Notifications";
 import ProblemRequest from "./ProblemRequest";
+import DashboardPhysician from "./DashboardPhysician";
 
 const {store,persistor} = configureStore();
 
@@ -27,6 +28,7 @@ const Root = () => (
                 <Route exact path={routes.home} render={() => <Redirect to={routes.login}/>}/>
                 <Route exact path={routes.login} render={() => <AuthPage authType="signIn"/>}/>
                 <Route exact path={routes.dashboard} component={Dashboard} />
+                <Route exact path={routes.dashboardPhysician} component={DashboardPhysician} />
                 <Route exact path={routes.visit} component={Visit} />
                 <Route exact path={routes.departments} component={PlaceMap} />
                 <Route exact path={routes.profile} component={Profile} />

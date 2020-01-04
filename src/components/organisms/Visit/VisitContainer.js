@@ -1,13 +1,13 @@
 import styled, {css} from "styled-components";
-import React from "react";
+import React, {useState} from "react";
 import calendar_icon_date from "../../../assets/icons/calendar_icon_date.svg";
 import time_icon from "../../../assets/images/time_icon.svg";
 import gps_icon from "../../../assets/icons/gps_icon.svg";
 import calendar_change_date from "../../../assets/icons/calendar_change_date.svg";
 import cancel_icon from "../../../assets/icons/cancel_icon.svg";
 import Button from "../../atoms/Button/Button";
-import {deleteItem, fetchItems} from "../../../actions";
-import {CANCEL_VISIT, GET_VISITS_LIST} from "../../../actions/requestTypes";
+import {deleteItem, fetchItems, makeReservation} from "../../../actions";
+import {CANCEL_VISIT, GET_VISITS_LIST, MAKE_RESERVATION} from "../../../actions/requestTypes";
 import {connect} from "react-redux";
 
 
@@ -137,6 +137,8 @@ const ActionWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size:  ${({theme}) => theme.fontSize.s};
+
 `;
 
 const ActionContainer = styled.div`
@@ -192,19 +194,56 @@ const Separator = styled.div`
 `;
 
 
-const VisitContainer = ({visit,past,deleteVisits,actionType,actionDesc}) => {
+const VisitContainer = ({visit, past, deleteVisits, actionType, actionDesc, makeReservation}) => {
     const visitDateStart = new Date(visit.dateTimeStart);
     const visitDateEnd = new Date(visit.dateTimeEnd);
 
-    console.log(visit.id);
+    const [cancelled, setCancelled] = useState(false);
+    const [reserved, serReserved] = useState(false);
 
     const year = visitDateStart.getFullYear().toString();
+
+
+    const getVisitAction = (actionType) => {
+        switch (actionType) {
+            case 'cancel':
+                return (
+                    cancelled ? 'Wizyta odwołana' :
+                        <ActionContainer>
+                            <IconContainer cancel/>
+                            <Button action onClick={() => {
+                                deleteVisits(visit.id);
+                                setCancelled(true);
+                            }}>
+                                {actionDesc}
+                            </Button>
+                        </ActionContainer>
+                );
+            case 'reservation':
+                return (
+                    reserved ? 'Zarezerwowano wiztę!' :
+                        <ActionContainer>
+                            <IconContainer cancel/>
+                            <Button action onClick={() => {
+                                makeReservation(visit);
+                                serReserved(true);
+                            }}>
+                                {actionDesc}
+                            </Button>
+                        </ActionContainer>
+                );
+            default:
+                break;
+        }
+    };
+
+
     return (
         <VisitContainerWrapper>
             <DateWrapper>
                 <DateContainer>
                     <IconContainer date/>
-                    <span>{visitDateStart.getDate()}</span><b>/</b><span>{visitDateStart.getMonth()}</span><b>/</b><span>{year.slice(2,4)}</span>&nbsp;&nbsp;{visit.dayOfWeek}
+                    <span>{visitDateStart.getDate()}</span><b>/</b><span>{visitDateStart.getMonth() + 1}</span><b>/</b><span>{year.slice(2, 4)}</span>&nbsp;&nbsp;{visit.dayOfWeek}
                 </DateContainer>
                 <TimeContainer>
                     <IconContainer time/>
@@ -229,23 +268,7 @@ const VisitContainer = ({visit,past,deleteVisits,actionType,actionDesc}) => {
             </PlaceContainer>
             <Separator/>
             <ActionWrapper>
-                {/*<ActionContainer>*/}
-                {/*    <IconContainer changeDate/>*/}
-                {/*    Zmień termin*/}
-                {/*</ActionContainer>*/}
-                {!past && <ActionContainer>
-                    <IconContainer cancel/>
-                    <Button action onClick={() => {
-
-                        switch(actionType){
-                            case 'cancel': deleteVisits(visit.id); break;
-                            case 'reservation': console.log('rezerwacja'); break;
-                            default: break;
-                        }
-                    }}>
-                        {actionDesc}
-                    </Button>
-                </ActionContainer>}
+                {getVisitAction(actionType)}
             </ActionWrapper>
         </VisitContainerWrapper>
     )
@@ -253,6 +276,13 @@ const VisitContainer = ({visit,past,deleteVisits,actionType,actionDesc}) => {
 
 const mapDispatchToProps = dispatch => ({
     deleteVisits: (visitId) => dispatch(deleteItem(CANCEL_VISIT, {visitId: visitId})),
+    makeReservation: (visit) => dispatch(makeReservation(MAKE_RESERVATION, {
+        specialityId: visit.specialityId,
+        clinicId: visit.clinicId,
+        physicianId: visit.physicianId,
+        dateTimeEnd: visit.dateTimeEnd,
+        dateTimeStart: visit.dateTimeStart
+    })),
 });
 
 export default connect(

@@ -64,7 +64,6 @@ const rootReducer = (state = initialState, {type, payload}) => {
                 lastName: payload.lastName,
                 role: payload.role[0].name,
             };
-            console.log(currentUser);
             return {
                 ...state,
                 currentUser,

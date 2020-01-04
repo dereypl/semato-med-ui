@@ -19,6 +19,7 @@ export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_FAILURE = 'FETCH_FAILURE';
 
 export const DELETE_SUCCESS = 'DELETE_SUCCESS';
+export const DELETE_LOCAL = 'DELETE_LOCAL';
 
 
 export const SET_USER_INFO = 'SET_USER_INFO';
@@ -63,13 +64,9 @@ export const authenticate = (email, password) => dispatch => {
         .then(payload => {
             logInUser(payload.data.accessToken);
             dispatch({type: AUTHENTICATE_SUCCESS, payload});
-
-            console.log("success");
-
             axios.get(`${API_URL}/api/user/me`, {
                 headers: {Authorization: `Bearer ${payload.data.accessToken}`}
             }).then(userInfo => {
-                console.log(userInfo);
                 return dispatch({type: SET_USER_INFO, payload: userInfo.data});
             });
         })
@@ -128,14 +125,15 @@ export const deleteItem = (actionType, params={}) => dispatch => {
         })
         .then(({data}) => {
             // const itemType = actionType.itemType;
+            //
             // return dispatch({
-            //     type: DELETE_SUCCESS,
+            //     type: DELETE_LOCAL,
             //     payload: {
             //         items: data[itemType],
             //         itemType,
+            //         params.visitId
             //     },
             // });
-
             console.log('deleted successfully!')
         })
         .catch(err => {
@@ -144,6 +142,24 @@ export const deleteItem = (actionType, params={}) => dispatch => {
             //TODO: Handle error
             // const payload = err;
             // dispatch({ type: FETCH_FAILURE, payload });
+        });
+};
+
+export const makeReservation = (actionType,  visit) => dispatch => {
+    return axios
+        .put(`${API_URL}/api/${actionType.path}/`, {
+                ...visit
+            },
+            {
+                headers: getHeaders(),
+            })
+        .then(({response}) => {
+            console.log(response);
+        })
+        .catch(err => {
+            console.log(err);
+
+            //TODO: Handle error
         });
 };
 

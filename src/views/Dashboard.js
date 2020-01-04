@@ -9,6 +9,8 @@ import {fetchItems} from "../actions";
 import {GET_SPECIALITY_LIST, GET_VISITS_LIST} from "../actions/requestTypes";
 import {connect} from "react-redux";
 import MENU_ITEMS from "../assets/data_hardcoded";
+import {routes} from "../routes";
+import {Redirect} from "react-router-dom";
 
 
 const PageWrapper = styled.div`
@@ -40,11 +42,14 @@ const ContentWrapper = styled.div`
 //TODO: if user is not authenticate => redirect to login page
 
 
-const Dashboard = ({fetchVisits, visitList}) => {
+const Dashboard = ({fetchVisits, visitList,currentUser}) => {
+
 
     useEffect(() => {
         fetchVisits()
     }, [fetchVisits]);
+
+    if(currentUser.role==="ROLE_PHYSICIAN") return <Redirect to={routes.dashboardPhysician}/>;
 
     return (
         <SidebarTemplate>
@@ -55,14 +60,14 @@ const Dashboard = ({fetchVisits, visitList}) => {
                                    pathIcon={MENU_ITEMS.Visits[0].pathIcon}/>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    {visitList.map(visit => <VisitContainer visit={visit} key={visit.id} actionType={'cancel'} actionDesc={'Odwołaj wizytę'}/>)}
+                    {visitList.map(visit => <VisitContainer visit={visit} key={visit.id} actionType={'cancel'} actionDesc={'Odwołaj wizytę'} past={false}/>)}
                     {/*<VisitContainer nearest={true}/>*/}
                 </ContentWrapper>
             </PageWrapper>
         </SidebarTemplate>
     )
 };
-const mapStateToProps = state => ({visitList: state.visitList});
+const mapStateToProps = state => ({visitList: state.visitList, currentUser: state.currentUser});
 
 const mapDispatchToProps = dispatch => ({
     fetchVisits: () => dispatch(fetchItems(GET_VISITS_LIST, {mode: 'future'})),

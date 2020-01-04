@@ -7,13 +7,13 @@ import Input from "../components/atoms/Input/Input";
 import Dropdown from "../components/atoms/Dropdown/Dropdown";
 import Button from "../components/atoms/Button/Button";
 import MENU_ITEMS from "../assets/data_hardcoded";
-import {CLEAR_AVAILABLE_VISITS, fetchItems} from "../actions";
+import {CLEAR_AVAILABLE_VISITS, fetchItems, makeReservation} from "../actions";
 import {
     GET_AVAILABLE_VISITS_LIST,
     GET_CLINIC_LIST,
     GET_PHYSICIAN_LIST,
     GET_SPECIALITY_LIST,
-    GET_FUTURE_VISITS_LIST
+    GET_FUTURE_VISITS_LIST, MAKE_RESERVATION
 } from "../actions/requestTypes";
 import {connect} from "react-redux";
 import Paragraph from "../components/atoms/Paragraph/Paragraph";
@@ -128,7 +128,6 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
     }, [fetchSpecialityList]);
 
 
-    console.log(selectedSpeciality, selectedClinic, selectedPhysician, periodStart, periodEnd);
     return (
         <SidebarTemplate>
             <PageWrapper>
@@ -237,11 +236,10 @@ const mapDispatchToProps = dispatch => ({
     fetchPhysicianList: (selectedSpeciality, id) => dispatch(fetchItems(GET_PHYSICIAN_LIST, {
     specialityId: selectedSpeciality,
     clinicId: id
-})),
+    })),
     fetchAvailableVisitsList: (selectedSpeciality, selectedClinic, selectedPhysician, periodStart, periodEnd) => dispatch(fetchItems(GET_AVAILABLE_VISITS_LIST, {
     specialityId: selectedSpeciality,
     clinicId: selectedClinic,
-    //TODO: nie trzeba wybierac lekarza - tak jak nizej nie dziala
     physicianId: selectedPhysician || null,
     periodStart,
     periodEnd
