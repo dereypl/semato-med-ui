@@ -6,7 +6,7 @@ import PathContainer from "../components/molecules/Path/PathContainer";
 import VisitContainer from "../components/organisms/Visit/VisitContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
 import {fetchItems} from "../actions";
-import {GET_SPECIALITY_LIST, GET_VISITS_LIST} from "../actions/requestTypes";
+import {GET_SPECIALITY_LIST, GET_VISITS_LIST, GET_VISITS_LIST_PHYSICIAN} from "../actions/requestTypes";
 import {connect} from "react-redux";
 import MENU_ITEMS from "../assets/data_hardcoded";
 import {routes} from "../routes";
@@ -62,7 +62,7 @@ const DashboardPhysician = ({fetchVisits, visitList,currentUser}) => {
 const mapStateToProps = state => ({visitList: state.visitList, currentUser: state.currentUser});
 
 const mapDispatchToProps = dispatch => ({
-    fetchVisits: () => dispatch(fetchItems(GET_VISITS_LIST, {mode: 'future'})),
+    fetchVisits: () => dispatch(fetchItems(GET_VISITS_LIST_PHYSICIAN)),
 });
 
 DashboardPhysician.defaultProps = {

@@ -7,13 +7,20 @@ import {
     FETCH_REQUEST,
     FETCH_FAILURE,
     CLEAR_AVAILABLE_VISITS,
-    isUserLogged as checkIfUserIsLogged, SET_USER_INFO, PASSWORD_CHANGE_FAILURE, PASSWORD_CHANGE,
+    isUserLogged as checkIfUserIsLogged,
+    SET_USER_INFO,
+    PASSWORD_CHANGE_FAILURE,
+    PASSWORD_CHANGE,
+    AUTHENTICATE_FAILURE,
+    AUTHENTICATE_REQUEST, CHANGE_USER_DATA_SUCCESS, CHANGE_USER_DATA,
 } from '../actions';
 
 import {PURGE, REHYDRATE} from 'redux-persist';
 
 const initialState = {
     isUserLogged: false,
+    isAuthenticationFailure: false,
+    dataChangeSuccess: false,
 };
 
 const rootReducer = (state = initialState, {type, payload}) => {
@@ -25,10 +32,23 @@ const rootReducer = (state = initialState, {type, payload}) => {
                 // username: getUserData().login,
             };
 
+            case AUTHENTICATE_FAILURE:
+            return {
+                ...state,
+               isAuthenticationFailure: true,
+            };
+
+            case AUTHENTICATE_REQUEST:
+            return {
+                ...state,
+               isAuthenticationFailure: false,
+            };
+
         case LOGOUT_SUCCESS:
             return {
                 ...state,
                 isUserLogged: checkIfUserIsLogged(),
+                isAuthenticationFailure: false,
             };
 
         case FETCH_SUCCESS:
@@ -36,6 +56,13 @@ const rootReducer = (state = initialState, {type, payload}) => {
                 ...state,
                 [payload.itemType]: [...payload.items],
                 isFetching: false,
+            };
+
+            case CHANGE_USER_DATA:
+                console.log('CHANGE_USER_DATA');
+                return {
+                ...state,
+                dataChangeSuccess: payload
             };
 
         case FETCH_REQUEST:

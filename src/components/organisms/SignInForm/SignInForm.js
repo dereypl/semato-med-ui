@@ -51,7 +51,7 @@ const FormWrapper = styled(Form)`
    
 `;
 
-const SignInForm = ({authenticate, isUserLogged}) => (
+const SignInForm = ({authenticate, isUserLogged,isAuthenticationFailure}) => (
     <>
         <Formik
             initialValues={{
@@ -80,7 +80,6 @@ const SignInForm = ({authenticate, isUserLogged}) => (
                     return <Redirect to={routes.dashboard}/>;
                 }
 
-
                 return (
                     <FormWrapper>
                         <LoginForm>
@@ -104,6 +103,8 @@ const SignInForm = ({authenticate, isUserLogged}) => (
                             />
                             <ErrorMessage name="password" component={StyledErrorMsg}/>
                             <Button type="submit" login>Zaloguj</Button>
+                            {isAuthenticationFailure &&  <InfoParagraph>Podano nieprawidłowy login lub hasło.</InfoParagraph>
+                            }
                         </LoginForm>
                     </FormWrapper>
                 );
@@ -123,6 +124,7 @@ SignInForm.defaultProps = {
 
 const mapStateToProps = state => ({
     isUserLogged: state.isUserLogged,
+    isAuthenticationFailure: state.isAuthenticationFailure,
 });
 
 const mapDispatchToProps = dispatch => ({

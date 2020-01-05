@@ -48,7 +48,7 @@ const Dashboard = ({fetchVisits, visitList,currentUser}) => {
         fetchVisits()
     }, [fetchVisits]);
 
-    if(currentUser.role==="ROLE_PHYSICIAN") return <Redirect to={routes.dashboardPhysician}/>;
+    if(currentUser && currentUser.role==="ROLE_PHYSICIAN") return <Redirect to={routes.dashboardPhysician}/>;
 
     return (
         <SidebarTemplate>

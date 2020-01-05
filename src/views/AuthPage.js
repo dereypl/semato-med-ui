@@ -63,10 +63,6 @@ const DoctorPic = styled.div`
     z-index: -10;
 `;
 
-
-
-
-
 const AuthPage = ({authType}) => (
     <>
         <GlobalStyle/>

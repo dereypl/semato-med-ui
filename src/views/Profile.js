@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import BackgroungShapeLighter from "../components/atoms/Shapes/BackgroungShapeLighter";
 import styled, {css} from 'styled-components'
 import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
@@ -10,7 +10,7 @@ import Paragraph from "../components/atoms/Paragraph/Paragraph";
 import Button from "../components/atoms/Button/Button";
 import TextArea from "../components/atoms/Textarea/Textarea";
 import {ErrorMessage, Form, Formik} from "formik";
-import {authenticate as authenticateAction, changeUserData, requestProblem} from "../actions";
+import {authenticate as authenticateAction, changeUserData, getUserInfo, requestProblem} from "../actions";
 import {connect} from "react-redux";
 import {CHANGE_USER_DATA, REQUEST_PROBLEM} from "../actions/requestTypes";
 
@@ -87,12 +87,12 @@ const StyledErrorMsg = styled.div`
   text-align: center;
 `;
 
-const Profile = ({currentUser, changeUserData}) => {
+const Profile = ({currentUser, changeUserData,getUserInfo,dataChangeSuccess}) => {
 
+    useEffect( () => () => getUserInfo(), [] );
     const [requested, setRequested] = useState(false);
 
-    console.log(currentUser.firstName);
-    return (
+    return(
         <>
             <Formik
                 initialValues={{
@@ -144,8 +144,8 @@ const Profile = ({currentUser, changeUserData}) => {
 
                     return errors;
                 }}
-                onSubmit={(values,errors) => {
-                    if(!errors.length) changeUserData(values,currentUser.id);
+                onSubmit={(values, errors) => {
+                    if (!errors.length) changeUserData(values);
                     setRequested(true);
                 }}
             >
@@ -164,8 +164,13 @@ const Profile = ({currentUser, changeUserData}) => {
                                     <ContentWrapper>
                                         <ReservationBackgroundWrapper>
                                             {requested ?
-                                                <Paragraph VisitSearchInfo problemrequest>Twoje dane personalne zostały
-                                                    zaaktualizowane.</Paragraph> :
+                                                (dataChangeSuccess ?
+                                                    <Paragraph VisitSearchInfo problemrequest>
+                                                        Twoje dane personalne zostały zaaktualizowane.</Paragraph>
+                                                    :
+                                                    <Paragraph VisitSearchInfo problemrequest>
+                                                        Wystąpił błąd - nie udało się zmienić danych.</Paragraph>)
+                                                :
                                                 <>
                                                     <ReservationItemWrapper>
                                                         Imię
@@ -203,6 +208,7 @@ const Profile = ({currentUser, changeUserData}) => {
                                                         Data urodzenia
                                                         <InputWrapper>
                                                             <Input
+                                                                disabled={true}
                                                                 placeholder={'Wprowadź datę urodzenia...'}
                                                                 width={'100%'}
                                                                 height={'3.5rem'}
@@ -219,6 +225,7 @@ const Profile = ({currentUser, changeUserData}) => {
                                                         Pesel
                                                         <InputWrapper>
                                                             <Input
+                                                                disabled={true}
                                                                 placeholder={'Wprowadź numer PESEL...'}
                                                                 width={'100%'}
                                                                 height={'3.5rem'}
@@ -235,6 +242,7 @@ const Profile = ({currentUser, changeUserData}) => {
                                                         Email
                                                         <InputWrapper>
                                                             <Input
+                                                                disabled={true}
                                                                 placeholder={'Wprowadź adres email...'}
                                                                 width={'100%'}
                                                                 height={'3.5rem'}
@@ -314,7 +322,8 @@ const Profile = ({currentUser, changeUserData}) => {
                                                 </>}
                                         </ReservationBackgroundWrapper>
                                         <Paragraph VisitSearchInfo>{" "}</Paragraph>
-                                        {!requested && <Button searchVisit changeUserData type="submit">Zmień swoje dane</Button>}
+                                        {!requested &&
+                                        <Button searchVisit changeUserData type="submit">Zmień swoje dane</Button>}
                                     </ContentWrapper>
                                 </PageWrapper>
                             </SidebarTemplate>
@@ -326,10 +335,11 @@ const Profile = ({currentUser, changeUserData}) => {
     )
 };
 
-const mapStateToProps = state => ({currentUser: state.currentUser});
+const mapStateToProps = state => ({currentUser: state.currentUser, dataChangeSuccess: state.dataChangeSuccess});
 
 const mapDispatchToProps = dispatch => ({
-    changeUserData: (userData, id) => dispatch(changeUserData(CHANGE_USER_DATA, userData,id)),
+    changeUserData: (userData) => dispatch(changeUserData(CHANGE_USER_DATA, userData)),
+    getUserInfo: () => dispatch(getUserInfo()),
 });
 
 export default connect(

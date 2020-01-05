@@ -24,6 +24,11 @@ export const GET_VISITS_LIST = {
     itemType: 'visitList',
 };
 
+export const GET_VISITS_LIST_PHYSICIAN = {
+    path: 'physician/visit/list/get',
+    itemType: 'visitList',
+};
+
 export const GET_NOTIFICATIONS_LIST = {
     path: 'mgmt/notification/get',
     itemType: 'notificationList',
@@ -35,9 +40,8 @@ export const REQUEST_PROBLEM = {
 };
 
 export const CHANGE_USER_DATA = {
-    path: 'mgmt/user/edit',
+    path: 'patient/user/edit',
 };
-
 
 export const CANCEL_VISIT = {
     path: 'visit/cancel',

@@ -22,6 +22,7 @@ export const DELETE_SUCCESS = 'DELETE_SUCCESS';
 export const DELETE_LOCAL = 'DELETE_LOCAL';
 
 export const PASSWORD_CHANGE = 'PASSWORD_CHANGE';
+export const CHANGE_USER_DATA = 'CHANGE_USER_DATA';
 
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const CLEAR_AVAILABLE_VISITS = 'CLEAR_AVAILABLE_VISITS';
@@ -55,21 +56,31 @@ export const isUserLogged = () => {
     else return false;
 };
 
+export const getUserInfo = () => dispatch => {
+    console.log('getUserInfo');
+    axios.get(`${API_URL}/api/user/me`, {
+        headers: {Authorization: `Bearer ${getToken()}`}
+    }).then(userInfo => {
+        console.log('getUserInfo2');
+        return dispatch({type: SET_USER_INFO, payload: userInfo.data});
+    });
+};
+
 export const authenticate = (email, password) => dispatch => {
-    // dispatch({type: AUTHENTICATE_REQUEST});
+    dispatch({type: AUTHENTICATE_REQUEST});
     return axios
         .post(`${API_URL}/api/auth/signin`, {
             email,
             password,
         })
         .then(payload => {
-            logInUser(payload.data.accessToken);
-            dispatch({type: AUTHENTICATE_SUCCESS, payload});
             axios.get(`${API_URL}/api/user/me`, {
                 headers: {Authorization: `Bearer ${payload.data.accessToken}`}
             }).then(userInfo => {
                 return dispatch({type: SET_USER_INFO, payload: userInfo.data});
             });
+            logInUser(payload.data.accessToken);
+            dispatch({type: AUTHENTICATE_SUCCESS, payload});
         })
 
         .catch(err => {
@@ -205,22 +216,26 @@ export const requestProblem = (actionType, subject, content) => dispatch => {
         });
 };
 
-export const changeUserData = (actionType, userData, userId) => dispatch => {
-    console.log("dddd");
-
-
+export const changeUserData = (actionType, userData) => dispatch => {
     return axios
-        .post(`${API_URL}/api/${actionType.path}/${userId}`, {
+        .post(`${API_URL}/api/${actionType.path}/`, {
                 ...userData,
             },
             {
                 headers: getHeaders(),
             })
-        .then(({response}) => {
-            console.log(response);
+        .then(() => {
+            return dispatch({
+                type: CHANGE_USER_DATA,
+                payload: true,
+            });
         })
         .catch(err => {
             console.log(err);
+            return dispatch({
+                type: CHANGE_USER_DATA,
+                payload: true,
+            });
         });
 };
 

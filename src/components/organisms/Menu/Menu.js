@@ -9,6 +9,7 @@ import MENU_ITEMS from "../../../assets/data_hardcoded";
 import {logOutUser} from "../../../actions";
 import Button from "../../atoms/Button/Button";
 import {useDispatch} from 'react-redux'
+import Dropdown from "../../atoms/Dropdown/Dropdown";
 
 const MenuContentWrapper = styled.div`
    width: 80%;
@@ -129,5 +130,9 @@ const Menu = ({currentUser}) => {
             </MenuShape>
         </MenuWrapper>
     )
+};
+
+Menu.defaultProps = {
+    currentUser: {}
 };
 export default Menu;
