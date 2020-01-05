@@ -64,11 +64,17 @@ const rootReducer = (state = initialState, {type, payload}) => {
 
         case SET_USER_INFO:
             const currentUser = {
-                id: payload.role[0].id,
+                id: payload.id,
+                pesel: payload.pesel,
+                birthDate: payload.birthDate,
                 email: payload.email,
                 firstName: payload.firstName,
                 lastName: payload.lastName,
-                role: payload.role[0].name,
+                street: payload.street,
+                postalCode: payload.postalCode,
+                houseNumber: payload.houseNumber,
+                city: payload.city,
+                role: payload.roles[0].name,
             };
             return {
                 ...state,

@@ -9,6 +9,7 @@ import {connect} from "react-redux";
 import MENU_ITEMS from "../assets/data_hardcoded";
 import {routes} from "../routes";
 import {Redirect} from "react-router-dom";
+import Paragraph from "../components/atoms/Paragraph/Paragraph";
 
 
 const PageWrapper = styled.div`
@@ -54,12 +55,13 @@ const Dashboard = ({fetchVisits, visitList,currentUser}) => {
             <PageWrapper>
                 <HeaderWrapper>
                     <PathContainer path={MENU_ITEMS.Visits[0].option}
-                                   pathInfo={"Najbliższa wizyta: 15.11 Konsultacja kardiologiczna"}
+                                   pathInfo={`Najbliższa konsultacja: ${visitList[0]? new Date(visitList[0].dateTimeStart).toLocaleDateString().slice(0,10) +" "+ visitList[0].specialityName : " "} `}
                                    pathIcon={MENU_ITEMS.Visits[0].pathIcon}/>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    {visitList.map(visit => <VisitContainer visit={visit} key={visit.id} actionType={'cancel'} actionDesc={'Odwołaj wizytę'} past={false}/>)}
-                    {/*<VisitContainer nearest={true}/>*/}
+
+                    {visitList.length? visitList.map(visit => <VisitContainer visit={visit} key={visit.id} actionType={'cancel'} actionDesc={'Odwołaj wizytę'} past={false}/>) :
+                        <Paragraph>Obecnie brak umówionych konsultacji. Przejdz do zakładki 'Umów wiztę' aby dokonać rezerwacji terminu.</Paragraph>}
                 </ContentWrapper>
             </PageWrapper>
         </SidebarTemplate>

@@ -53,7 +53,7 @@ const DashboardPhysician = ({fetchVisits, visitList,currentUser}) => {
                                    pathIcon={MENU_ITEMS.Visits[0].pathIcon}/>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    {visitList.map(visit => <VisitContainer visit={visit} key={visit.id} actionType={'cancel'} actionDesc={'Odwołaj wizytę'}/>)}
+                    {visitList.map(visit => <VisitContainer visit={visit} key={visit.id} actionType={'physician'}/>)}
                 </ContentWrapper>
             </PageWrapper>
         </SidebarTemplate>

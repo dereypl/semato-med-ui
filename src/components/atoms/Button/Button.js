@@ -15,6 +15,17 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  
+  transition: all .4s;
+  background-position: 0;
+  background-image: linear-gradient(120deg, transparent 0%, transparent 50%, ${({ theme }) => theme.medDarkBlue} 50%);
+  background-size: 220%;
+          &:hover{
+            background-color: ${({ theme }) => theme.medDarkBlue};
+            color: white;
+            background-position: 100%;
+          }
+          
   &:focus{
       outline: none;
   }
@@ -28,8 +39,15 @@ const Button = styled.button`
       background-color: ${({ theme }) => theme.medDarkBlue};
       margin-bottom: 3rem;
       margin-top: -1rem;
-    `}
- 
+    `} 
+
+  ${({changeUserData}) =>
+    changeUserData &&
+    css`
+           width: 60%;
+
+    `} 
+
  ${({action}) =>
     action &&
     css`

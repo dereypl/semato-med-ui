@@ -6,7 +6,7 @@ const NotificationWrapper = styled.div`
     min-height: 7rem;
     display: flex;
     flex-direction: column;
-    border-radius:  2.5rem;
+    border-radius:  1rem;
     padding: 2rem;
     background-color: ${({theme}) => theme.backgroundColor};
     margin-bottom: 1.5rem;

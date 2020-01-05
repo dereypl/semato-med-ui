@@ -39,6 +39,13 @@ const VisitContainerWrapper = styled.div`
       background-color: ${({theme}) => theme.medColor};
       }
    `}
+   
+${({cancelled}) =>
+    cancelled === true &&
+    css`
+      background-color: #dcdcdc;
+      transition: 2s;
+   `}
 
 `;
 
@@ -56,7 +63,7 @@ const DateContainer = styled.div`
     height: 4rem;
     align-items: center;
     color: ${({theme}) => theme.medGrey};
-    font-size:  ${({theme}) => theme.fontSize.s};
+    font-size:  1rem;
     
     span{
        font-size:  ${({theme}) => theme.fontSize.xl};
@@ -138,7 +145,6 @@ const ActionWrapper = styled.div`
     justify-content: center;
     align-items: center;
     font-size:  ${({theme}) => theme.fontSize.s};
-
 `;
 
 const ActionContainer = styled.div`
@@ -151,7 +157,7 @@ const ActionContainer = styled.div`
 
 const VisitTypeWrapper = styled.div`
     display: flex;
-    width: 30%;
+    width:  ${({Width}) => Width || '30%'};
     height: 100%;
     flex-direction: column;
     justify-content: center;
@@ -165,6 +171,11 @@ const VisitTypeContainer = styled.div`
     align-items: center;
     font-weight: bold;
     color: ${({theme}) => theme.medColor};
+    ${({patient}) =>
+    patient &&
+    css`
+    justify-content: center;
+    `} 
 `;
 const DoctorInfoContainer = styled.div`
     display: flex;
@@ -172,6 +183,13 @@ const DoctorInfoContainer = styled.div`
     height: 2rem;
     align-items: center;
     color: ${({theme}) => theme.grey200};
+    
+    ${({patient}) =>
+    patient &&
+    css`
+    justify-content: center;
+    `} 
+
 `;
 
 const PlaceContainer = styled.div`
@@ -211,7 +229,7 @@ const VisitContainer = ({visit, past, deleteVisits, actionType, actionDesc, make
                     cancelled ? 'Wizyta odwołana' :
                         <ActionContainer>
                             <IconContainer cancel/>
-                            <Button action onClick={() => {
+                            <Button cancel action onClick={() => {
                                 deleteVisits(visit.id);
                                 setCancelled(true);
                             }}>
@@ -232,6 +250,17 @@ const VisitContainer = ({visit, past, deleteVisits, actionType, actionDesc, make
                             </Button>
                         </ActionContainer>
                 );
+            case 'physician':
+                return (
+                    <VisitTypeWrapper Width={'100%'}>
+                        <VisitTypeContainer patient>
+                            Pacjent: {visit.patientName}
+                        </VisitTypeContainer>
+                        <DoctorInfoContainer patient>
+                           PESEL:  {visit.patientPesel}
+                        </DoctorInfoContainer>
+                    </VisitTypeWrapper>
+                );
             default:
                 break;
         }
@@ -239,11 +268,12 @@ const VisitContainer = ({visit, past, deleteVisits, actionType, actionDesc, make
 
 
     return (
-        <VisitContainerWrapper>
+        <VisitContainerWrapper cancelled={cancelled}>
             <DateWrapper>
                 <DateContainer>
                     <IconContainer date/>
-                    <span>{visitDateStart.getDate()}</span><b>/</b><span>{visitDateStart.getMonth() + 1}</span><b>/</b><span>{year.slice(2, 4)}</span>&nbsp;&nbsp;{visit.dayOfWeek}
+                    {/*<span>{visitDateStart.getDate()}</span><b>/</b><span>{visitDateStart.getMonth() + 1}</span><b>/</b><span>{year.slice(2, 4)}</span>&nbsp;&nbsp;{visit.dayOfWeek}*/}
+                    <span>{new Date(visit.dateTimeStart).toLocaleDateString().slice(0,10)}</span>&nbsp;{visit.dayOfWeek}
                 </DateContainer>
                 <TimeContainer>
                     <IconContainer time/>

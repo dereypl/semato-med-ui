@@ -10,6 +10,7 @@ const BackgroungShapeLighter = styled.div`
     //background-size: 90%;
     background-repeat: no-repeat;
     height: 115rem;
+    max-height: 100vh;
     width: 94rem;
     justify-self: flex-start;
     position: absolute;

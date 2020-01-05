@@ -34,6 +34,10 @@ export const REQUEST_PROBLEM = {
     path: 'patient/feedback/send',
 };
 
+export const CHANGE_USER_DATA = {
+    path: 'mgmt/user/edit',
+};
+
 
 export const CANCEL_VISIT = {
     path: 'visit/cancel',

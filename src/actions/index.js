@@ -205,3 +205,22 @@ export const requestProblem = (actionType, subject, content) => dispatch => {
         });
 };
 
+export const changeUserData = (actionType, userData, userId) => dispatch => {
+    console.log("dddd");
+
+
+    return axios
+        .post(`${API_URL}/api/${actionType.path}/${userId}`, {
+                ...userData,
+            },
+            {
+                headers: getHeaders(),
+            })
+        .then(({response}) => {
+            console.log(response);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
