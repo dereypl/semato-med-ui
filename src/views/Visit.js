@@ -107,14 +107,14 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
     const buttonDisabled = !(selectedSpeciality && selectedClinic && periodStart && periodEnd);
 
     const setSelectedSpecialityTrigger = (id) => {
-        setSelectedClinic(null);
-        setSelectedPhysician(null);
+        setSelectedClinic('-');
+        setSelectedPhysician('-');
         clinicList = [];
         setSelectedSpeciality(id);
         fetchClinicList(id);
     };
     const setSelectedClinicTrigger = (id) => {
-        setSelectedPhysician(null);
+        setSelectedPhysician('-');
         setSelectedClinic(id);
         fetchPhysicianList(selectedSpeciality, id);
     };
