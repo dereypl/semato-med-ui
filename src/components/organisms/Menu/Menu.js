@@ -9,7 +9,6 @@ import MENU_ITEMS from "../../../assets/data_hardcoded";
 import {logOutUser} from "../../../actions";
 import Button from "../../atoms/Button/Button";
 import {useDispatch} from 'react-redux'
-import Dropdown from "../../atoms/Dropdown/Dropdown";
 
 const MenuContentWrapper = styled.div`
    width: 80%;
@@ -17,13 +16,11 @@ const MenuContentWrapper = styled.div`
    margin-top: 1rem;
 `;
 
-
 const MenuWrapper = styled.div`
    width: 25%;
    height: 100vh;
    padding-top: 5rem;
 `;
-
 
 const MenuShape = styled.div`
    display: flex;
@@ -46,7 +43,6 @@ text-align: center;
 font-size: 1rem;
 `;
 
-
 const HorizontalSeparator = styled.div`
   display: flex;
   width: 70%;
@@ -56,7 +52,6 @@ const HorizontalSeparator = styled.div`
   position: relative;
   margin-top: 2rem;
 `;
-
 
 const Menu = ({currentUser}) => {
     const dispatch = useDispatch();
@@ -68,22 +63,7 @@ const Menu = ({currentUser}) => {
         dispatch(logOutUser())
     };
 
-    const getPatientResources = () => (
-        <>
-            <MenuHeading>Wizyty</MenuHeading>
-            {MENU_ITEMS.Visits.map(item => <MenuItem key={item.option} content={item.option} route={item.route}
-                                                     path={item.icon} icon_active={item.icon_active}/>)}
-            <MenuHeading>Pacjent</MenuHeading>
-            {MENU_ITEMS.Patient.map(item => <MenuItem key={item.option} content={item.option} route={item.route}
-                                                      path={item.icon} icon_active={item.icon_active}/>)}
-            <MenuHeading>System</MenuHeading>
-            {MENU_ITEMS.System.map(item => <MenuItem key={item.option} content={item.option} route={item.route}
-                                                     path={item.icon} icon_active={item.icon_active}/>)}
-        </>
-    );
-
     const getRoleBasedResources = ({role}) => {
-
         switch(role){
             case 'ROLE_PATIENT':
                 return(
@@ -105,19 +85,21 @@ const Menu = ({currentUser}) => {
                         <MenuHeading>Wizyty</MenuHeading>
                         {MENU_ITEMS.VisitsPhysician.map(item => <MenuItem key={item.option} content={item.option} route={item.route}
                                                                  path={item.icon} icon_active={item.icon_active}/>)}
+                        <MenuHeading>System</MenuHeading>
+                        {<MenuItem key={MENU_ITEMS.Patient[2].option} content={MENU_ITEMS.Patient[2].option} route={MENU_ITEMS.Patient[2].route} path={MENU_ITEMS.Patient[2].icon} icon_active={MENU_ITEMS.Patient[2].icon_active}/>}
+                        {MENU_ITEMS.System.map(item => <MenuItem key={item.option} content={item.option} route={item.route}
+                                                                 path={item.icon} icon_active={item.icon_active}/>)}
                     </>
                 );
             default: break;
         }
-
-
     };
 
     return (
         <MenuWrapper>
             <PlusesHalf/>
             <Logo smaller/>
-            <Info>Najlepsza klinika na świecie, nie wiem czy wiecie.</Info>
+            <Info>Najlepsza klinika na świecie, nie wiem czy Państwo wiecie.</Info>
             <MenuShape>
                 <WelcomeHeading>Witaj,
                     <div>&nbsp;</div>

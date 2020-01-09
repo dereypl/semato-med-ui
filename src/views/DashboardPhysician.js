@@ -49,7 +49,7 @@ const DashboardPhysician = ({fetchVisits, visitList,currentUser}) => {
             <PageWrapper>
                 <HeaderWrapper>
                     <PathContainer path={MENU_ITEMS.VisitsPhysician[0].option}
-                                   pathInfo={"Wizyty zaplanowane prze twoich pacjentów"}
+                                   pathInfo={"Wizyty zaplanowane przez twoich pacjentów"}
                                    pathIcon={MENU_ITEMS.Visits[0].pathIcon}/>
                 </HeaderWrapper>
                 <ContentWrapper>
