@@ -4,6 +4,8 @@ import calendar_icon_date from "../../../assets/icons/calendar_icon_date.svg";
 import time_icon from "../../../assets/images/time_icon.svg";
 import gps_icon from "../../../assets/icons/gps_icon.svg";
 import calendar_change_date from "../../../assets/icons/calendar_change_date.svg";
+import star_outline from "../../../assets/icons/star_outline.svg";
+import star_selected from "../../../assets/icons/star_selected.svg";
 import cancel_icon from "../../../assets/icons/cancel_icon.svg";
 import Button from "../../atoms/Button/Button";
 import {deleteItem, fetchItems, makeReservation} from "../../../actions";
@@ -192,6 +194,38 @@ const DoctorInfoContainer = styled.div`
 
 `;
 
+const Star = styled.div`
+    display: flex;
+    width: 2.5rem;
+    height: 2rem;
+    align-items: center;
+    color: ${({theme}) => theme.grey200};
+    justify-content: center;
+    cursor: pointer;
+    background-image: url(${star_outline});
+    background-size: contain;
+    background-repeat: no-repeat;
+ `;
+
+const RatingContainer = styled.div`
+    display: flex;
+    flex-direction: row-reverse; width: 100%;
+    height: 3rem;
+    align-items: center;
+    color: ${({theme}) => theme.grey200};
+    justify-content: center;
+    
+    ${({patient}) =>
+    patient &&
+    css`
+    justify-content: center;
+    `} 
+    
+     ${Star}:hover, ${Star}:hover ~ ${Star} {
+          background-image: url(${star_selected});
+     }
+
+`;
 const PlaceContainer = styled.div`
     display: flex;
     width: 30%;
@@ -218,9 +252,9 @@ const VisitContainer = ({visit, past, deleteVisits, actionType, actionDesc, make
 
     const [cancelled, setCancelled] = useState(false);
     const [reserved, serReserved] = useState(false);
+    const [rating, setRating] = useState(0);
 
     const year = visitDateStart.getFullYear().toString();
-
 
     const getVisitAction = (actionType) => {
         switch (actionType) {
@@ -257,7 +291,28 @@ const VisitContainer = ({visit, past, deleteVisits, actionType, actionDesc, make
                             Pacjent: {visit.patientName}
                         </VisitTypeContainer>
                         <DoctorInfoContainer patient>
-                           PESEL:  {visit.patientPesel}
+                            PESEL: {visit.patientPesel}
+                        </DoctorInfoContainer>
+                    </VisitTypeWrapper>
+                );
+
+            case 'past':
+                return (
+                    <VisitTypeWrapper Width={'100%'}>
+                        <VisitTypeContainer patient>
+                            Ocena
+                        </VisitTypeContainer>
+                        <DoctorInfoContainer patient>
+                            {rating ? <p> Oceniłeś wizytę na {rating}/5 !</p>
+                                :
+                                <RatingContainer>
+                                    <Star five onClick={() => setRating(5)}> </Star>
+                                    <Star four onClick={() => setRating(4)}> </Star>
+                                    <Star three onClick={() => setRating(3)}> </Star>
+                                    <Star two onClick={() => setRating(2)}> </Star>
+                                    <Star one onClick={() => setRating(1)}> </Star>
+                                </RatingContainer>
+                            }
                         </DoctorInfoContainer>
                     </VisitTypeWrapper>
                 );
@@ -273,7 +328,7 @@ const VisitContainer = ({visit, past, deleteVisits, actionType, actionDesc, make
                 <DateContainer>
                     <IconContainer date/>
                     {/*<span>{visitDateStart.getDate()}</span><b>/</b><span>{visitDateStart.getMonth() + 1}</span><b>/</b><span>{year.slice(2, 4)}</span>&nbsp;&nbsp;{visit.dayOfWeek}*/}
-                    <span>{new Date(visit.dateTimeStart).toLocaleDateString().slice(0,10)}</span>&nbsp;{visit.dayOfWeek}
+                    <span>{new Date(visit.dateTimeStart).toLocaleDateString().slice(0, 10)}</span>&nbsp;{visit.dayOfWeek}
                 </DateContainer>
                 <TimeContainer>
                     <IconContainer time/>
