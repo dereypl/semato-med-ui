@@ -1,6 +1,6 @@
 import React from "react";
-import {Redirect} from 'react-router-dom';
-import styled from "styled-components";
+import {Link, Redirect} from 'react-router-dom';
+import styled,{css} from "styled-components";
 import {routes} from '../../../routes';
 import Input from "../../atoms/Input/Input";
 import Button from "../../atoms/Button/Button";
@@ -17,6 +17,14 @@ const InfoParagraph = styled.h1`
    font-size: small;
    color: #7E828B;
    font-weight: ${({theme}) => theme.fontWeight.regular};
+   text-decoration: none;
+   
+    ${({badRequest}) =>
+    badRequest &&
+    css`
+              margin-bottom: 0rem;
+                 margin-top: 2rem;
+    `}
 `;
 
 const LoginForm = styled.div`
@@ -51,7 +59,7 @@ const FormWrapper = styled(Form)`
    
 `;
 
-const SignInForm = ({authenticate, isUserLogged,isAuthenticationFailure}) => (
+const SignInForm = ({authenticate, isUserLogged,isAuthenticationFailure,clearAuthenticationFailure}) => (
     <>
         <Formik
             initialValues={{
@@ -62,11 +70,11 @@ const SignInForm = ({authenticate, isUserLogged,isAuthenticationFailure}) => (
                 const errors = {};
 
                 if (!values.username) {
-                    errors.username = 'Username is required';
+                    errors.username = 'Email jest wymagany';
                 }
 
                 if (!values.password) {
-                    errors.password = 'Password is required';
+                    errors.password = 'Hasło jest wymagane';
                 }
 
                 return errors;
@@ -87,7 +95,7 @@ const SignInForm = ({authenticate, isUserLogged,isAuthenticationFailure}) => (
                             <Input
                                 name="username"
                                 type="text"
-                                placeholder="Username"
+                                placeholder="Email"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.username}
@@ -96,15 +104,16 @@ const SignInForm = ({authenticate, isUserLogged,isAuthenticationFailure}) => (
                             <Input
                                 name="password"
                                 type="password"
-                                placeholder="Password"
+                                placeholder="Hasło"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.password}
                             />
                             <ErrorMessage name="password" component={StyledErrorMsg}/>
                             <Button type="submit" login>Zaloguj</Button>
-                            {isAuthenticationFailure &&  <InfoParagraph>Podano nieprawidłowy login lub hasło.</InfoParagraph>
+                            {isAuthenticationFailure &&  <InfoParagraph badRequest>Podano nieprawidłowy login lub hasło.</InfoParagraph>
                             }
+                            <InfoParagraph  as={Link} to={routes.reset_password} onClick={() => clearAuthenticationFailure()}>Zapomniałem hasła</InfoParagraph>
                         </LoginForm>
                     </FormWrapper>
                 );
@@ -120,6 +129,8 @@ SignInForm.propTypes = {
 
 SignInForm.defaultProps = {
     isUserLogged: false,
+    isAuthenticationFailure: false,
+
 };
 
 const mapStateToProps = state => ({
@@ -129,6 +140,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     authenticate: (email, password) => dispatch(authenticateAction(email, password)),
+    clearAuthenticationFailure: () => dispatch({type: 'CLEAR_AUTHENTICATION_FAILURE'}),
 });
 
 export default connect(

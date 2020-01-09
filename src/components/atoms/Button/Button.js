@@ -5,7 +5,7 @@ const Button = styled.button`
   margin-top: 4rem;
   background-color: ${({ theme }) => theme.medColor};
   width: ${({ width }) => width || '220px'};
-  height: 47px;
+  min-height: 47px;
   border: none;
   border-radius: 10px;
   font-weight: ${({ theme }) => theme.fontWeight.bold};

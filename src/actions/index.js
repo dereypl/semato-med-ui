@@ -24,8 +24,11 @@ export const DELETE_LOCAL = 'DELETE_LOCAL';
 export const PASSWORD_CHANGE = 'PASSWORD_CHANGE';
 export const CHANGE_USER_DATA = 'CHANGE_USER_DATA';
 
+export const MAIL_SEND = 'MAIL_SEND';
+
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const CLEAR_AVAILABLE_VISITS = 'CLEAR_AVAILABLE_VISITS';
+export const CLEAR_AUTHENTICATION_FAILURE = 'CLEAR_AUTHENTICATION_FAILURE';
 
 export const API_URL = 'http://localhost:5000';
 
@@ -86,6 +89,20 @@ export const authenticate = (email, password) => dispatch => {
         .catch(err => {
             console.log(err);
             dispatch({type: AUTHENTICATE_FAILURE, err});
+        });
+};
+
+export const resetPassword = (email) => dispatch => {
+    return axios
+        .post(`${API_URL}/api/user/forgotPassword?email=${email}`, {})
+        .then(payload => {
+            console.log(payload);
+            dispatch({type: MAIL_SEND, payload: payload.data.success});
+        })
+
+        .catch(err => {
+            console.log(err);
+            dispatch({type: MAIL_SEND, payload: false});
         });
 };
 

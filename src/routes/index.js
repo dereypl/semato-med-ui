@@ -2,7 +2,7 @@ export const routes = {
 
     home: '/',
     login: '/login',
-    register: '/register',
+    reset_password: '/reset-password',
 
 
     // --- PATIENT ---

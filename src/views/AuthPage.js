@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 import back from "../assets/images/bg.svg"
@@ -10,11 +10,9 @@ import Input from "../components/atoms/Input/Input"
 import Button from "../components/atoms/Button/Button"
 import BackgroungShapeLighter from "../components/atoms/Shapes/BackgroungShapeLighter"
 import Logo from "../components/atoms/Logo/Logo"
-
-
-// import SignUpForm from '../components/organisms/SignUpForm/SignUpForm';
 import SignInForm from '../components/organisms/SignInForm/SignInForm';
 import Pluses from "../components/atoms/Shapes/Pluses";
+import PassResetForm from "../components/organisms/PassResetForm/PassResetForm";
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -63,7 +61,9 @@ const DoctorPic = styled.div`
     z-index: -10;
 `;
 
-const AuthPage = ({authType}) => (
+const AuthPage = ({authType}) => {
+
+    return(
     <>
         <GlobalStyle/>
         <BackgroungShape/>
@@ -71,13 +71,14 @@ const AuthPage = ({authType}) => (
         <Pluses/>
         <ContentWrapper>
             <Logo/>
-            <WelcomeParagraph>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</WelcomeParagraph>
-            {authType === 'signIn' && <SignInForm />}
-            {/*{authType === 'signUp' && <SignUpForm />}*/}
+            <WelcomeParagraph>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua. Ut enim ad minim veniam.</WelcomeParagraph>
+            {authType === 'signIn' && <SignInForm/>}
+            {authType === 'passReset' && <PassResetForm/>}
             <DoctorPic></DoctorPic>
         </ContentWrapper>
     </>
-);
+)};
 export default AuthPage;
 
 

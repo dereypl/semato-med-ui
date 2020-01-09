@@ -1,7 +1,7 @@
 import {
-    // AUTHENTICATE_REQUEST,
+    AUTHENTICATE_REQUEST,
     AUTHENTICATE_SUCCESS,
-    // AUTHENTICATE_FAILURE,
+    AUTHENTICATE_FAILURE,
     LOGOUT_SUCCESS,
     FETCH_SUCCESS,
     FETCH_REQUEST,
@@ -9,10 +9,10 @@ import {
     CLEAR_AVAILABLE_VISITS,
     isUserLogged as checkIfUserIsLogged,
     SET_USER_INFO,
-    PASSWORD_CHANGE_FAILURE,
     PASSWORD_CHANGE,
-    AUTHENTICATE_FAILURE,
-    AUTHENTICATE_REQUEST, CHANGE_USER_DATA_SUCCESS, CHANGE_USER_DATA,
+    CHANGE_USER_DATA,
+    CLEAR_AUTHENTICATION_FAILURE,
+    MAIL_SEND,
 } from '../actions';
 
 import {PURGE, REHYDRATE} from 'redux-persist';
@@ -32,16 +32,22 @@ const rootReducer = (state = initialState, {type, payload}) => {
                 // username: getUserData().login,
             };
 
-            case AUTHENTICATE_FAILURE:
+        case AUTHENTICATE_FAILURE:
             return {
                 ...state,
-               isAuthenticationFailure: true,
+                isAuthenticationFailure: true,
             };
 
-            case AUTHENTICATE_REQUEST:
+        case CLEAR_AUTHENTICATION_FAILURE:
             return {
                 ...state,
-               isAuthenticationFailure: false,
+                isAuthenticationFailure: false,
+            };
+
+        case AUTHENTICATE_REQUEST:
+            return {
+                ...state,
+                isAuthenticationFailure: false,
             };
 
         case LOGOUT_SUCCESS:
@@ -58,9 +64,9 @@ const rootReducer = (state = initialState, {type, payload}) => {
                 isFetching: false,
             };
 
-            case CHANGE_USER_DATA:
-                console.log('CHANGE_USER_DATA');
-                return {
+        case CHANGE_USER_DATA:
+            console.log('CHANGE_USER_DATA');
+            return {
                 ...state,
                 dataChangeSuccess: payload
             };
@@ -87,6 +93,12 @@ const rootReducer = (state = initialState, {type, payload}) => {
             return {
                 ...state,
                 isPasswordChangedCorrectly: payload,
+            };
+
+        case MAIL_SEND:
+            return {
+                ...state,
+                isMailSendCorrectly: payload,
             };
 
         case SET_USER_INFO:
