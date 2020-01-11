@@ -97,7 +97,7 @@ const InputWrapper = styled.div`
 //TODO: if user is not authenticate => redirect to login page
 
 
-const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList, fetchPhysicianList, physicianList, fetchAvailableVisitsList, availableVisitList,clearAvailableVisitsList,clearClinicList,clearPhysicianList,clearAllData}) => {
+const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList, fetchPhysicianList, physicianList, fetchAvailableVisitsList, availableVisitList, clearAvailableVisitsList, clearClinicList, clearPhysicianList, clearAllData}) => {
 
     const [selectedSpeciality, setSelectedSpeciality] = useState(null);
     const [selectedClinic, setSelectedClinic] = useState(null);
@@ -106,20 +106,23 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
     const [periodEnd, setPeriodEnd] = useState(null);
     const [showSearchForm, setShowSearchForm] = useState(true);
 
-    useEffect( () => () => {clearAvailableVisitsList(); if(!selectedSpeciality) clearAllData();}, [] );
-
+    useEffect(() => () => {
+        clearAvailableVisitsList();
+        if (!selectedSpeciality) clearAllData();
+    }, []);
     const buttonDisabled = !(selectedSpeciality && periodStart && periodEnd);
 
     const setSelectedSpecialityTrigger = (id) => {
-        setSelectedClinic('-');
+        setSelectedClinic(undefined);
         clearClinicList();
-        setSelectedPhysician('-');
+        setSelectedPhysician(undefined);
         clearPhysicianList();
+        clinicList = [];
         setSelectedSpeciality(id);
         fetchClinicList(id);
     };
     const setSelectedClinicTrigger = (id) => {
-        setSelectedPhysician('-');
+        setSelectedPhysician(undefined);
         clearPhysicianList();
         setSelectedClinic(id);
         fetchPhysicianList(selectedSpeciality, id);
@@ -217,16 +220,18 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
                             }}>Wyszukaj</Button>
                         </>
                         :
-                        <Button searchVisit as={Link} to={routes.visit} onClick={() =>  {
+                        <Button searchVisit as={Link} to={routes.visit} onClick={() => {
                             setShowSearchForm(true);
                             clearAvailableVisitsList();
                         }}>Zmień kryteria wyszukiwania</Button>
                     }
-                    {availableVisitList.map(visit => <VisitContainer visit={visit} key={visit.id} actionType={'reservation'} actionDesc={'Zarezerwuj'}/>)}
+                    {availableVisitList.map(visit => <VisitContainer visit={visit} key={visit.id}
+                                                                     actionType={'reservation'}
+                                                                     actionDesc={'Zarezerwuj'}/>)}
                 </ContentWrapper>
-                </PageWrapper>
+            </PageWrapper>
         </SidebarTemplate>
-)
+    )
 };
 const mapStateToProps = state => ({
     specialityList: state.specialityList,
@@ -243,16 +248,16 @@ const mapDispatchToProps = dispatch => ({
     clearAllData: () => dispatch({type: CLEAR_VISIT_COMPONENT}),
     fetchClinicList: (id) => dispatch(fetchItems(GET_CLINIC_LIST, {specialityId: id})),
     fetchPhysicianList: (selectedSpeciality, id) => dispatch(fetchItems(GET_PHYSICIAN_LIST, {
-    specialityId: selectedSpeciality,
-    clinicId: id
+        specialityId: selectedSpeciality,
+        clinicId: id
     })),
     fetchAvailableVisitsList: (selectedSpeciality, selectedClinic, selectedPhysician, periodStart, periodEnd) => dispatch(fetchItems(GET_AVAILABLE_VISITS_LIST, {
-    specialityId: selectedSpeciality,
-    clinicId: selectedClinic,
-    physicianId: selectedPhysician || null,
-    periodStart,
-    periodEnd
-})),
+        specialityId: selectedSpeciality,
+        clinicId: selectedClinic,
+        physicianId: selectedPhysician || null,
+        periodStart,
+        periodEnd
+    })),
 });
 
 Visit.defaultProps = {
@@ -263,8 +268,8 @@ Visit.defaultProps = {
 };
 
 export default connect(
-mapStateToProps,
-mapDispatchToProps,
+    mapStateToProps,
+    mapDispatchToProps,
 )(Visit);
 
 
