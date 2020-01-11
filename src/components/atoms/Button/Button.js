@@ -15,6 +15,10 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  :disabled{
+              display: none;
+  }
+ 
   
   transition: all .4s;
   background-position: 0;
@@ -25,6 +29,7 @@ const Button = styled.button`
             color: white;
             background-position: 100%;
           }
+  }
           
   &:focus{
       outline: none;

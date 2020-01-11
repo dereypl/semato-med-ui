@@ -108,7 +108,7 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
 
     useEffect( () => () => {clearAvailableVisitsList(); if(!selectedSpeciality) clearAllData();}, [] );
 
-    const buttonDisabled = !(selectedSpeciality && selectedClinic && periodStart && periodEnd);
+    const buttonDisabled = !(selectedSpeciality && periodStart && periodEnd);
 
     const setSelectedSpecialityTrigger = (id) => {
         setSelectedClinic('-');
