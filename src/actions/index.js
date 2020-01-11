@@ -149,24 +149,10 @@ export const deleteItem = (actionType, params = {}) => dispatch => {
             headers: getHeaders(),
         })
         .then(({data}) => {
-            // const itemType = actionType.itemType;
-            //
-            // return dispatch({
-            //     type: DELETE_LOCAL,
-            //     payload: {
-            //         items: data[itemType],
-            //         itemType,
-            //         params.visitId
-            //     },
-            // });
             console.log('deleted successfully!')
         })
         .catch(err => {
             console.log(err);
-
-            //TODO: Handle error
-            // const payload = err;
-            // dispatch({ type: FETCH_FAILURE, payload });
         });
 };
 
@@ -183,8 +169,6 @@ export const makeReservation = (actionType, visit) => dispatch => {
         })
         .catch(err => {
             console.log(err);
-
-            //TODO: Handle error
         });
 };
 
