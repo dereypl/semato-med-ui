@@ -182,7 +182,7 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
                                         type="text"
                                         placeholder="Wybierz"
                                         action={setSelectedPhysicianTrigger}
-
+                                        physician={true}
                                     />
                                 </ReservationItemWrapper>
                                 <ReservationItemWrapper double>
