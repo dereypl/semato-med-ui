@@ -110,19 +110,19 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
         clearAvailableVisitsList();
         if (!selectedSpeciality) clearAllData();
     }, []);
-    const buttonDisabled = !(selectedSpeciality && periodStart && periodEnd);
+    const buttonDisabled = !(selectedSpeciality && periodStart && selectedPhysician&& periodEnd);
 
     const setSelectedSpecialityTrigger = (id) => {
-        setSelectedClinic(undefined);
+        setSelectedClinic('-');
         clearClinicList();
-        setSelectedPhysician(undefined);
+        setSelectedPhysician('-');
         clearPhysicianList();
         clinicList = [];
         setSelectedSpeciality(id);
         fetchClinicList(id);
     };
     const setSelectedClinicTrigger = (id) => {
-        setSelectedPhysician(undefined);
+        setSelectedPhysician('-');
         clearPhysicianList();
         setSelectedClinic(id);
         fetchPhysicianList(selectedSpeciality, id);
@@ -150,7 +150,7 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
                         <>
                             <ReservationBackgroundWrapper>
                                 <ReservationItemWrapper>
-                                    Specjalizacja*
+                                    Specjalizacja
                                     <Dropdown
                                         value={selectedSpeciality}
                                         items={specialityList}
@@ -161,7 +161,7 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
                                     />
                                 </ReservationItemWrapper>
                                 <ReservationItemWrapper>
-                                    Placówka*
+                                    Placówka
                                     <Dropdown
                                         value={selectedClinic}
                                         items={clinicList}
@@ -187,7 +187,7 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
                                 </ReservationItemWrapper>
                                 <ReservationItemWrapper double>
                                     <InputWrapper>
-                                        <span>Data od*</span>
+                                        <span>Data od</span>
                                         <Input
                                             value={periodStart}
                                             reservationDate
@@ -199,7 +199,7 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
                                         />
                                     </InputWrapper>
                                     <InputWrapper right>
-                                        <span>Data do*</span>
+                                        <span>Data do</span>
                                         <Input
                                             value={periodEnd}
                                             reservationDate
@@ -213,7 +213,7 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
                                     </InputWrapper>
                                 </ReservationItemWrapper>
                             </ReservationBackgroundWrapper>
-                            <Paragraph VisitSearchInfo>* Wartości obowiązkowe</Paragraph>
+                            <Paragraph VisitSearchInfo> Wszystkie wartości są obowiązkowe</Paragraph>
                             <Button disabled={buttonDisabled} searchVisit onClick={() => {
                                 fetchAvailableVisitsList(selectedSpeciality, selectedClinic, selectedPhysician, periodStart, periodEnd);
                                 setShowSearchForm(false);
