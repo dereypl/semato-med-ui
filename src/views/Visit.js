@@ -7,7 +7,13 @@ import Input from "../components/atoms/Input/Input";
 import Dropdown from "../components/atoms/Dropdown/Dropdown";
 import Button from "../components/atoms/Button/Button";
 import MENU_ITEMS from "../assets/MenuItems";
-import {CLEAR_AVAILABLE_VISITS, fetchItems} from "../actions";
+import {
+    CLEAR_AVAILABLE_VISITS,
+    CLEAR_LIST_CLINIC,
+    CLEAR_LIST_PHYSICIAN,
+    CLEAR_VISIT_COMPONENT,
+    fetchItems
+} from "../actions";
 import {
     GET_AVAILABLE_VISITS_LIST,
     GET_CLINIC_LIST,
@@ -88,7 +94,10 @@ const InputWrapper = styled.div`
      }
 `;
 
-const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList, fetchPhysicianList, physicianList, fetchAvailableVisitsList, availableVisitList,clearAvailableVisitsList}) => {
+//TODO: if user is not authenticate => redirect to login page
+
+
+const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList, fetchPhysicianList, physicianList, fetchAvailableVisitsList, availableVisitList,clearAvailableVisitsList,clearClinicList,clearPhysicianList,clearAllData}) => {
 
     const [selectedSpeciality, setSelectedSpeciality] = useState(null);
     const [selectedClinic, setSelectedClinic] = useState(null);
@@ -97,19 +106,21 @@ const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList
     const [periodEnd, setPeriodEnd] = useState(null);
     const [showSearchForm, setShowSearchForm] = useState(true);
 
-    useEffect( () => () => clearAvailableVisitsList(), [] );
+    useEffect( () => () => {clearAvailableVisitsList(); if(!selectedSpeciality) clearAllData();}, [] );
 
     const buttonDisabled = !(selectedSpeciality && selectedClinic && periodStart && periodEnd);
 
     const setSelectedSpecialityTrigger = (id) => {
         setSelectedClinic('-');
+        clearClinicList();
         setSelectedPhysician('-');
-        clinicList = [];
+        clearPhysicianList();
         setSelectedSpeciality(id);
         fetchClinicList(id);
     };
     const setSelectedClinicTrigger = (id) => {
         setSelectedPhysician('-');
+        clearPhysicianList();
         setSelectedClinic(id);
         fetchPhysicianList(selectedSpeciality, id);
     };
@@ -227,6 +238,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     fetchSpecialityList: () => dispatch(fetchItems(GET_SPECIALITY_LIST)),
     clearAvailableVisitsList: () => dispatch({type: CLEAR_AVAILABLE_VISITS}),
+    clearClinicList: () => dispatch({type: CLEAR_LIST_CLINIC}),
+    clearPhysicianList: () => dispatch({type: CLEAR_LIST_PHYSICIAN}),
+    clearAllData: () => dispatch({type: CLEAR_VISIT_COMPONENT}),
     fetchClinicList: (id) => dispatch(fetchItems(GET_CLINIC_LIST, {specialityId: id})),
     fetchPhysicianList: (selectedSpeciality, id) => dispatch(fetchItems(GET_PHYSICIAN_LIST, {
     specialityId: selectedSpeciality,

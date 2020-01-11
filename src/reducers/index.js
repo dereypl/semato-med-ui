@@ -5,6 +5,11 @@ import {
     CHANGE_USER_DATA,
     CLEAR_AUTHENTICATION_FAILURE,
     CLEAR_AVAILABLE_VISITS,
+    CLEAR_LIST_CLINIC,
+    CLEAR_LIST_PHYSICIAN,
+    CLEAR_LIST_SPECIALITY,
+    CLEAR_SELECTED_SPECIALITY,
+    CLEAR_VISIT_COMPONENT,
     FETCH_FAILURE,
     FETCH_REQUEST,
     FETCH_SUCCESS,
@@ -87,6 +92,32 @@ const rootReducer = (state = initialState, {type, payload}) => {
             return {
                 ...state,
                 availableVisitList: [],
+            };
+
+        case CLEAR_VISIT_COMPONENT:
+            return {
+                ...state,
+                availableVisitList: [],
+                specialityList: [],
+                clinicList: [],
+                physicianList: [],
+            };
+
+        case CLEAR_LIST_SPECIALITY:
+            return {
+                ...state,
+                specialityList: [],
+            };
+
+        case CLEAR_LIST_CLINIC:
+            return {
+                ...state,
+                clinicList: [],
+            };
+        case CLEAR_LIST_PHYSICIAN:
+            return {
+                ...state,
+                physicianList: [],
             };
 
         case PASSWORD_CHANGE:
