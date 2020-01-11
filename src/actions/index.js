@@ -1,9 +1,5 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import {PURGE} from 'redux-persist';
-import {purgeStoredState} from 'redux-persist'
-import {persistConfig} from "../store/configureStore";
-
 
 export const AUTHENTICATE_REQUEST = 'AUTHENTICATE_REQUEST';
 export const AUTHENTICATE_SUCCESS = 'AUTHENTICATE_SUCCESS';
@@ -253,6 +249,20 @@ export const changeUserData = (actionType, userData) => dispatch => {
                 type: CHANGE_USER_DATA,
                 payload: true,
             });
+        });
+};
+
+export const setVisitRatinig = (actionType, visitId,rating) => dispatch => {
+    return axios
+        .post(`${API_URL}/api/${actionType.path}/`, {
+                visitId,
+                rating,
+            },
+            {
+                headers: getHeaders(),
+            })
+        .catch(err => {
+            console.log(err);
         });
 };
 

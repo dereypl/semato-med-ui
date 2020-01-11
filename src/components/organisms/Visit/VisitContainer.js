@@ -1,17 +1,16 @@
 import styled, {css} from "styled-components";
 import React, {useState} from "react";
 import calendar_icon_date from "../../../assets/icons/calendar_icon_date.svg";
-import time_icon from "../../../assets/images/time_icon.svg";
+import time_icon from "../../../assets/icons/time_icon.svg";
 import gps_icon from "../../../assets/icons/gps_icon.svg";
 import calendar_change_date from "../../../assets/icons/calendar_change_date.svg";
 import star_outline from "../../../assets/icons/star_outline.svg";
 import star_selected from "../../../assets/icons/star_selected.svg";
 import cancel_icon from "../../../assets/icons/cancel_icon.svg";
 import Button from "../../atoms/Button/Button";
-import {deleteItem, fetchItems, makeReservation} from "../../../actions";
-import {CANCEL_VISIT, GET_VISITS_LIST, MAKE_RESERVATION} from "../../../actions/requestTypes";
+import {deleteItem, makeReservation, setVisitRatinig} from "../../../actions";
+import {CANCEL_VISIT, MAKE_RESERVATION, SET_VISIT_RATING} from "../../../actions/requestTypes";
 import {connect} from "react-redux";
-
 
 const VisitContainerWrapper = styled.div`
     height: 10rem;
@@ -79,7 +78,6 @@ const IconContainer = styled.div`
     height: 100%;
     width: 4rem;
     align-items: center;
-    //background-color: grey;
     margin-right: 1rem;
     background-repeat: no-repeat;
     background-position: center;
@@ -246,7 +244,7 @@ const Separator = styled.div`
 `;
 
 
-const VisitContainer = ({visit, past, deleteVisits, actionType, actionDesc, makeReservation}) => {
+const VisitContainer = ({visit, past, deleteVisits, actionType, actionDesc, makeReservation,setVIsitRatinigAction}) => {
     const visitDateStart = new Date(visit.dateTimeStart);
     const visitDateEnd = new Date(visit.dateTimeEnd);
 
@@ -254,7 +252,10 @@ const VisitContainer = ({visit, past, deleteVisits, actionType, actionDesc, make
     const [reserved, serReserved] = useState(false);
     const [rating, setRating] = useState(0);
 
-    const year = visitDateStart.getFullYear().toString();
+    const setRatingTrigger = (rating) => {
+        setRating(rating);
+        setVIsitRatinigAction(visit.id, rating);
+    };
 
     const getVisitAction = (actionType) => {
         switch (actionType) {
@@ -303,14 +304,14 @@ const VisitContainer = ({visit, past, deleteVisits, actionType, actionDesc, make
                             Ocena
                         </VisitTypeContainer>
                         <DoctorInfoContainer patient>
-                            {rating ? <p> Oceniłeś wizytę na {rating}/5 !</p>
+                            {rating || visit.rating ? <p> Oceniłeś wizytę na {rating || visit.rating}/5 !</p>
                                 :
                                 <RatingContainer>
-                                    <Star five onClick={() => setRating(5)}> </Star>
-                                    <Star four onClick={() => setRating(4)}> </Star>
-                                    <Star three onClick={() => setRating(3)}> </Star>
-                                    <Star two onClick={() => setRating(2)}> </Star>
-                                    <Star one onClick={() => setRating(1)}> </Star>
+                                    <Star five onClick={() => setRatingTrigger(5)}> </Star>
+                                    <Star four onClick={() => setRatingTrigger(4)}> </Star>
+                                    <Star three onClick={() => setRatingTrigger(3)}> </Star>
+                                    <Star two onClick={() => setRatingTrigger(2)}> </Star>
+                                    <Star one onClick={() => setRatingTrigger(1)}> </Star>
                                 </RatingContainer>
                             }
                         </DoctorInfoContainer>
@@ -321,13 +322,11 @@ const VisitContainer = ({visit, past, deleteVisits, actionType, actionDesc, make
         }
     };
 
-
     return (
         <VisitContainerWrapper cancelled={cancelled}>
             <DateWrapper>
                 <DateContainer>
                     <IconContainer date/>
-                    {/*<span>{visitDateStart.getDate()}</span><b>/</b><span>{visitDateStart.getMonth() + 1}</span><b>/</b><span>{year.slice(2, 4)}</span>&nbsp;&nbsp;{visit.dayOfWeek}*/}
                     <span>{new Date(visit.dateTimeStart).toLocaleDateString().slice(0, 10)}</span>&nbsp;{visit.dayOfWeek}
                 </DateContainer>
                 <TimeContainer>
@@ -368,6 +367,7 @@ const mapDispatchToProps = dispatch => ({
         dateTimeEnd: visit.dateTimeEnd,
         dateTimeStart: visit.dateTimeStart
     })),
+    setVIsitRatinigAction: (visitId,rating) => dispatch(setVisitRatinig(SET_VISIT_RATING, visitId, rating)),
 });
 
 export default connect(

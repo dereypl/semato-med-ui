@@ -58,5 +58,6 @@ export const CHANGE_PASSWORD = {
     itemType: 'changePassword',
 };
 
-
-
+export const SET_VISIT_RATING = {
+    path: 'visit/rate',
+};

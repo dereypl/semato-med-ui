@@ -5,7 +5,7 @@ import PlusesHalf from "../../atoms/Shapes/PlusesHalf";
 import Logo from "../../atoms/Logo/Logo";
 import MenuHeading from "../../atoms/Heading/MenHeading";
 import MenuItem from "../../molecules/MenuItem";
-import MENU_ITEMS from "../../../assets/data_hardcoded";
+import MENU_ITEMS from "../../../assets/MenuItems";
 import {logOutUser} from "../../../actions";
 import Button from "../../atoms/Button/Button";
 import {useDispatch} from 'react-redux'

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
 import PathContainer from "../components/molecules/Path/PathContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
-import MENU_ITEMS from "../assets/data_hardcoded";
+import MENU_ITEMS from "../assets/MenuItems";
 import NotificationContainer from "../components/organisms/Notification/NotoficationContainer";
 import {fetchItems} from "../actions";
 import {GET_NOTIFICATIONS_LIST} from "../actions/requestTypes";
@@ -29,7 +29,6 @@ const ContentWrapper = styled.div`
     display: flex;
     flex-direction: column;
 `;
-
 
 const Notifications = ({fetchNotifications,notificationList}) => {
 

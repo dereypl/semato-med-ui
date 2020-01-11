@@ -1,20 +1,12 @@
 import React, {useEffect} from 'react'
-import BackgroungShapeLighter from "../components/atoms/Shapes/BackgroungShapeLighter";
 import styled from 'styled-components'
-import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
 import PathContainer from "../components/molecules/Path/PathContainer";
 import VisitContainer from "../components/organisms/Visit/VisitContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
 import {fetchItems} from "../actions";
-import {
-    GET_SPECIALITY_LIST,
-    GET_FUTURE_VISITS_LIST,
-    GET_PAST_VISITS_LIST,
-    GET_VISITS_LIST
-} from "../actions/requestTypes";
+import {GET_VISITS_LIST} from "../actions/requestTypes";
 import {connect} from "react-redux";
-import MENU_ITEMS from "../assets/data_hardcoded";
-
+import MENU_ITEMS from "../assets/MenuItems";
 
 const PageWrapper = styled.div`
     width: 78%;
@@ -22,8 +14,6 @@ const PageWrapper = styled.div`
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    //padding-right: 5rem;
-    //background-color: yellow;
 `;
 
 const HeaderWrapper = styled.div`
@@ -36,14 +26,9 @@ const ContentWrapper = styled.div`
     padding-top: 4rem;
     display: flex;
     flex-direction: column;
-    //background-color: red;
     justify-self: center;
     align-self: flex-start;
 `;
-
-
-//TODO: if user is not authenticate => redirect to login page
-
 
 const VisitHistory = ({fetchVisits, visitList}) => {
 
@@ -59,7 +44,6 @@ const VisitHistory = ({fetchVisits, visitList}) => {
                 </HeaderWrapper>
                 <ContentWrapper>
                     {visitList.map(visit => <VisitContainer visit={visit} key={visit.id} actionType={'past'}/>)}
-                    {/*<VisitContainer nearest={true}/>*/}
                 </ContentWrapper>
             </PageWrapper>
         </SidebarTemplate>

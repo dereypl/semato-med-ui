@@ -1,5 +1,4 @@
 import add_visit from "./icons/calendar_add.svg"
-import logout_icon from "./icons/logout_icon.svg"
 import pasword_change_icon from "./icons/pasword_change_icon.svg"
 import person_info_icon from "./icons/person_info_icon.svg"
 import problem_request_icon from "./icons/problem_request_icon.svg"

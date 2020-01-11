@@ -4,8 +4,6 @@ import storage from 'redux-persist/lib/storage'// defaults to localStorage for w
 import rootReducer from "../reducers";
 import thunk from 'redux-thunk';
 
-
-
 export const persistConfig = {
     key: 'root',
     storage,

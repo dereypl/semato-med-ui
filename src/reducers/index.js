@@ -1,21 +1,21 @@
 import {
+    AUTHENTICATE_FAILURE,
     AUTHENTICATE_REQUEST,
     AUTHENTICATE_SUCCESS,
-    AUTHENTICATE_FAILURE,
-    LOGOUT_SUCCESS,
-    FETCH_SUCCESS,
-    FETCH_REQUEST,
-    FETCH_FAILURE,
-    CLEAR_AVAILABLE_VISITS,
-    isUserLogged as checkIfUserIsLogged,
-    SET_USER_INFO,
-    PASSWORD_CHANGE,
     CHANGE_USER_DATA,
     CLEAR_AUTHENTICATION_FAILURE,
+    CLEAR_AVAILABLE_VISITS,
+    FETCH_FAILURE,
+    FETCH_REQUEST,
+    FETCH_SUCCESS,
+    isUserLogged as checkIfUserIsLogged,
+    LOGOUT_SUCCESS,
     MAIL_SEND,
+    PASSWORD_CHANGE,
+    SET_USER_INFO,
 } from '../actions';
 
-import {PURGE, REHYDRATE} from 'redux-persist';
+import {PURGE} from 'redux-persist';
 
 const initialState = {
     isUserLogged: false,

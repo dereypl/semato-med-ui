@@ -6,7 +6,7 @@ import SidebarTemplate from "../templates/SidebarTemplate";
 import {fetchItems} from "../actions";
 import {GET_VISITS_LIST} from "../actions/requestTypes";
 import {connect} from "react-redux";
-import MENU_ITEMS from "../assets/data_hardcoded";
+import MENU_ITEMS from "../assets/MenuItems";
 import {routes} from "../routes";
 import {Redirect} from "react-router-dom";
 import Paragraph from "../components/atoms/Paragraph/Paragraph";

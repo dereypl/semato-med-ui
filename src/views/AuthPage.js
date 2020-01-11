@@ -1,13 +1,8 @@
-import React, {useState} from 'react'
+import React from 'react'
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 import back from "../assets/images/bg.svg"
-import back2 from "../assets/images/bg_lighter.svg"
-import pluses from "../assets/images/Pluses.svg"
 import doctor from "../assets/images/doctor.jpg"
-import logo from "../assets/images/sematoMed_logo.png"
-import Input from "../components/atoms/Input/Input"
-import Button from "../components/atoms/Button/Button"
 import BackgroungShapeLighter from "../components/atoms/Shapes/BackgroungShapeLighter"
 import Logo from "../components/atoms/Logo/Logo"
 import SignInForm from '../components/organisms/SignInForm/SignInForm';

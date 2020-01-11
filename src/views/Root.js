@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthPage from './AuthPage';
 import PlaceMap from './PlaceMap';
-import {BrowserRouter, Switch, Redirect, Route} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import MainTemplate from "../templates/MainTemplate";
 import {routes} from "../routes";
 import Dashboard from "./Dashboard";
@@ -45,6 +45,5 @@ const Root = () => (
         </PersistGate>
     </Provider>
 );
-
 
 export default Root;

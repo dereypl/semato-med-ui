@@ -1,17 +1,14 @@
 import React, {useEffect} from 'react'
-import BackgroungShapeLighter from "../components/atoms/Shapes/BackgroungShapeLighter";
 import styled from 'styled-components'
-import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
 import PathContainer from "../components/molecules/Path/PathContainer";
 import VisitContainer from "../components/organisms/Visit/VisitContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
 import {fetchItems} from "../actions";
-import {GET_SPECIALITY_LIST, GET_VISITS_LIST, GET_VISITS_LIST_PHYSICIAN} from "../actions/requestTypes";
+import {GET_VISITS_LIST_PHYSICIAN} from "../actions/requestTypes";
 import {connect} from "react-redux";
-import MENU_ITEMS from "../assets/data_hardcoded";
+import MENU_ITEMS from "../assets/MenuItems";
 import {routes} from "../routes";
 import {Redirect} from "react-router-dom";
-
 
 const PageWrapper = styled.div`
     width: 78%;
@@ -34,7 +31,6 @@ const ContentWrapper = styled.div`
     justify-self: center;
     align-self: flex-start;
 `;
-
 
 const DashboardPhysician = ({fetchVisits, visitList,currentUser}) => {
 

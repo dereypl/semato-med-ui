@@ -1,6 +1,6 @@
 import React from 'react';
 import GlobalStyle from "../theme/GlobalStyle"
-import styled, {ThemeProvider} from 'styled-components'
+import {ThemeProvider} from 'styled-components'
 import {theme} from "../theme/mainTheme";
 
 const MainTemplate = ({children}) => (

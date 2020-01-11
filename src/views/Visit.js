@@ -1,21 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import styled, {css} from 'styled-components'
-import {useDispatch} from 'react-redux'
+import {connect} from 'react-redux'
 import PathContainer from "../components/molecules/Path/PathContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
 import Input from "../components/atoms/Input/Input";
 import Dropdown from "../components/atoms/Dropdown/Dropdown";
 import Button from "../components/atoms/Button/Button";
-import MENU_ITEMS from "../assets/data_hardcoded";
-import {CLEAR_AVAILABLE_VISITS, fetchItems, makeReservation} from "../actions";
+import MENU_ITEMS from "../assets/MenuItems";
+import {CLEAR_AVAILABLE_VISITS, fetchItems} from "../actions";
 import {
     GET_AVAILABLE_VISITS_LIST,
     GET_CLINIC_LIST,
     GET_PHYSICIAN_LIST,
-    GET_SPECIALITY_LIST,
-    GET_FUTURE_VISITS_LIST, MAKE_RESERVATION
+    GET_SPECIALITY_LIST
 } from "../actions/requestTypes";
-import {connect} from "react-redux";
 import Paragraph from "../components/atoms/Paragraph/Paragraph";
 import VisitContainer from "../components/organisms/Visit/VisitContainer";
 import {routes} from "../routes";

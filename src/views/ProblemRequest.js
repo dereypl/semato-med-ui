@@ -1,16 +1,16 @@
-import React,{useState} from 'react'
+import React, {useState} from 'react'
 import BackgroungShapeLighter from "../components/atoms/Shapes/BackgroungShapeLighter";
 import styled, {css} from 'styled-components'
 import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
 import PathContainer from "../components/molecules/Path/PathContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
-import MENU_ITEMS from "../assets/data_hardcoded";
+import MENU_ITEMS from "../assets/MenuItems";
 import Input from "../components/atoms/Input/Input";
 import Paragraph from "../components/atoms/Paragraph/Paragraph";
 import Button from "../components/atoms/Button/Button";
 import TextArea from "../components/atoms/Textarea/Textarea";
 import {ErrorMessage, Form, Formik} from "formik";
-import {authenticate as authenticateAction, requestProblem} from "../actions";
+import {requestProblem} from "../actions";
 import {connect} from "react-redux";
 import {REQUEST_PROBLEM} from "../actions/requestTypes";
 

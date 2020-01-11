@@ -6,9 +6,8 @@ import Input from "../../atoms/Input/Input";
 import Button from "../../atoms/Button/Button";
 import {ErrorMessage, Form, Formik} from 'formik';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 
-import {authenticate as authenticateAction, MAIL_SEND, resetPassword} from '../../../actions';
+import {MAIL_SEND, resetPassword} from '../../../actions';
 
 const InfoParagraph = styled.h1`
    margin-bottom: 8rem;

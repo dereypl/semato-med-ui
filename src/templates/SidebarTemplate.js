@@ -1,10 +1,9 @@
 import React from 'react';
-import {connect, useSelector} from 'react-redux'
+import {connect} from 'react-redux'
 import styled from 'styled-components';
 import Menu from "../components/organisms/Menu/Menu";
 import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
 import BackgroungShapeLighter from "../components/atoms/Shapes/BackgroungShapeLighter";
-import PropTypes from "prop-types";
 import {Redirect} from "react-router-dom";
 import {routes} from "../routes";
 import {isUserLogged} from "../actions";

@@ -4,7 +4,7 @@ import styled, {css} from 'styled-components'
 import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
 import PathContainer from "../components/molecules/Path/PathContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
-import MENU_ITEMS from "../assets/data_hardcoded";
+import MENU_ITEMS from "../assets/MenuItems";
 import Input from "../components/atoms/Input/Input";
 import Button from "../components/atoms/Button/Button";
 import Paragraph from "../components/atoms/Paragraph/Paragraph";

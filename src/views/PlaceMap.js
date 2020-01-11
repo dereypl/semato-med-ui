@@ -3,10 +3,8 @@ import BackgroungShapeLighter from "../components/atoms/Shapes/BackgroungShapeLi
 import styled from 'styled-components'
 import BackgroundHeader from "../components/atoms/Shapes/BackgroundHeader";
 import PathContainer from "../components/molecules/Path/PathContainer";
-import VisitContainer from "../components/organisms/Visit/VisitContainer";
 import SidebarTemplate from "../templates/SidebarTemplate";
-import MENU_ITEMS from "../assets/data_hardcoded";
-import SimpleMap from "../components/organisms/Map/SimpleMap";
+import MENU_ITEMS from "../assets/MenuItems";
 
 import map from "../assets/images/semato_map.png";
 

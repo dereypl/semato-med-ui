@@ -1,7 +1,5 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import back2 from "../../../assets/images/bg_lighter.svg";
-import Button from "../Button/Button";
-import { css } from 'styled-components';
 
 const BackgroungShapeLighter = styled.div`
     display: flex;
