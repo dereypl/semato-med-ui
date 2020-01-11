@@ -88,9 +88,6 @@ const InputWrapper = styled.div`
      }
 `;
 
-//TODO: if user is not authenticate => redirect to login page
-
-
 const Visit = ({fetchSpecialityList, specialityList, fetchClinicList, clinicList, fetchPhysicianList, physicianList, fetchAvailableVisitsList, availableVisitList,clearAvailableVisitsList}) => {
 
     const [selectedSpeciality, setSelectedSpeciality] = useState(null);

@@ -264,7 +264,7 @@ const VisitContainer = ({visit, past, deleteVisits, actionType, actionDesc, make
                     cancelled ? 'Wizyta odwołana' :
                         <ActionContainer>
                             <IconContainer cancel/>
-                            <Button cancel action onClick={() => {
+                            <Button cancel Action onClick={() => {
                                 deleteVisits(visit.id);
                                 setCancelled(true);
                             }}>
@@ -277,7 +277,7 @@ const VisitContainer = ({visit, past, deleteVisits, actionType, actionDesc, make
                     reserved ? 'Zarezerwowano wiztę!' :
                         <ActionContainer>
                             <IconContainer cancel/>
-                            <Button action onClick={() => {
+                            <Button Action onClick={() => {
                                 makeReservation(visit);
                                 serReserved(true);
                             }}>

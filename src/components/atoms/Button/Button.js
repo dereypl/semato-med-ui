@@ -48,8 +48,8 @@ const Button = styled.button`
 
     `} 
 
- ${({action}) =>
-    action &&
+ ${({Action}) =>
+    Action &&
     css`
   margin-top: 0rem;
       width: 100%;

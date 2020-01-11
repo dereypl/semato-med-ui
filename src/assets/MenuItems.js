@@ -30,8 +30,6 @@ import change_password_jcon_top from "./icons/change_password_jcon_top.svg"
 import gps_icon_top from "./icons/gps_icon_top.svg"
 
 
-// TODO: add index to each item of array!
-
 const MENU_ITEMS = {
     Visits: [
         {
