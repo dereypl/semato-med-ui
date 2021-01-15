@@ -22,13 +22,13 @@ import {
 
 import {PURGE} from 'redux-persist';
 
-const initialState = {
+export const initialState = {
     isUserLogged: false,
     isAuthenticationFailure: false,
     dataChangeSuccess: false,
 };
 
-const rootReducer = (state = initialState, {type, payload}) => {
+export const rootReducer = (state = initialState, {type, payload}) => {
     switch (type) {
         case AUTHENTICATE_SUCCESS:
             return {
@@ -70,7 +70,6 @@ const rootReducer = (state = initialState, {type, payload}) => {
             };
 
         case CHANGE_USER_DATA:
-            console.log('CHANGE_USER_DATA');
             return {
                 ...state,
                 dataChangeSuccess: payload
@@ -152,8 +151,7 @@ const rootReducer = (state = initialState, {type, payload}) => {
             };
 
         case PURGE:
-            console.log("PURGING!!!!");
-            return {isUserLogged: false};    // Return the initial state of this reducer to 'reset' the app
+            return {isUserLogged: false};
 
         default:
             return state;
